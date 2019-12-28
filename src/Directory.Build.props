@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project>
+  <PropertyGroup>
+    <NoWarn>CS1591;CS0649</NoWarn>
+    <Version>0.1.0</Version>
+    <Description>A collection of minimal binary files.</Description>
+  </PropertyGroup>
+</Project>
