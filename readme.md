@@ -51,7 +51,7 @@ Returns true if the target file is an empty file.
 ```cs
 var path = EmptyFiles.GetPathFor("jpg");
 Assert.True(EmptyFiles.IsEmptyFile(path));
-var temp = Path.GetTempPath();
+var temp = Path.GetTempFileName();
 Assert.False(EmptyFiles.IsEmptyFile(temp));
 ```
 <sup><a href='/src/EmptyFiles.Tests/Tests.cs#L22-L27' title='File snippet `isemptyfile` was extracted from'>snippet source</a> | <a href='#snippet-isemptyfile' title='Navigate to start of snippet `isemptyfile`'>anchor</a></sup>

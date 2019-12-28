@@ -22,9 +22,10 @@ public class Tests :
         #region IsEmptyFile
         var path = EmptyFiles.GetPathFor("jpg");
         Assert.True(EmptyFiles.IsEmptyFile(path));
-        var temp = Path.GetTempPath();
+        var temp = Path.GetTempFileName();
         Assert.False(EmptyFiles.IsEmptyFile(temp));
         #endregion
+        File.Delete(temp);
     }
 
     [Fact]
