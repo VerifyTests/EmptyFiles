@@ -25,7 +25,7 @@ public static class EmptyFiles
 
     public static bool IsEmptyFile(string path)
     {
-        Guard.AgainstNullOrEmpty(path, nameof(path));
+        Guard.FileExists(path, nameof(path));
         var extension = FileHelpers.Extension(path);
         if (!files.TryGetValue(extension, out var emptyFile))
         {
