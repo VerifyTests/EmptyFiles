@@ -15,7 +15,6 @@
   * jp2
   * jpc
   * jpe
-  * jpeg
   * jpg
   * jxr
   * odt
@@ -25,12 +24,12 @@
   * pgm
   * png
   * ppm
+  * pptx
   * rle
   * rtf
   * tar
   * tga
   * tif
-  * tiff
   * wdp
   * webp
   * wmp

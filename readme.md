@@ -52,7 +52,6 @@ path: /src/EmptyFiles.Tests/extensions.include.md
   * jp2
   * jpc
   * jpe
-  * jpeg
   * jpg
   * jxr
   * odt
@@ -62,12 +61,12 @@ path: /src/EmptyFiles.Tests/extensions.include.md
   * pgm
   * png
   * ppm
+  * pptx
   * rle
   * rtf
   * tar
   * tga
   * tif
-  * tiff
   * wdp
   * webp
   * wmp
