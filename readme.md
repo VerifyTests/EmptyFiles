@@ -85,7 +85,7 @@ Gets the path to an empty file for a given extension
 ```cs
 var path = EmptyFiles.GetPathFor("jpg");
 ```
-<sup><a href='/src/EmptyFiles.Tests/Tests.cs#L14-L16' title='File snippet `getpathfor` was extracted from'>snippet source</a> | <a href='#snippet-getpathfor' title='Navigate to start of snippet `getpathfor`'>anchor</a></sup>
+<sup><a href='/src/EmptyFiles.Tests/Tests.cs#L13-L15' title='File snippet `getpathfor` was extracted from'>snippet source</a> | <a href='#snippet-getpathfor' title='Navigate to start of snippet `getpathfor`'>anchor</a></sup>
 <!-- endsnippet -->
 
 
@@ -101,7 +101,7 @@ Assert.True(EmptyFiles.IsEmptyFile(path));
 var temp = Path.GetTempFileName();
 Assert.False(EmptyFiles.IsEmptyFile(temp));
 ```
-<sup><a href='/src/EmptyFiles.Tests/Tests.cs#L24-L29' title='File snippet `isemptyfile` was extracted from'>snippet source</a> | <a href='#snippet-isemptyfile' title='Navigate to start of snippet `isemptyfile`'>anchor</a></sup>
+<sup><a href='/src/EmptyFiles.Tests/Tests.cs#L23-L28' title='File snippet `isemptyfile` was extracted from'>snippet source</a> | <a href='#snippet-isemptyfile' title='Navigate to start of snippet `isemptyfile`'>anchor</a></sup>
 <!-- endsnippet -->
 
 
@@ -118,7 +118,7 @@ foreach (var path in EmptyFiles.AllPaths)
     Trace.WriteLine(path);
 }
 ```
-<sup><a href='/src/EmptyFiles.Tests/Tests.cs#L37-L42' title='File snippet `allpaths` was extracted from'>snippet source</a> | <a href='#snippet-allpaths' title='Navigate to start of snippet `allpaths`'>anchor</a></sup>
+<sup><a href='/src/EmptyFiles.Tests/Tests.cs#L36-L41' title='File snippet `allpaths` was extracted from'>snippet source</a> | <a href='#snippet-allpaths' title='Navigate to start of snippet `allpaths`'>anchor</a></sup>
 <!-- endsnippet -->
 
 

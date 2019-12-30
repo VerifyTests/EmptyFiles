@@ -1,5 +1,4 @@
-﻿using System;
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
 using Xunit;
@@ -50,28 +49,12 @@ public class Tests :
         await using var writer = File.CreateText(md);
         foreach (var path in EmptyFiles.AllPaths)
         {
-            var size = SizeSuffix(new FileInfo(path).Length);
+            var size = Size.Suffix(new FileInfo(path).Length);
             var ext = Path.GetExtension(path).Substring(1);
             await writer.WriteLineAsync($"  * {ext} ({size})");
         }
     }
 
-    static string[] SizeSuffixes = { "bytes", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB" };
-
-    static string SizeSuffix(long value)
-    {
-        var mag = (int) Math.Log(value, 1024);
-
-        var adjustedSize = (decimal) value / (1L << (mag * 10));
-
-        if (Math.Round(adjustedSize, 1) >= 1000)
-        {
-            mag += 1;
-            adjustedSize /= 1024;
-        }
-
-        return $"{adjustedSize:0.#} {SizeSuffixes[mag]}";
-    }
 
     public Tests(ITestOutputHelper output) :
         base(output)
