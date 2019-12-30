@@ -12,6 +12,9 @@
     <PackageReference Include="ProjectDefaults" Version="1.0.37" PrivateAssets="All" />
     <PackageReference Include="XunitContext" Version="1.5.2" />
     <ProjectReference Include="..\EmptyFiles\EmptyFiles.csproj" />
+    <None Include="$(ProjectDir)..\..\files\empty.*">
+      <Link>EmptyFiles\%(RecursiveDir)%(Filename)%(Extension)</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
-  <Import Project="$(ProjectDir)..\EmptyFiles\build\EmptyFiles.targets" />
 </Project>

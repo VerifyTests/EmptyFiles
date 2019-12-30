@@ -35,39 +35,44 @@ All files: https://github.com/SimonCropp/EmptyFiles/tree/master/files
 include: extensions
 path: /src/EmptyFiles.Tests/extensions.include.md
 -->
- *  bmp
- *  dds
- *  dib
- *  docx
- *  emf
- *  exif
- *  gif
- *  ico
- *  j2c
- *  j2k
- *  jfif
- *  jp2
- *  jpc
- *  jpe
- *  jpeg
- *  jpg
- *  jxr
- *  odt
- *  pbm
- *  pcx
- *  pdf
- *  pgm
- *  png
- *  ppm
- *  rle
- *  rtf
- *  tga
- *  tif
- *  tiff
- *  wdp
- *  webp
- *  wmp
- *  xlsx
+  * 7z
+  * bmp
+  * bz2
+  * dds
+  * dib
+  * docx
+  * emf
+  * exif
+  * gif
+  * gz
+  * ico
+  * j2c
+  * j2k
+  * jfif
+  * jp2
+  * jpc
+  * jpe
+  * jpeg
+  * jpg
+  * jxr
+  * odt
+  * pbm
+  * pcx
+  * pdf
+  * pgm
+  * png
+  * ppm
+  * rle
+  * rtf
+  * tar
+  * tga
+  * tif
+  * tiff
+  * wdp
+  * webp
+  * wmp
+  * xlsx
+  * zip
 
 
 ## Usage
