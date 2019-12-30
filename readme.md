@@ -17,6 +17,11 @@ A collection of minimal binary files.
 
   * [NuGet package](#nuget-package)
   * [Files](#files)
+    * [Archive](#archive)
+    * [Document](#document)
+    * [Image](#image)
+    * [Sheet](#sheet)
+    * [Slide](#slide)
   * [Usage](#usage)
     * [GetPathFor](#getpathfor)
     * [IsEmptyFile](#isemptyfile)
@@ -35,16 +40,27 @@ All files: https://github.com/SimonCropp/EmptyFiles/tree/master/files
 include: extensions
 path: /src/EmptyFiles.Tests/extensions.include.md
 -->
+### Archive
+
   * 7z (32 bytes)
-  * bmp (58 bytes)
   * bz2 (14 bytes)
+  * gz (29 bytes)
+  * tar (1.5 KB)
+  * zip (22 bytes)
+### Document
+
+  * docx (1.9 KB)
+  * odt (2.2 KB)
+  * pdf (280 bytes)
+  * rtf (6 bytes)
+### Image
+
+  * bmp (58 bytes)
   * dds (136 bytes)
   * dib (58 bytes)
-  * docx (1.9 KB)
   * emf (620 bytes)
   * exif (734 bytes)
   * gif (799 bytes)
-  * gz (29 bytes)
   * ico (70 bytes)
   * j2c (270 bytes)
   * jfif (734 bytes)
@@ -53,26 +69,25 @@ path: /src/EmptyFiles.Tests/extensions.include.md
   * jpe (734 bytes)
   * jpg (734 bytes)
   * jxr (300 bytes)
-  * odp (7.8 KB)
-  * ods (2.7 KB)
-  * odt (2.2 KB)
   * pbm (8 bytes)
   * pcx (131 bytes)
-  * pdf (280 bytes)
   * pgm (12 bytes)
   * png (119 bytes)
   * ppm (14 bytes)
-  * pptx (13.3 KB)
   * rle (58 bytes)
-  * rtf (6 bytes)
-  * tar (1.5 KB)
   * tga (543 bytes)
   * tif (250 bytes)
   * wdp (300 bytes)
   * webp (228 bytes)
   * wmp (300 bytes)
+### Sheet
+
+  * ods (2.7 KB)
   * xlsx (4.5 KB)
-  * zip (22 bytes)
+### Slide
+
+  * odp (7.8 KB)
+  * pptx (13.3 KB)
 
 
 ## Usage
@@ -87,7 +102,7 @@ Gets the path to an empty file for a given extension
 ```cs
 var path = EmptyFiles.GetPathFor("jpg");
 ```
-<sup><a href='/src/EmptyFiles.Tests/Tests.cs#L13-L15' title='File snippet `getpathfor` was extracted from'>snippet source</a> | <a href='#snippet-getpathfor' title='Navigate to start of snippet `getpathfor`'>anchor</a></sup>
+<sup><a href='/src/EmptyFiles.Tests/Tests.cs#L14-L16' title='File snippet `getpathfor` was extracted from'>snippet source</a> | <a href='#snippet-getpathfor' title='Navigate to start of snippet `getpathfor`'>anchor</a></sup>
 <!-- endsnippet -->
 
 
@@ -103,7 +118,7 @@ Assert.True(EmptyFiles.IsEmptyFile(path));
 var temp = Path.GetTempFileName();
 Assert.False(EmptyFiles.IsEmptyFile(temp));
 ```
-<sup><a href='/src/EmptyFiles.Tests/Tests.cs#L23-L28' title='File snippet `isemptyfile` was extracted from'>snippet source</a> | <a href='#snippet-isemptyfile' title='Navigate to start of snippet `isemptyfile`'>anchor</a></sup>
+<sup><a href='/src/EmptyFiles.Tests/Tests.cs#L24-L29' title='File snippet `isemptyfile` was extracted from'>snippet source</a> | <a href='#snippet-isemptyfile' title='Navigate to start of snippet `isemptyfile`'>anchor</a></sup>
 <!-- endsnippet -->
 
 
@@ -120,7 +135,7 @@ foreach (var path in EmptyFiles.AllPaths)
     Trace.WriteLine(path);
 }
 ```
-<sup><a href='/src/EmptyFiles.Tests/Tests.cs#L36-L41' title='File snippet `allpaths` was extracted from'>snippet source</a> | <a href='#snippet-allpaths' title='Navigate to start of snippet `allpaths`'>anchor</a></sup>
+<sup><a href='/src/EmptyFiles.Tests/Tests.cs#L37-L42' title='File snippet `allpaths` was extracted from'>snippet source</a> | <a href='#snippet-allpaths' title='Navigate to start of snippet `allpaths`'>anchor</a></sup>
 <!-- endsnippet -->
 
 

@@ -8,7 +8,7 @@
     <PackageReference Include="Nullable" Version="1.2.0" PrivateAssets="All" />
     <Content Include="buildMultiTargeting\EmptyFiles.targets" PackagePath="buildMultiTargeting\EmptyFiles.targets" />
     <Content Include="build\EmptyFiles.targets" PackagePath="build\EmptyFiles.targets" />
-    <None Include="$(ProjectDir)..\..\files\empty.*">
+    <None Include="$(ProjectDir)..\..\files\**\empty.*">
       <Pack>true</Pack>
       <PackagePath>EmptyFiles</PackagePath>
     </None>

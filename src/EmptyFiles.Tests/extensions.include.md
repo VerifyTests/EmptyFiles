@@ -1,13 +1,24 @@
+### Archive
+
   * 7z (32 bytes)
-  * bmp (58 bytes)
   * bz2 (14 bytes)
+  * gz (29 bytes)
+  * tar (1.5 KB)
+  * zip (22 bytes)
+### Document
+
+  * docx (1.9 KB)
+  * odt (2.2 KB)
+  * pdf (280 bytes)
+  * rtf (6 bytes)
+### Image
+
+  * bmp (58 bytes)
   * dds (136 bytes)
   * dib (58 bytes)
-  * docx (1.9 KB)
   * emf (620 bytes)
   * exif (734 bytes)
   * gif (799 bytes)
-  * gz (29 bytes)
   * ico (70 bytes)
   * j2c (270 bytes)
   * jfif (734 bytes)
@@ -16,23 +27,22 @@
   * jpe (734 bytes)
   * jpg (734 bytes)
   * jxr (300 bytes)
-  * odp (7.8 KB)
-  * ods (2.7 KB)
-  * odt (2.2 KB)
   * pbm (8 bytes)
   * pcx (131 bytes)
-  * pdf (280 bytes)
   * pgm (12 bytes)
   * png (119 bytes)
   * ppm (14 bytes)
-  * pptx (13.3 KB)
   * rle (58 bytes)
-  * rtf (6 bytes)
-  * tar (1.5 KB)
   * tga (543 bytes)
   * tif (250 bytes)
   * wdp (300 bytes)
   * webp (228 bytes)
   * wmp (300 bytes)
+### Sheet
+
+  * ods (2.7 KB)
   * xlsx (4.5 KB)
-  * zip (22 bytes)
+### Slide
+
+  * odp (7.8 KB)
+  * pptx (13.3 KB)

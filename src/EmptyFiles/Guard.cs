@@ -1,18 +1,8 @@
 ﻿using System;
 using System.IO;
-using System.Linq;
 
 static class Guard
 {
-    // ReSharper disable UnusedParameter.Global
-    public static void AgainstNull(object? value, string argumentName)
-    {
-        if (value == null)
-        {
-            throw new ArgumentNullException(argumentName);
-        }
-    }
-
     public static void FileExists(string path, string argumentName)
     {
         AgainstNullOrEmpty(argumentName, path);

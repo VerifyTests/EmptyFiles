@@ -4,6 +4,6 @@
     <ContentWithTargetPath
        Include="$(MSBuildThisFileDirectory)..\EmptyFiles\*.*"
        CopyToOutputDirectory="PreserveNewest"
-       TargetPath="EmptyFiles\%(Filename)%(Extension)" />
+       TargetPath="EmptyFiles\%(RecursiveDir)%(Filename)%(Extension)" />
   </ItemGroup>
 </Project>

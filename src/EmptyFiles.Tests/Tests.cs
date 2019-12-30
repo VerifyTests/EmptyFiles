@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
 using Xunit;
@@ -47,14 +48,24 @@ public class Tests :
         var md = Path.Combine(SourceDirectory, "extensions.include.md");
         File.Delete(md);
         await using var writer = File.CreateText(md);
-        foreach (var path in EmptyFiles.AllPaths)
+        await WriteCategory(writer, "Archive", EmptyFiles.ArchivePaths);
+        await WriteCategory(writer, "Document", EmptyFiles.DocumentPaths);
+        await WriteCategory(writer, "Image", EmptyFiles.ImagePaths);
+        await WriteCategory(writer, "Sheet", EmptyFiles.SheetPaths);
+        await WriteCategory(writer, "Slide", EmptyFiles.SlidePaths);
+    }
+
+    private static async Task WriteCategory(StreamWriter writer, string category, IEnumerable<string> allPaths)
+    {
+        await writer.WriteLineAsync($"### {category}");
+        await writer.WriteLineAsync("");
+        foreach (var path in allPaths)
         {
             var size = Size.Suffix(new FileInfo(path).Length);
             var ext = Path.GetExtension(path).Substring(1);
             await writer.WriteLineAsync($"  * {ext} ({size})");
         }
     }
-
 
     public Tests(ITestOutputHelper output) :
         base(output)
