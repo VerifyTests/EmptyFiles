@@ -16,6 +16,7 @@ A collection of minimal binary files.
 ## Contents
 
   * [NuGet package](#nuget-package)
+  * [Files](#files)
   * [Usage](#usage)
     * [GetPathFor](#getpathfor)
     * [IsEmptyFile](#isemptyfile)
@@ -24,6 +25,49 @@ A collection of minimal binary files.
 ## NuGet package
 
  * https://nuget.org/packages/EmptyFiles/
+
+
+## Files
+
+All files: https://github.com/SimonCropp/EmptyFiles/tree/master/files
+
+<!--
+include: extensions
+path: /src/EmptyFiles.Tests/extensions.include.md
+-->
+ *  bmp
+ *  dds
+ *  dib
+ *  docx
+ *  emf
+ *  exif
+ *  gif
+ *  ico
+ *  j2c
+ *  j2k
+ *  jfif
+ *  jp2
+ *  jpc
+ *  jpe
+ *  jpeg
+ *  jpg
+ *  jxr
+ *  odt
+ *  pbm
+ *  pcx
+ *  pdf
+ *  pgm
+ *  png
+ *  ppm
+ *  rle
+ *  rtf
+ *  tga
+ *  tif
+ *  tiff
+ *  wdp
+ *  webp
+ *  wmp
+ *  xlsx
 
 
 ## Usage
@@ -38,7 +82,7 @@ Gets the path to an empty file for a given extension
 ```cs
 var path = EmptyFiles.GetPathFor("jpg");
 ```
-<sup><a href='/src/EmptyFiles.Tests/Tests.cs#L12-L14' title='File snippet `getpathfor` was extracted from'>snippet source</a> | <a href='#snippet-getpathfor' title='Navigate to start of snippet `getpathfor`'>anchor</a></sup>
+<sup><a href='/src/EmptyFiles.Tests/Tests.cs#L14-L16' title='File snippet `getpathfor` was extracted from'>snippet source</a> | <a href='#snippet-getpathfor' title='Navigate to start of snippet `getpathfor`'>anchor</a></sup>
 <!-- endsnippet -->
 
 
@@ -54,7 +98,7 @@ Assert.True(EmptyFiles.IsEmptyFile(path));
 var temp = Path.GetTempFileName();
 Assert.False(EmptyFiles.IsEmptyFile(temp));
 ```
-<sup><a href='/src/EmptyFiles.Tests/Tests.cs#L22-L27' title='File snippet `isemptyfile` was extracted from'>snippet source</a> | <a href='#snippet-isemptyfile' title='Navigate to start of snippet `isemptyfile`'>anchor</a></sup>
+<sup><a href='/src/EmptyFiles.Tests/Tests.cs#L24-L29' title='File snippet `isemptyfile` was extracted from'>snippet source</a> | <a href='#snippet-isemptyfile' title='Navigate to start of snippet `isemptyfile`'>anchor</a></sup>
 <!-- endsnippet -->
 
 
@@ -71,7 +115,7 @@ foreach (var path in EmptyFiles.AllPaths)
     Trace.WriteLine(path);
 }
 ```
-<sup><a href='/src/EmptyFiles.Tests/Tests.cs#L34-L39' title='File snippet `allpaths` was extracted from'>snippet source</a> | <a href='#snippet-allpaths' title='Navigate to start of snippet `allpaths`'>anchor</a></sup>
+<sup><a href='/src/EmptyFiles.Tests/Tests.cs#L37-L42' title='File snippet `allpaths` was extracted from'>snippet source</a> | <a href='#snippet-allpaths' title='Navigate to start of snippet `allpaths`'>anchor</a></sup>
 <!-- endsnippet -->
 
 

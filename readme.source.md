@@ -12,6 +12,13 @@ toc
  * https://nuget.org/packages/EmptyFiles/
 
 
+## Files
+
+All files: https://github.com/SimonCropp/EmptyFiles/tree/master/files
+
+include: extensions
+
+
 ## Usage
 
 

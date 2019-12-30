@@ -1,5 +1,7 @@
 ﻿using System.Diagnostics;
 using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -38,6 +40,18 @@ public class Tests :
             Trace.WriteLine(path);
         }
         #endregion
+    }
+
+    [Fact]
+    public async Task WriteExtensions()
+    {
+        var md = Path.Combine(SourceDirectory, "extensions.include.md");
+        File.Delete(md);
+        await using var writer = File.CreateText(md);
+        foreach (var extension in EmptyFiles.AllPaths.Select(x => Path.GetExtension(x).Substring(1)))
+        {
+            await writer.WriteLineAsync($"  * {extension}");
+        }
     }
 
     public Tests(ITestOutputHelper output) :

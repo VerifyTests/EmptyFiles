@@ -20,4 +20,4 @@
 *.png binary
 *.bmp binary
 
-src/EmptyFiles/EmptyFiles/* binary
+/files/* binary
