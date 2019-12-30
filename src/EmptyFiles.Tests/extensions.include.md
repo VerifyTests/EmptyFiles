@@ -16,6 +16,8 @@
   * jpe (734 bytes)
   * jpg (734 bytes)
   * jxr (300 bytes)
+  * odp (7.8 KB)
+  * ods (2.7 KB)
   * odt (2.2 KB)
   * pbm (8 bytes)
   * pcx (131 bytes)
