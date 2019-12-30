@@ -1,37 +1,36 @@
-  * 7z
-  * bmp
-  * bz2
-  * dds
-  * dib
-  * docx
-  * emf
-  * exif
-  * gif
-  * gz
-  * ico
-  * j2c
-  * j2k
-  * jfif
-  * jp2
-  * jpc
-  * jpe
-  * jpg
-  * jxr
-  * odt
-  * pbm
-  * pcx
-  * pdf
-  * pgm
-  * png
-  * ppm
-  * pptx
-  * rle
-  * rtf
-  * tar
-  * tga
-  * tif
-  * wdp
-  * webp
-  * wmp
-  * xlsx
-  * zip
+  * 7z (32 bytes)
+  * bmp (58 bytes)
+  * bz2 (14 bytes)
+  * dds (136 bytes)
+  * dib (58 bytes)
+  * docx (1.9 KB)
+  * emf (620 bytes)
+  * exif (734 bytes)
+  * gif (799 bytes)
+  * gz (29 bytes)
+  * ico (70 bytes)
+  * j2c (270 bytes)
+  * jfif (734 bytes)
+  * jp2 (355 bytes)
+  * jpc (270 bytes)
+  * jpe (734 bytes)
+  * jpg (734 bytes)
+  * jxr (300 bytes)
+  * odt (2.2 KB)
+  * pbm (8 bytes)
+  * pcx (131 bytes)
+  * pdf (280 bytes)
+  * pgm (12 bytes)
+  * png (119 bytes)
+  * ppm (14 bytes)
+  * pptx (13.3 KB)
+  * rle (58 bytes)
+  * rtf (6 bytes)
+  * tar (1.5 KB)
+  * tga (543 bytes)
+  * tif (250 bytes)
+  * wdp (300 bytes)
+  * webp (228 bytes)
+  * wmp (300 bytes)
+  * xlsx (4.5 KB)
+  * zip (22 bytes)

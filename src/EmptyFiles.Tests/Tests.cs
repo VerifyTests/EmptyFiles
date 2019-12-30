@@ -1,6 +1,6 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
 using Xunit.Abstractions;
@@ -48,10 +48,29 @@ public class Tests :
         var md = Path.Combine(SourceDirectory, "extensions.include.md");
         File.Delete(md);
         await using var writer = File.CreateText(md);
-        foreach (var extension in EmptyFiles.AllPaths.Select(x => Path.GetExtension(x).Substring(1)))
+        foreach (var path in EmptyFiles.AllPaths)
         {
-            await writer.WriteLineAsync($"  * {extension}");
+            var size = SizeSuffix(new FileInfo(path).Length);
+            var ext = Path.GetExtension(path).Substring(1);
+            await writer.WriteLineAsync($"  * {ext} ({size})");
         }
+    }
+
+    static string[] SizeSuffixes = { "bytes", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB" };
+
+    static string SizeSuffix(long value)
+    {
+        var mag = (int) Math.Log(value, 1024);
+
+        var adjustedSize = (decimal) value / (1L << (mag * 10));
+
+        if (Math.Round(adjustedSize, 1) >= 1000)
+        {
+            mag += 1;
+            adjustedSize /= 1024;
+        }
+
+        return $"{adjustedSize:0.#} {SizeSuffixes[mag]}";
     }
 
     public Tests(ITestOutputHelper output) :
