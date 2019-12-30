@@ -30,25 +30,6 @@ static class Guard
         }
     }
 
-    public static void AgainstNullOrEmpty<T>(T[] value, string argumentName)
-        where T : class
-    {
-        if (value == null)
-        {
-            throw new ArgumentNullException(argumentName);
-        }
-
-        if (value.Length == 0)
-        {
-            throw new ArgumentNullException(argumentName, "Argument cannot be empty.");
-        }
-
-        if (value.Any(item => item == null))
-        {
-            throw new ArgumentNullException(argumentName);
-        }
-    }
-
     public static void AgainstBadExtension(string value, string argumentName)
     {
         AgainstNullOrEmpty(value, argumentName);
