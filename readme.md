@@ -15,9 +15,7 @@ A collection of minimal binary files.
 <!-- toc -->
 ## Contents
 
-  * [NuGet package](#nuget-package)
   * [Files](#files)
-    * [Archive](#archive)
     * [Document](#document)
     * [Image](#image)
     * [Sheet](#sheet)
@@ -26,6 +24,7 @@ A collection of minimal binary files.
     * [GetPathFor](#getpathfor)
     * [IsEmptyFile](#isemptyfile)
     * [AllPaths](#allpaths)<!-- endtoc -->
+
 
 ## NuGet package
 
@@ -36,11 +35,7 @@ A collection of minimal binary files.
 
 All files: https://github.com/SimonCropp/EmptyFiles/tree/master/files
 
-<!--
-include: extensions
-path: /src/EmptyFiles.Tests/extensions.include.md
--->
-### Archive
+### Archive <!-- include: extensions. path: /src/EmptyFiles.Tests/extensions.include.md -->
 
   * 7z (32 bytes)
   * bz2 (14 bytes)
@@ -87,7 +82,7 @@ path: /src/EmptyFiles.Tests/extensions.include.md
 ### Slide
 
   * odp (7.8 KB)
-  * pptx (13.3 KB)
+  * pptx (13.3 KB) <!-- end include: extensions. path: /src/EmptyFiles.Tests/extensions.include.md -->
 
 
 ## Usage

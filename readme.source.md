@@ -7,6 +7,7 @@ A collection of minimal binary files.
 
 toc
 
+
 ## NuGet package
 
  * https://nuget.org/packages/EmptyFiles/
