@@ -23,7 +23,8 @@ A collection of minimal binary files.
   * [Usage](#usage)
     * [GetPathFor](#getpathfor)
     * [IsEmptyFile](#isemptyfile)
-    * [AllPaths](#allpaths)<!-- endtoc -->
+    * [AllPaths](#allpaths)
+  * [Security contact information](#security-contact-information)<!-- endtoc -->
 
 
 ## NuGet package
@@ -132,6 +133,11 @@ foreach (var path in EmptyFiles.AllPaths)
 ```
 <sup><a href='/src/EmptyFiles.Tests/Tests.cs#L37-L42' title='File snippet `allpaths` was extracted from'>snippet source</a> | <a href='#snippet-allpaths' title='Navigate to start of snippet `allpaths`'>anchor</a></sup>
 <!-- endsnippet -->
+
+
+## Security contact information
+
+To report a security vulnerability, please use the [Tidelift security contact](https://tidelift.com/security). Tidelift will coordinate the fix and disclosure.
 
 
 ## Release Notes
