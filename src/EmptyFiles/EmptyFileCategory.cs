@@ -1,4 +1,4 @@
-﻿enum EmptyFileCategory
+﻿public enum EmptyFileCategory
 {
     Archive,
     Document,
