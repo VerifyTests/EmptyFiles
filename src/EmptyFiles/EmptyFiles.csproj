@@ -3,7 +3,7 @@
     <TargetFrameworks>netstandard2.0;netstandard2.1;net472</TargetFrameworks>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="ProjectDefaults" Version="1.0.40" PrivateAssets="All" />
+    <PackageReference Include="ProjectDefaults" Version="1.0.41" PrivateAssets="All" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" Condition="$(Configuration) == 'Release'" />
     <PackageReference Include="Nullable" Version="1.2.0" PrivateAssets="All" />
     <Content Include="buildMultiTargeting\EmptyFiles.targets" PackagePath="buildMultiTargeting\EmptyFiles.targets" />
