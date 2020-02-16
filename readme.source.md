@@ -5,6 +5,8 @@
 
 A collection of minimal binary files.
 
+Support is available via a [Tidelift Subscription](https://tidelift.com/subscription/pkg/nuget-emptyfiles?utm_source=nuget-emptyfiles&utm_medium=referral&utm_campaign=enterprise).
+
 toc
 
 
