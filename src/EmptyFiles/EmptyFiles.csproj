@@ -5,7 +5,7 @@
   <ItemGroup>
     <PackageReference Include="ProjectDefaults" Version="1.0.41" PrivateAssets="All" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" Condition="$(Configuration) == 'Release'" />
-    <PackageReference Include="Nullable" Version="1.2.0" PrivateAssets="All" />
+    <PackageReference Include="Nullable" Version="1.2.1" PrivateAssets="All" />
     <Content Include="buildMultiTargeting\EmptyFiles.targets" PackagePath="buildMultiTargeting\EmptyFiles.targets" />
     <Content Include="build\EmptyFiles.targets" PackagePath="build\EmptyFiles.targets" />
     <None Include="$(ProjectDir)..\..\files\**\empty.*">
