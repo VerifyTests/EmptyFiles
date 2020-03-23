@@ -26,9 +26,9 @@ public static class EmptyFiles
             emptyFiles = Path.Combine(CodeBaseLocation.CurrentDirectory, "../../EmptyFiles");
         }
 
-        if(!Directory.Exists(emptyFiles))
+        if (!Directory.Exists(emptyFiles))
             // Throw a detailed error message so people can quickly fix the missing files.
-            throw new DirectoryNotFoundException($"{Path.Combine(CodeBaseLocation.CurrentDirectory, "EmptyFiles")} not found");
+            throw new DirectoryNotFoundException($"Could not find 'Empty Files' at path '{Path.Combine(CodeBaseLocation.CurrentDirectory, "EmptyFiles")}', ensure files are copied correctly.");
 
         foreach (var file in Directory.EnumerateFiles(emptyFiles, "*.*", SearchOption.AllDirectories))
         {
