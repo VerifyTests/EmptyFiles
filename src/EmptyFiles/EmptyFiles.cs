@@ -12,23 +12,10 @@ public static class EmptyFiles
     public static Dictionary<string, EmptyFile> Images = new Dictionary<string, EmptyFile>();
     public static Dictionary<string, EmptyFile> Sheets = new Dictionary<string, EmptyFile>();
     public static Dictionary<string, EmptyFile> Slides = new Dictionary<string, EmptyFile>();
-
+    
     static EmptyFiles()
     {
-        var emptyFiles = Path.Combine(CodeBaseLocation.CurrentDirectory, "EmptyFiles");
-
-        if(!Directory.Exists(emptyFiles))
-        {
-            // When referenced from NuGet and run in a unit test with .net Core,
-            // CodeBaseLocation.CurrentDirectory can return the location of this assembly
-            // from with-in the package directory.  Look into the root of the package directory
-            // to see if the EmptyFile directory is there.
-            emptyFiles = Path.Combine(CodeBaseLocation.CurrentDirectory, "../../EmptyFiles");
-        }
-
-        if (!Directory.Exists(emptyFiles))
-            // Throw a detailed error message so people can quickly fix the missing files.
-            throw new DirectoryNotFoundException($"Could not find 'Empty Files' at path '{Path.Combine(CodeBaseLocation.CurrentDirectory, "EmptyFiles")}', ensure files are copied correctly.");
+	    var emptyFiles = GetEmptyFilesDirectory(CodeBaseLocation.CurrentDirectory);
 
         foreach (var file in Directory.EnumerateFiles(emptyFiles, "*.*", SearchOption.AllDirectories))
         {
@@ -56,6 +43,26 @@ public static class EmptyFiles
                     break;
             }
         }
+    }
+    
+	static string GetEmptyFilesDirectory(string currentDirectory)
+    {
+	    var emptyFiles = Path.GetFullPath(Path.Combine(currentDirectory, "EmptyFiles"));
+
+	    if(!Directory.Exists(emptyFiles))
+	    {
+		    // When referenced from NuGet and run in a unit test with .net Core,
+		    // CodeBaseLocation.CurrentDirectory can return the location of this assembly
+		    // from with-in the package directory.  Look into the root of the package directory
+		    // to see if the EmptyFile directory is there.
+		    emptyFiles = Path.GetFullPath(Path.Combine(currentDirectory, "../../EmptyFiles"));
+	    }
+
+	    if (!Directory.Exists(emptyFiles))
+		    // Throw a detailed error message so people can quickly fix the missing files.
+		    throw new DirectoryNotFoundException($"Could not find 'Empty Files' at path '{Path.Combine(currentDirectory, "EmptyFiles")}', ensure files are copied correctly.");
+
+	    return emptyFiles;
     }
 
     static EmptyFileCategory GetCategory(string file)
