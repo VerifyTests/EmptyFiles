@@ -16,6 +16,20 @@ public static class EmptyFiles
     static EmptyFiles()
     {
         var emptyFiles = Path.Combine(CodeBaseLocation.CurrentDirectory, "EmptyFiles");
+
+        if(!Directory.Exists(emptyFiles))
+        {
+            // When referenced from NuGet and run in a unit test with .net Core,
+            // CodeBaseLocation.CurrentDirectory can return the location of this assembly
+            // from with-in the package directory.  Look into the root of the package directory
+            // to see if the EmptyFile directory is there.
+            emptyFiles = Path.Combine(CodeBaseLocation.CurrentDirectory, "../../EmptyFiles");
+        }
+
+        if(!Directory.Exists(emptyFiles))
+            // Throw a detailed error message so people can quickly fix the missing files.
+            throw new DirectoryNotFoundException($"{Path.Combine(CodeBaseLocation.CurrentDirectory, "EmptyFiles")} not found");
+
         foreach (var file in Directory.EnumerateFiles(emptyFiles, "*.*", SearchOption.AllDirectories))
         {
             var lastWriteTime = File.GetLastWriteTime(file);
