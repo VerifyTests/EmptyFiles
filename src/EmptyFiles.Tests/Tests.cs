@@ -22,6 +22,20 @@ public class Tests :
         Assert.True(File.Exists(path2));
     }
 
+    void CreateFile(string pathOfFileToCreate)
+    {
+        #region CreateFile
+        AllFiles.CreateFile(pathOfFileToCreate);
+        #endregion
+    }
+
+    void CreateFile(string pathOfFileToCreate)
+    {
+        #region CreateFile
+        AllFiles.CreateFile(pathOfFileToCreate);
+        #endregion
+    }
+
     [Fact]
     public void IsEmptyFile()
     {

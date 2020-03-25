@@ -25,6 +25,13 @@ include: extensions
 ## Usage
 
 
+### CreateFile
+
+Creates a new empty file
+
+snippet: CreateFile
+
+
 ### GetPathFor
 
 Gets the path to an empty file for a given extension
@@ -37,7 +44,6 @@ snippet: GetPathFor
 Returns true if the target file is an empty file.
 
 snippet: IsEmptyFile
-
 
 
 ### AllPaths

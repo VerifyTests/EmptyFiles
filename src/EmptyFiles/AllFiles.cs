@@ -94,6 +94,11 @@ namespace EmptyFiles
             return File.GetLastWriteTime(path) == emptyFile.LastWriteTime;
         }
 
+        public static void CreateFile(string path)
+        {
+            File.Copy(GetPathFor(Path.GetExtension(path)), path, true);
+        }
+
         public static string GetPathFor(string extension)
         {
             Guard.AgainstNullOrEmpty(extension, nameof(extension));
@@ -104,6 +109,17 @@ namespace EmptyFiles
             }
 
             throw new Exception($"Unknown extension: {extension}");
+        }
+
+        public static bool TryCreateFile(string path)
+        {
+            var extension = Path.GetExtension(path);
+            if (!TryGetPathFor(extension, out var source))
+            {
+                return false;
+            }
+            File.Copy(source, path, true);
+            return true;
         }
 
         public static bool TryGetPathFor(string extension, [NotNullWhen(true)] out string? path)
