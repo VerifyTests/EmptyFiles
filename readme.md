@@ -23,6 +23,7 @@ Support is available via a [Tidelift Subscription](https://tidelift.com/subscrip
     * [Sheet](#sheet)
     * [Slide](#slide)
   * [Usage](#usage)
+    * [CreateFile](#createfile)
     * [GetPathFor](#getpathfor)
     * [IsEmptyFile](#isemptyfile)
     * [AllPaths](#allpaths)
@@ -92,6 +93,21 @@ All files: https://github.com/SimonCropp/EmptyFiles/tree/master/files
 ## Usage
 
 
+### CreateFile
+
+Creates a new empty file
+
+<!-- snippet: CreateFile -->
+<a id='snippet-createfile'/></a>
+```cs
+AllFiles.CreateFile(pathOfFileToCreate);
+```
+<sup><a href='/src/EmptyFiles.Tests/Tests.cs#L45-L47' title='File snippet `createfile` was extracted from'>snippet source</a> | <a href='#snippet-createfile' title='Navigate to start of snippet `createfile`'>anchor</a></sup>
+<!-- endsnippet -->
+
+Throws an exception if the extension is not known. There is also a `TryCreateFile` that will return false if the extension is not known.
+
+
 ### GetPathFor
 
 Gets the path to an empty file for a given extension
@@ -101,8 +117,10 @@ Gets the path to an empty file for a given extension
 ```cs
 var path = AllFiles.GetPathFor("jpg");
 ```
-<sup><a href='/src/EmptyFiles.Tests/Tests.cs#L15-L17' title='File snippet `getpathfor` was extracted from'>snippet source</a> | <a href='#snippet-getpathfor' title='Navigate to start of snippet `getpathfor`'>anchor</a></sup>
+<sup><a href='/src/EmptyFiles.Tests/Tests.cs#L30-L32' title='File snippet `getpathfor` was extracted from'>snippet source</a> | <a href='#snippet-getpathfor' title='Navigate to start of snippet `getpathfor`'>anchor</a></sup>
 <!-- endsnippet -->
+
+Throws an exception if the extension is not known. There is also a `TryGetPathFor` that will return false if the extension is not known.
 
 
 ### IsEmptyFile
@@ -117,9 +135,8 @@ Assert.True(AllFiles.IsEmptyFile(path));
 var temp = Path.GetTempFileName();
 Assert.False(AllFiles.IsEmptyFile(temp));
 ```
-<sup><a href='/src/EmptyFiles.Tests/Tests.cs#L28-L33' title='File snippet `isemptyfile` was extracted from'>snippet source</a> | <a href='#snippet-isemptyfile' title='Navigate to start of snippet `isemptyfile`'>anchor</a></sup>
+<sup><a href='/src/EmptyFiles.Tests/Tests.cs#L71-L76' title='File snippet `isemptyfile` was extracted from'>snippet source</a> | <a href='#snippet-isemptyfile' title='Navigate to start of snippet `isemptyfile`'>anchor</a></sup>
 <!-- endsnippet -->
-
 
 
 ### AllPaths
@@ -134,7 +151,7 @@ foreach (var path in AllFiles.AllPaths)
     Trace.WriteLine(path);
 }
 ```
-<sup><a href='/src/EmptyFiles.Tests/Tests.cs#L44-L49' title='File snippet `allpaths` was extracted from'>snippet source</a> | <a href='#snippet-allpaths' title='Navigate to start of snippet `allpaths`'>anchor</a></sup>
+<sup><a href='/src/EmptyFiles.Tests/Tests.cs#L87-L92' title='File snippet `allpaths` was extracted from'>snippet source</a> | <a href='#snippet-allpaths' title='Navigate to start of snippet `allpaths`'>anchor</a></sup>
 <!-- endsnippet -->
 
 

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
@@ -9,6 +10,20 @@ using Xunit.Abstractions;
 public class Tests :
     XunitContextBase
 {
+    [Fact]
+    public void Unknown_extension()
+    {
+        Assert.Throws<Exception>(() => AllFiles.GetPathFor("txt"));
+        Assert.False(AllFiles.TryGetPathFor("txt", out var result));
+        Assert.Null(result);
+        Assert.False(AllFiles.TryGetPathFor(".txt", out result));
+        Assert.Null(result);
+        Assert.False(AllFiles.TryCreateFile("foo.txt"));
+        Assert.Null(result);
+        Assert.Throws<Exception>(() => AllFiles.GetPathFor(".txt"));
+        Assert.Throws<Exception>(() => AllFiles.CreateFile("foo.txt"));
+    }
+
     [Fact]
     public void GetPathFor()
     {
@@ -22,18 +37,32 @@ public class Tests :
         Assert.True(File.Exists(path2));
     }
 
-    void CreateFile(string pathOfFileToCreate)
+    [Fact]
+    public void CreateFile()
     {
+        var pathOfFileToCreate = "file.jpg";
+        File.Delete(pathOfFileToCreate);
         #region CreateFile
         AllFiles.CreateFile(pathOfFileToCreate);
         #endregion
-    }
+        Assert.True(File.Exists(pathOfFileToCreate));
+        File.Delete(pathOfFileToCreate);
 
-    void CreateFile(string pathOfFileToCreate)
-    {
-        #region CreateFile
-        AllFiles.CreateFile(pathOfFileToCreate);
-        #endregion
+        AllFiles.CreateFile("foo.txt", true);
+        Assert.True(File.Exists("foo.txt"));
+        File.Delete("foo.txt");
+
+        Assert.True(AllFiles.TryCreateFile(pathOfFileToCreate));
+        Assert.True(File.Exists(pathOfFileToCreate));
+        File.Delete(pathOfFileToCreate);
+
+        Assert.False(AllFiles.TryCreateFile("foo.txt"));
+        Assert.False(File.Exists("foo.txt"));
+        File.Delete("foo.txt");
+
+        Assert.True(AllFiles.TryCreateFile("foo.txt", true));
+        Assert.True(File.Exists("foo.txt"));
+        File.Delete("foo.txt");
     }
 
     [Fact]

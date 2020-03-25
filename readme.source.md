@@ -31,12 +31,16 @@ Creates a new empty file
 
 snippet: CreateFile
 
+Throws an exception if the extension is not known. There is also a `TryCreateFile` that will return false if the extension is not known.
+
 
 ### GetPathFor
 
 Gets the path to an empty file for a given extension
 
 snippet: GetPathFor
+
+Throws an exception if the extension is not known. There is also a `TryGetPathFor` that will return false if the extension is not known.
 
 
 ### IsEmptyFile

@@ -94,9 +94,18 @@ namespace EmptyFiles
             return File.GetLastWriteTime(path) == emptyFile.LastWriteTime;
         }
 
-        public static void CreateFile(string path)
+        public static void CreateFile(string path, bool useEmptyStringForTextFiles = false)
         {
-            File.Copy(GetPathFor(Path.GetExtension(path)), path, true);
+            Guard.AgainstNullOrEmpty(path, nameof(path));
+            var extension = Path.GetExtension(path);
+            if (useEmptyStringForTextFiles &&
+                Extensions.IsTextExtension(extension))
+            {
+                File.CreateText(path).Dispose();
+                return;
+            }
+
+            File.Copy(GetPathFor(extension), path, true);
         }
 
         public static string GetPathFor(string extension)
@@ -111,13 +120,23 @@ namespace EmptyFiles
             throw new Exception($"Unknown extension: {extension}");
         }
 
-        public static bool TryCreateFile(string path)
+        public static bool TryCreateFile(string path, bool useEmptyStringForTextFiles = false)
         {
+            Guard.AgainstNullOrEmpty(path, nameof(path));
             var extension = Path.GetExtension(path);
+
+            if (useEmptyStringForTextFiles &&
+                Extensions.IsTextExtension(extension))
+            {
+                File.CreateText(path).Dispose();
+                return true;
+            }
+
             if (!TryGetPathFor(extension, out var source))
             {
                 return false;
             }
+
             File.Copy(source, path, true);
             return true;
         }
