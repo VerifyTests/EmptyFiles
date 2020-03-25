@@ -1,16 +1,19 @@
 ﻿using System;
 
-public class EmptyFile
+namespace EmptyFiles
 {
-    public string Path { get; }
-    public DateTime LastWriteTime { get; }
-    public EmptyFileCategory Category { get; }
-
-    public EmptyFile(string path, in DateTime lastWriteTime, in EmptyFileCategory category)
+    public class EmptyFile
     {
-        Guard.AgainstNullOrEmpty(path, nameof(path));
-        Path = path;
-        LastWriteTime = lastWriteTime;
-        Category = category;
+        public string Path { get; }
+        public DateTime LastWriteTime { get; }
+        public Category Category { get; }
+
+        public EmptyFile(string path, in DateTime lastWriteTime, in Category category)
+        {
+            Guard.AgainstNullOrEmpty(path, nameof(path));
+            Path = path;
+            LastWriteTime = lastWriteTime;
+            Category = category;
+        }
     }
 }

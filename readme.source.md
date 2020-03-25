@@ -47,6 +47,16 @@ Enumerates all empty files
 snippet: AllPaths
 
 
+### Extensions helper
+
+
+#### IsTextFile
+
+https://github.com/sindresorhus/text-extensions/blob/master/text-extensions.json
+
+snippet: IsTextFile
+
+
 ## Security contact information
 
 To report a security vulnerability, use the [Tidelift security contact](https://tidelift.com/security). Tidelift will coordinate the fix and disclosure.

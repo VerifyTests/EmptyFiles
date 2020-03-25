@@ -1,10 +1,10 @@
 ﻿using System.IO;
 
-static class CodeBaseLocation
+static class AssemblyLocation
 {
-    static CodeBaseLocation()
+    static AssemblyLocation()
     {
-        var assembly = typeof(CodeBaseLocation).Assembly;
+        var assembly = typeof(AssemblyLocation).Assembly;
 
         var path = assembly.CodeBase
             .Replace("file:///", "")

@@ -26,6 +26,7 @@ Support is available via a [Tidelift Subscription](https://tidelift.com/subscrip
     * [GetPathFor](#getpathfor)
     * [IsEmptyFile](#isemptyfile)
     * [AllPaths](#allpaths)
+    * [Extensions helper](#extensions-helper)
   * [Security contact information](#security-contact-information)<!-- endtoc -->
 
 
@@ -98,9 +99,9 @@ Gets the path to an empty file for a given extension
 <!-- snippet: GetPathFor -->
 <a id='snippet-getpathfor'/></a>
 ```cs
-var path = EmptyFiles.GetPathFor("jpg");
+var path = AllFiles.GetPathFor("jpg");
 ```
-<sup><a href='/src/EmptyFiles.Tests/Tests.cs#L14-L16' title='File snippet `getpathfor` was extracted from'>snippet source</a> | <a href='#snippet-getpathfor' title='Navigate to start of snippet `getpathfor`'>anchor</a></sup>
+<sup><a href='/src/EmptyFiles.Tests/Tests.cs#L15-L17' title='File snippet `getpathfor` was extracted from'>snippet source</a> | <a href='#snippet-getpathfor' title='Navigate to start of snippet `getpathfor`'>anchor</a></sup>
 <!-- endsnippet -->
 
 
@@ -111,12 +112,12 @@ Returns true if the target file is an empty file.
 <!-- snippet: IsEmptyFile -->
 <a id='snippet-isemptyfile'/></a>
 ```cs
-var path = EmptyFiles.GetPathFor("jpg");
-Assert.True(EmptyFiles.IsEmptyFile(path));
+var path = AllFiles.GetPathFor("jpg");
+Assert.True(AllFiles.IsEmptyFile(path));
 var temp = Path.GetTempFileName();
-Assert.False(EmptyFiles.IsEmptyFile(temp));
+Assert.False(AllFiles.IsEmptyFile(temp));
 ```
-<sup><a href='/src/EmptyFiles.Tests/Tests.cs#L24-L29' title='File snippet `isemptyfile` was extracted from'>snippet source</a> | <a href='#snippet-isemptyfile' title='Navigate to start of snippet `isemptyfile`'>anchor</a></sup>
+<sup><a href='/src/EmptyFiles.Tests/Tests.cs#L28-L33' title='File snippet `isemptyfile` was extracted from'>snippet source</a> | <a href='#snippet-isemptyfile' title='Navigate to start of snippet `isemptyfile`'>anchor</a></sup>
 <!-- endsnippet -->
 
 
@@ -128,12 +129,29 @@ Enumerates all empty files
 <!-- snippet: AllPaths -->
 <a id='snippet-allpaths'/></a>
 ```cs
-foreach (var path in EmptyFiles.AllPaths)
+foreach (var path in AllFiles.AllPaths)
 {
     Trace.WriteLine(path);
 }
 ```
-<sup><a href='/src/EmptyFiles.Tests/Tests.cs#L37-L42' title='File snippet `allpaths` was extracted from'>snippet source</a> | <a href='#snippet-allpaths' title='Navigate to start of snippet `allpaths`'>anchor</a></sup>
+<sup><a href='/src/EmptyFiles.Tests/Tests.cs#L44-L49' title='File snippet `allpaths` was extracted from'>snippet source</a> | <a href='#snippet-allpaths' title='Navigate to start of snippet `allpaths`'>anchor</a></sup>
+<!-- endsnippet -->
+
+
+### Extensions helper
+
+
+#### IsTextFile
+
+https://github.com/sindresorhus/text-extensions/blob/master/text-extensions.json
+
+<!-- snippet: IsTextFile -->
+<a id='snippet-istextfile'/></a>
+```cs
+Assert.True(Extensions.IsTextFile("file.txt"));
+Assert.False(Extensions.IsTextFile("file.bin"));
+```
+<sup><a href='/src/EmptyFiles.Tests/ExtensionsTests.cs#L11-L14' title='File snippet `istextfile` was extracted from'>snippet source</a> | <a href='#snippet-istextfile' title='Navigate to start of snippet `istextfile`'>anchor</a></sup>
 <!-- endsnippet -->
 
 

@@ -2,6 +2,7 @@
 using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
+using EmptyFiles;
 using Xunit;
 using Xunit.Abstractions;
 
@@ -12,30 +13,36 @@ public class Tests :
     public void GetPathFor()
     {
         #region GetPathFor
-        var path = EmptyFiles.GetPathFor("jpg");
+        var path = AllFiles.GetPathFor("jpg");
         #endregion
+        var path2 = AllFiles.GetPathFor(".jpg");
         Assert.NotNull(path);
+        Assert.NotNull(path2);
         Assert.True(File.Exists(path));
+        Assert.True(File.Exists(path2));
     }
 
     [Fact]
     public void IsEmptyFile()
     {
         #region IsEmptyFile
-        var path = EmptyFiles.GetPathFor("jpg");
-        Assert.True(EmptyFiles.IsEmptyFile(path));
+        var path = AllFiles.GetPathFor("jpg");
+        Assert.True(AllFiles.IsEmptyFile(path));
         var temp = Path.GetTempFileName();
-        Assert.False(EmptyFiles.IsEmptyFile(temp));
+        Assert.False(AllFiles.IsEmptyFile(temp));
         #endregion
+
+        var path2 = AllFiles.GetPathFor(".jpg");
+        Assert.True(AllFiles.IsEmptyFile(path2));
         File.Delete(temp);
     }
 
     [Fact]
     public void AllPaths()
     {
-        Assert.NotEmpty(EmptyFiles.AllPaths);
+        Assert.NotEmpty(AllFiles.AllPaths);
         #region AllPaths
-        foreach (var path in EmptyFiles.AllPaths)
+        foreach (var path in AllFiles.AllPaths)
         {
             Trace.WriteLine(path);
         }
@@ -48,11 +55,11 @@ public class Tests :
         var md = Path.Combine(SourceDirectory, "extensions.include.md");
         File.Delete(md);
         await using var writer = File.CreateText(md);
-        await WriteCategory(writer, "Archive", EmptyFiles.ArchivePaths);
-        await WriteCategory(writer, "Document", EmptyFiles.DocumentPaths);
-        await WriteCategory(writer, "Image", EmptyFiles.ImagePaths);
-        await WriteCategory(writer, "Sheet", EmptyFiles.SheetPaths);
-        await WriteCategory(writer, "Slide", EmptyFiles.SlidePaths);
+        await WriteCategory(writer, "Archive", AllFiles.ArchivePaths);
+        await WriteCategory(writer, "Document", AllFiles.DocumentPaths);
+        await WriteCategory(writer, "Image", AllFiles.ImagePaths);
+        await WriteCategory(writer, "Sheet", AllFiles.SheetPaths);
+        await WriteCategory(writer, "Slide", AllFiles.SlidePaths);
     }
 
     private static async Task WriteCategory(StreamWriter writer, string category, IEnumerable<string> allPaths)
