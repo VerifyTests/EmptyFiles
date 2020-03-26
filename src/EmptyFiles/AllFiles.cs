@@ -23,7 +23,7 @@ namespace EmptyFiles
                 var lastWriteTime = File.GetLastWriteTime(file);
                 var category = GetCategory(file);
                 var emptyFile = new EmptyFile(file, lastWriteTime, category);
-                var extension = FileHelpers.Extension(file);
+                var extension = Extensions.GetExtension(file);
                 Files[extension] = emptyFile;
                 switch (category)
                 {
@@ -85,7 +85,7 @@ namespace EmptyFiles
         public static bool IsEmptyFile(string path)
         {
             Guard.FileExists(path, nameof(path));
-            var extension = FileHelpers.Extension(path);
+            var extension = Extensions.GetExtension(path);
             if (!Files.TryGetValue(extension, out var emptyFile))
             {
                 return false;
@@ -96,8 +96,7 @@ namespace EmptyFiles
 
         public static void CreateFile(string path, bool useEmptyStringForTextFiles = false)
         {
-            Guard.AgainstNullOrEmpty(path, nameof(path));
-            var extension = Path.GetExtension(path);
+            var extension = Extensions.GetExtension(path);
             if (useEmptyStringForTextFiles &&
                 Extensions.IsTextExtension(extension))
             {
@@ -111,7 +110,7 @@ namespace EmptyFiles
         public static string GetPathFor(string extension)
         {
             Guard.AgainstNullOrEmpty(extension, nameof(extension));
-            extension = extension.TrimStart('.');
+            extension = Extensions.GetExtension(extension);
             if (Files.TryGetValue(extension, out var emptyFile))
             {
                 return emptyFile.Path;

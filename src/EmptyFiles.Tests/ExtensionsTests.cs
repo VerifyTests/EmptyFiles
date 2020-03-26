@@ -14,6 +14,16 @@ public class ExtensionsTests :
         #endregion
     }
 
+    [Fact]
+    public void Run()
+    {
+        Assert.Equal("txt", Extensions.GetExtension("file.txt"));
+        Assert.Equal("txt", Extensions.GetExtension("c:/file.txt"));
+        Assert.Equal("txt", Extensions.GetExtension(".txt"));
+        Assert.Equal("txt", Extensions.GetExtension("./File.txt"));
+        Assert.Equal("txt", Extensions.GetExtension("txt"));
+    }
+
     public ExtensionsTests(ITestOutputHelper output) :
         base(output)
     {

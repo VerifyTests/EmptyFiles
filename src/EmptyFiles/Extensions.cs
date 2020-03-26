@@ -1,9 +1,24 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 
 namespace EmptyFiles
 {
     public static class Extensions
     {
+        public static string GetExtension(string path)
+        {
+            Guard.AgainstNullOrEmpty(path, nameof(path));
+            if (!path.Contains("."))
+            {
+                return path;
+            }
+            var extension = Path.GetExtension(path);
+            Guard.AgainstNullOrEmpty(extension, nameof(extension));
+            extension = extension.TrimStart('.');
+            Guard.AgainstNullOrEmpty(extension, nameof(extension));
+            return extension;
+        }
+
         public static bool IsTextExtension(string extension)
         {
             Guard.AgainstNullOrEmpty(extension, nameof(extension));
@@ -13,7 +28,7 @@ namespace EmptyFiles
 
         public static bool IsTextFile(string file)
         {
-            var extension = FileHelpers.Extension(file);
+            var extension = GetExtension(file);
             return TextExtensions.Contains(extension);
         }
 
