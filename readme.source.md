@@ -60,11 +60,11 @@ snippet: AllPaths
 ### Extensions helper
 
 
-#### IsTextFile
+#### IsText
 
 https://github.com/sindresorhus/text-extensions/blob/master/text-extensions.json
 
-snippet: IsTextFile
+snippet: IsText
 
 
 ## Security contact information

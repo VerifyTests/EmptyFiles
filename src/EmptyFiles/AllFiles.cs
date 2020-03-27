@@ -98,7 +98,7 @@ namespace EmptyFiles
         {
             var extension = Extensions.GetExtension(path);
             if (useEmptyStringForTextFiles &&
-                Extensions.IsTextExtension(extension))
+                Extensions.IsText(extension))
             {
                 File.CreateText(path).Dispose();
                 return;
@@ -125,7 +125,7 @@ namespace EmptyFiles
             var extension = Path.GetExtension(path);
 
             if (useEmptyStringForTextFiles &&
-                Extensions.IsTextExtension(extension))
+                Extensions.IsText(extension))
             {
                 File.CreateText(path).Dispose();
                 return true;
@@ -142,8 +142,7 @@ namespace EmptyFiles
 
         public static bool TryGetPathFor(string extension, [NotNullWhen(true)] out string? path)
         {
-            Guard.AgainstNullOrEmpty(extension, nameof(extension));
-            extension = extension.TrimStart('.');
+            extension = Extensions.GetExtension(extension);
             if (Files.TryGetValue(extension, out var emptyFile))
             {
                 path = emptyFile.Path;

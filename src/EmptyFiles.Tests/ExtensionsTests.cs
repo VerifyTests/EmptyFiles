@@ -6,11 +6,15 @@ public class ExtensionsTests :
     XunitContextBase
 {
     [Fact]
-    public void IsTextFile()
+    public void IsText()
     {
-        #region IsTextFile
-        Assert.True(Extensions.IsTextFile("file.txt"));
-        Assert.False(Extensions.IsTextFile("file.bin"));
+        #region IsText
+        Assert.True(Extensions.IsText("file.txt"));
+        Assert.False(Extensions.IsText("file.bin"));
+        Assert.True(Extensions.IsText(".txt"));
+        Assert.False(Extensions.IsText(".bin"));
+        Assert.True(Extensions.IsText("txt"));
+        Assert.False(Extensions.IsText("bin"));
         #endregion
     }
 

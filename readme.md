@@ -158,17 +158,21 @@ foreach (var path in AllFiles.AllPaths)
 ### Extensions helper
 
 
-#### IsTextFile
+#### IsText
 
 https://github.com/sindresorhus/text-extensions/blob/master/text-extensions.json
 
-<!-- snippet: IsTextFile -->
-<a id='snippet-istextfile'/></a>
+<!-- snippet: IsText -->
+<a id='snippet-istext'/></a>
 ```cs
-Assert.True(Extensions.IsTextFile("file.txt"));
-Assert.False(Extensions.IsTextFile("file.bin"));
+Assert.True(Extensions.IsText("file.txt"));
+Assert.False(Extensions.IsText("file.bin"));
+Assert.True(Extensions.IsText(".txt"));
+Assert.False(Extensions.IsText(".bin"));
+Assert.True(Extensions.IsText("txt"));
+Assert.False(Extensions.IsText("bin"));
 ```
-<sup><a href='/src/EmptyFiles.Tests/ExtensionsTests.cs#L11-L14' title='File snippet `istextfile` was extracted from'>snippet source</a> | <a href='#snippet-istextfile' title='Navigate to start of snippet `istextfile`'>anchor</a></sup>
+<sup><a href='/src/EmptyFiles.Tests/ExtensionsTests.cs#L11-L18' title='File snippet `istext` was extracted from'>snippet source</a> | <a href='#snippet-istext' title='Navigate to start of snippet `istext`'>anchor</a></sup>
 <!-- endsnippet -->
 
 

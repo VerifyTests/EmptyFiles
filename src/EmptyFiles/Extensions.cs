@@ -19,16 +19,9 @@ namespace EmptyFiles
             return extension;
         }
 
-        public static bool IsTextExtension(string extension)
+        public static bool IsText(string extensionOrFile)
         {
-            Guard.AgainstNullOrEmpty(extension, nameof(extension));
-            extension = extension.TrimStart('.');
-            return TextExtensions.Contains(extension);
-        }
-
-        public static bool IsTextFile(string file)
-        {
-            var extension = GetExtension(file);
+            var extension = GetExtension(extensionOrFile);
             return TextExtensions.Contains(extension);
         }
 
