@@ -5,23 +5,23 @@ namespace EmptyFiles
 {
     public static class Extensions
     {
-        public static string GetExtension(string path)
+        public static string GetExtension(string extensionOrPath)
         {
-            Guard.AgainstNullOrEmpty(path, nameof(path));
-            if (!path.Contains("."))
+            Guard.AgainstNullOrEmpty(extensionOrPath, nameof(extensionOrPath));
+            if (!extensionOrPath.Contains("."))
             {
-                return path;
+                return extensionOrPath;
             }
-            var extension = Path.GetExtension(path);
+            var extension = Path.GetExtension(extensionOrPath);
             Guard.AgainstNullOrEmpty(extension, nameof(extension));
             extension = extension.TrimStart('.');
             Guard.AgainstNullOrEmpty(extension, nameof(extension));
             return extension;
         }
 
-        public static bool IsText(string extensionOrFile)
+        public static bool IsText(string extensionOrPath)
         {
-            var extension = GetExtension(extensionOrFile);
+            var extension = GetExtension(extensionOrPath);
             return TextExtensions.Contains(extension);
         }
 
