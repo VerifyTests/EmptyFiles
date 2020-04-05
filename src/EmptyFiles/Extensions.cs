@@ -26,7 +26,7 @@ namespace EmptyFiles
         }
 
         //From https://github.com/sindresorhus/text-extensions/blob/master/text-extensions.json
-        static HashSet<string> TextExtensions { get; set; } = new HashSet<string>
+        public static HashSet<string> TextExtensions { get; } = new HashSet<string>
         {
             "ada",
             "adb",
