@@ -17,34 +17,33 @@ namespace EmptyFiles
 
         static AllFiles()
         {
-            throw new Exception(AssemblyLocation.CurrentDirectory);
-            //var emptyFiles = Path.Combine(AssemblyLocation.CurrentDirectory, "EmptyFiles");
-            //foreach (var file in Directory.EnumerateFiles(emptyFiles, "*.*", SearchOption.AllDirectories))
-            //{
-            //    var lastWriteTime = File.GetLastWriteTime(file);
-            //    var category = GetCategory(file);
-            //    var emptyFile = new EmptyFile(file, lastWriteTime, category);
-            //    var extension = Extensions.GetExtension(file);
-            //    Files[extension] = emptyFile;
-            //    switch (category)
-            //    {
-            //        case Category.Archive:
-            //            Archives[extension] = emptyFile;
-            //            break;
-            //        case Category.Document:
-            //            Documents[extension] = emptyFile;
-            //            break;
-            //        case Category.Image:
-            //            Images[extension] = emptyFile;
-            //            break;
-            //        case Category.Sheet:
-            //            Sheets[extension] = emptyFile;
-            //            break;
-            //        case Category.Slide:
-            //            Slides[extension] = emptyFile;
-            //            break;
-            //    }
-            //}
+            var emptyFiles = Path.Combine(AssemblyLocation.CurrentDirectory, "EmptyFiles");
+            foreach (var file in Directory.EnumerateFiles(emptyFiles, "*.*", SearchOption.AllDirectories))
+            {
+                var lastWriteTime = File.GetLastWriteTime(file);
+                var category = GetCategory(file);
+                var emptyFile = new EmptyFile(file, lastWriteTime, category);
+                var extension = Extensions.GetExtension(file);
+                Files[extension] = emptyFile;
+                switch (category)
+                {
+                    case Category.Archive:
+                        Archives[extension] = emptyFile;
+                        break;
+                    case Category.Document:
+                        Documents[extension] = emptyFile;
+                        break;
+                    case Category.Image:
+                        Images[extension] = emptyFile;
+                        break;
+                    case Category.Sheet:
+                        Sheets[extension] = emptyFile;
+                        break;
+                    case Category.Slide:
+                        Slides[extension] = emptyFile;
+                        break;
+                }
+            }
         }
 
         static Category GetCategory(string file)
