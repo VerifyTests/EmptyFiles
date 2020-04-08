@@ -190,6 +190,24 @@ Assert.True(Extensions.IsText("ext2"));
 <!-- endsnippet -->
 
 
+#### RemoveTextExtension
+
+<!-- snippet: RemoveTextExtension -->
+<a id='snippet-removetextextension'/></a>
+```cs
+Extensions.AddTextExtension("ext1");
+Extensions.AddTextExtension(".ext2");
+Assert.True(Extensions.IsText("ext1"));
+Assert.True(Extensions.IsText("ext2"));
+Extensions.RemoveTextExtension("ext1");
+Extensions.RemoveTextExtension(".ext2");
+Assert.False(Extensions.IsText("ext1"));
+Assert.False(Extensions.IsText("ext2"));
+```
+<sup><a href='/src/EmptyFiles.Tests/ExtensionsTests.cs#L35-L44' title='File snippet `removetextextension` was extracted from'>snippet source</a> | <a href='#snippet-removetextextension' title='Navigate to start of snippet `removetextextension`'>anchor</a></sup>
+<!-- endsnippet -->
+
+
 ## Security contact information
 
 To report a security vulnerability, use the [Tidelift security contact](https://tidelift.com/security). Tidelift will coordinate the fix and disclosure.
