@@ -176,6 +176,20 @@ Assert.False(Extensions.IsText("bin"));
 <!-- endsnippet -->
 
 
+#### AddTextExtension
+
+<!-- snippet: AddTextExtension -->
+<a id='snippet-addtextextension'/></a>
+```cs
+Extensions.AddTextExtension("ext1");
+Extensions.AddTextExtension(".ext2");
+Assert.True(Extensions.IsText("ext1"));
+Assert.True(Extensions.IsText("ext2"));
+```
+<sup><a href='/src/EmptyFiles.Tests/ExtensionsTests.cs#L24-L29' title='File snippet `addtextextension` was extracted from'>snippet source</a> | <a href='#snippet-addtextextension' title='Navigate to start of snippet `addtextextension`'>anchor</a></sup>
+<!-- endsnippet -->
+
+
 ## Security contact information
 
 To report a security vulnerability, use the [Tidelift security contact](https://tidelift.com/security). Tidelift will coordinate the fix and disclosure.

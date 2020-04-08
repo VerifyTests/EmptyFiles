@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.IO;
 
 namespace EmptyFiles
@@ -23,6 +24,50 @@ namespace EmptyFiles
         {
             var extension = GetExtension(extensionOrPath);
             return TextExtensions.Contains(extension);
+        }
+
+        public static void RemoveTextExtension(string extension)
+        {
+            extension = GetExtension(extension);
+            TextExtensions.Remove(extension);
+        }
+
+        public static void RemoveTextExtensions(params string[] extensions)
+        {
+            foreach (var extension in extensions)
+            {
+                TextExtensions.Remove(GetExtension(extension));
+            }
+        }
+
+        public static void RemoveTextExtensions(IEnumerable<string> extensions)
+        {
+            foreach (var extension in extensions)
+            {
+                TextExtensions.Remove(GetExtension(extension));
+            }
+        }
+
+        public static void AddTextExtension(string extension)
+        {
+            extension = GetExtension(extension);
+            TextExtensions.Add(extension);
+        }
+
+        public static void AddTextExtensions(params string[] extensions)
+        {
+            foreach (var extension in extensions)
+            {
+                TextExtensions.Add(GetExtension(extension));
+            }
+        }
+
+        public static void AddTextExtensions(IEnumerable<string> extensions)
+        {
+            foreach (var extension in extensions)
+            {
+                TextExtensions.Add(GetExtension(extension));
+            }
         }
 
         //From https://github.com/sindresorhus/text-extensions/blob/master/text-extensions.json

@@ -19,6 +19,32 @@ public class ExtensionsTests :
     }
 
     [Fact]
+    public void AddTextExtension()
+    {
+        #region AddTextExtension
+        Extensions.AddTextExtension("ext1");
+        Extensions.AddTextExtension(".ext2");
+        Assert.True(Extensions.IsText("ext1"));
+        Assert.True(Extensions.IsText("ext2"));
+        #endregion
+    }
+
+    [Fact]
+    public void RemoveTextExtension()
+    {
+        #region RemoveTextExtension
+        Extensions.AddTextExtension("ext1");
+        Extensions.AddTextExtension(".ext2");
+        Assert.True(Extensions.IsText("ext1"));
+        Assert.True(Extensions.IsText("ext2"));
+        Extensions.RemoveTextExtension("ext1");
+        Extensions.RemoveTextExtension(".ext2");
+        Assert.False(Extensions.IsText("ext1"));
+        Assert.False(Extensions.IsText("ext2"));
+        #endregion
+    }
+
+    [Fact]
     public void Run()
     {
         Assert.Equal("txt", Extensions.GetExtension("file.txt"));
