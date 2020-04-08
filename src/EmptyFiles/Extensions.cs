@@ -23,14 +23,14 @@ namespace EmptyFiles
         public static bool IsText(string extensionOrPath)
         {
             var extension = GetExtension(extensionOrPath);
-            return TextExtensions.Contains(extension);
+            return textExtensions.Contains(extension);
         }
 
         public static void RemoveTextExtension(string extension)
         {
             Guard.AgainstNullOrEmpty(extension, nameof(extension));
             extension = GetExtension(extension);
-            TextExtensions.Remove(extension);
+            textExtensions.Remove(extension);
         }
 
         public static void RemoveTextExtensions(params string[] extensions)
@@ -55,7 +55,7 @@ namespace EmptyFiles
         {
             Guard.AgainstNullOrEmpty(extension, nameof(extension));
             extension = GetExtension(extension);
-            TextExtensions.Add(extension);
+            textExtensions.Add(extension);
         }
 
         public static void AddTextExtensions(params string[] extensions)
@@ -77,7 +77,7 @@ namespace EmptyFiles
         }
 
         //From https://github.com/sindresorhus/text-extensions/blob/master/text-extensions.json
-        static HashSet<string> TextExtensions { get; } = new HashSet<string>
+        static HashSet<string> textExtensions = new HashSet<string>
         {
             "ada",
             "adb",
@@ -401,5 +401,10 @@ namespace EmptyFiles
             "zsh",
             "zshrc"
         };
+
+        public static IEnumerable<string> TextExtensions
+        {
+            get => textExtensions;
+        }
     }
 }
