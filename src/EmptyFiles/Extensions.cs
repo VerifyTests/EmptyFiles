@@ -1,5 +1,4 @@
-﻿using System.Collections.Concurrent;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 
 namespace EmptyFiles
@@ -13,6 +12,7 @@ namespace EmptyFiles
             {
                 return extensionOrPath;
             }
+
             var extension = Path.GetExtension(extensionOrPath);
             Guard.AgainstNullOrEmpty(extension, nameof(extension));
             extension = extension.TrimStart('.');
@@ -28,50 +28,56 @@ namespace EmptyFiles
 
         public static void RemoveTextExtension(string extension)
         {
+            Guard.AgainstNullOrEmpty(extension, nameof(extension));
             extension = GetExtension(extension);
             TextExtensions.Remove(extension);
         }
 
         public static void RemoveTextExtensions(params string[] extensions)
         {
+            Guard.AgainstNull(extensions, nameof(extensions));
             foreach (var extension in extensions)
             {
-                TextExtensions.Remove(GetExtension(extension));
+                RemoveTextExtension(extension);
             }
         }
 
         public static void RemoveTextExtensions(IEnumerable<string> extensions)
         {
+            Guard.AgainstNull(extensions, nameof(extensions));
             foreach (var extension in extensions)
             {
-                TextExtensions.Remove(GetExtension(extension));
+                RemoveTextExtension(extension);
             }
         }
 
         public static void AddTextExtension(string extension)
         {
+            Guard.AgainstNullOrEmpty(extension, nameof(extension));
             extension = GetExtension(extension);
             TextExtensions.Add(extension);
         }
 
         public static void AddTextExtensions(params string[] extensions)
         {
+            Guard.AgainstNull(extensions, nameof(extensions));
             foreach (var extension in extensions)
             {
-                TextExtensions.Add(GetExtension(extension));
+                AddTextExtension(extension);
             }
         }
 
         public static void AddTextExtensions(IEnumerable<string> extensions)
         {
+            Guard.AgainstNull(extensions, nameof(extensions));
             foreach (var extension in extensions)
             {
-                TextExtensions.Add(GetExtension(extension));
+                AddTextExtension(extension);
             }
         }
 
         //From https://github.com/sindresorhus/text-extensions/blob/master/text-extensions.json
-        public static HashSet<string> TextExtensions { get; } = new HashSet<string>
+        static HashSet<string> TextExtensions { get; } = new HashSet<string>
         {
             "ada",
             "adb",
