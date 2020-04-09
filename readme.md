@@ -68,6 +68,7 @@ All files: https://github.com/SimonCropp/EmptyFiles/tree/master/files
   * jpc (270 bytes)
   * jpe (734 bytes)
   * jpg (734 bytes)
+  * jpeg (734 bytes)
   * jxr (300 bytes)
   * pbm (8 bytes)
   * pcx (131 bytes)
@@ -77,6 +78,7 @@ All files: https://github.com/SimonCropp/EmptyFiles/tree/master/files
   * rle (58 bytes)
   * tga (543 bytes)
   * tif (250 bytes)
+  * tiff (250 bytes)
   * wdp (300 bytes)
   * webp (228 bytes)
   * wmp (300 bytes)
@@ -151,7 +153,7 @@ foreach (var path in AllFiles.AllPaths)
     Trace.WriteLine(path);
 }
 ```
-<sup><a href='/src/EmptyFiles.Tests/Tests.cs#L87-L92' title='File snippet `allpaths` was extracted from'>snippet source</a> | <a href='#snippet-allpaths' title='Navigate to start of snippet `allpaths`'>anchor</a></sup>
+<sup><a href='/src/EmptyFiles.Tests/Tests.cs#L96-L101' title='File snippet `allpaths` was extracted from'>snippet source</a> | <a href='#snippet-allpaths' title='Navigate to start of snippet `allpaths`'>anchor</a></sup>
 <!-- endsnippet -->
 
 

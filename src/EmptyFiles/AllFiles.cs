@@ -8,12 +8,53 @@ namespace EmptyFiles
 {
     public static class AllFiles
     {
-        public static Dictionary<string, EmptyFile> Files = new Dictionary<string, EmptyFile>();
-        public static Dictionary<string, EmptyFile> Archives = new Dictionary<string, EmptyFile>();
-        public static Dictionary<string, EmptyFile> Documents = new Dictionary<string, EmptyFile>();
-        public static Dictionary<string, EmptyFile> Images = new Dictionary<string, EmptyFile>();
-        public static Dictionary<string, EmptyFile> Sheets = new Dictionary<string, EmptyFile>();
-        public static Dictionary<string, EmptyFile> Slides = new Dictionary<string, EmptyFile>();
+        static Dictionary<string, string> aliases = new Dictionary<string, string>
+        {
+            {"jpeg", "jpg"},
+            {"tiff", "tif"}
+        };
+
+        public static IReadOnlyDictionary<string, EmptyFile> Files
+        {
+            get => files;
+        }
+
+        static Dictionary<string, EmptyFile> files = new Dictionary<string, EmptyFile>();
+
+        public static IReadOnlyDictionary<string, EmptyFile> Archives
+        {
+            get => archives;
+        }
+
+        static Dictionary<string, EmptyFile> archives = new Dictionary<string, EmptyFile>();
+
+        public static IReadOnlyDictionary<string, EmptyFile> Documents
+        {
+            get => documents;
+        }
+
+        static Dictionary<string, EmptyFile> documents = new Dictionary<string, EmptyFile>();
+
+        public static IReadOnlyDictionary<string, EmptyFile> Images
+        {
+            get => images;
+        }
+
+        static Dictionary<string, EmptyFile> images = new Dictionary<string, EmptyFile>();
+
+        public static IReadOnlyDictionary<string, EmptyFile> Sheets
+        {
+            get => sheets;
+        }
+
+        static Dictionary<string, EmptyFile> sheets = new Dictionary<string, EmptyFile>();
+
+        public static IReadOnlyDictionary<string, EmptyFile> Slides
+        {
+            get => slides;
+        }
+
+        static Dictionary<string, EmptyFile> slides = new Dictionary<string, EmptyFile>();
 
         static AllFiles()
         {
@@ -24,28 +65,42 @@ namespace EmptyFiles
                 var category = GetCategory(file);
                 var emptyFile = new EmptyFile(file, lastWriteTime, category);
                 var extension = Extensions.GetExtension(file);
-                Files[extension] = emptyFile;
+                Dictionary<string, EmptyFile>? categoryFiles = null;
                 switch (category)
                 {
                     case Category.Archive:
-                        Archives[extension] = emptyFile;
+                        categoryFiles = archives;
                         break;
                     case Category.Document:
-                        Documents[extension] = emptyFile;
+                        categoryFiles = documents;
                         break;
                     case Category.Image:
-                        Images[extension] = emptyFile;
+                        categoryFiles = images;
                         break;
                     case Category.Sheet:
-                        Sheets[extension] = emptyFile;
+                        categoryFiles = sheets;
                         break;
                     case Category.Slide:
-                        Slides[extension] = emptyFile;
+                        categoryFiles = slides;
                         break;
+                }
+
+                categoryFiles![extension] = emptyFile;
+                files[extension] = emptyFile;
+                var alias = aliases.SingleOrDefault(x => x.Value == extension);
+                if (alias.Key != null)
+                {
+                    categoryFiles![alias.Key] = emptyFile;
+                    files[alias.Key] = emptyFile;
                 }
             }
         }
 
+        //public void UseFile(Category category, string file)
+        //{
+        //    var directory = Directory.GetParent(file).Name;
+        //    return (Category) Enum.Parse(typeof(Category), directory, true);
+        //}
         static Category GetCategory(string file)
         {
             var directory = Directory.GetParent(file).Name;
@@ -54,39 +109,70 @@ namespace EmptyFiles
 
         public static IEnumerable<string> AllPaths
         {
-            get { return Files.Values.Select(x => x.Path); }
+            get { return files.Values.Select(x => x.Path); }
+        }
+
+        public static IReadOnlyCollection<string> AllExtensions
+        {
+            get { return files.Keys; }
         }
 
         public static IEnumerable<string> ArchivePaths
         {
-            get { return Archives.Values.Select(x => x.Path); }
+            get { return archives.Values.Select(x => x.Path); }
+        }
+
+        public static IReadOnlyCollection<string> ArchiveExtensions
+        {
+            get { return archives.Keys; }
         }
 
         public static IEnumerable<string> DocumentPaths
         {
-            get { return Documents.Values.Select(x => x.Path); }
+            get { return documents.Values.Select(x => x.Path); }
+        }
+
+        public static IReadOnlyCollection<string> DocumentExtensions
+        {
+            get { return documents.Keys; }
         }
 
         public static IEnumerable<string> ImagePaths
         {
-            get { return Images.Values.Select(x => x.Path); }
+            get { return images.Values.Select(x => x.Path); }
+        }
+
+        public static IReadOnlyCollection<string> ImageExtensions
+        {
+            get { return images.Keys; }
         }
 
         public static IEnumerable<string> SheetPaths
         {
-            get { return Sheets.Values.Select(x => x.Path); }
+            get { return sheets.Values.Select(x => x.Path); }
+        }
+
+        public static IReadOnlyCollection<string> SheetExtensions
+        {
+            get { return sheets.Keys; }
         }
 
         public static IEnumerable<string> SlidePaths
         {
-            get { return Slides.Values.Select(x => x.Path); }
+            get { return slides.Values.Select(x => x.Path); }
         }
+
+        public static IReadOnlyCollection<string> SlideExtensions
+        {
+            get { return slides.Keys; }
+        }
+
 
         public static bool IsEmptyFile(string path)
         {
             Guard.FileExists(path, nameof(path));
             var extension = Extensions.GetExtension(path);
-            if (!Files.TryGetValue(extension, out var emptyFile))
+            if (!files.TryGetValue(extension, out var emptyFile))
             {
                 return false;
             }
@@ -111,7 +197,7 @@ namespace EmptyFiles
         {
             Guard.AgainstNullOrEmpty(extension, nameof(extension));
             extension = Extensions.GetExtension(extension);
-            if (Files.TryGetValue(extension, out var emptyFile))
+            if (files.TryGetValue(extension, out var emptyFile))
             {
                 return emptyFile.Path;
             }
@@ -143,7 +229,7 @@ namespace EmptyFiles
         public static bool TryGetPathFor(string extension, [NotNullWhen(true)] out string? path)
         {
             extension = Extensions.GetExtension(extension);
-            if (Files.TryGetValue(extension, out var emptyFile))
+            if (files.TryGetValue(extension, out var emptyFile))
             {
                 path = emptyFile.Path;
                 return true;

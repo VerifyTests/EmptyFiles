@@ -81,6 +81,15 @@ public class Tests :
     }
 
     [Fact]
+    public void Aliases()
+    {
+        var path = AllFiles.GetPathFor("jpeg");
+        Assert.True(AllFiles.IsEmptyFile(path));
+
+        Assert.Contains("jpeg", AllFiles.ImageExtensions);
+    }
+
+    [Fact]
     public void AllPaths()
     {
         Assert.NotEmpty(AllFiles.AllPaths);
@@ -98,22 +107,21 @@ public class Tests :
         var md = Path.Combine(SourceDirectory, "extensions.include.md");
         File.Delete(md);
         await using var writer = File.CreateText(md);
-        await WriteCategory(writer, "Archive", AllFiles.ArchivePaths);
-        await WriteCategory(writer, "Document", AllFiles.DocumentPaths);
-        await WriteCategory(writer, "Image", AllFiles.ImagePaths);
-        await WriteCategory(writer, "Sheet", AllFiles.SheetPaths);
-        await WriteCategory(writer, "Slide", AllFiles.SlidePaths);
+        await WriteCategory(writer, "Archive", AllFiles.Archives);
+        await WriteCategory(writer, "Document", AllFiles.Documents);
+        await WriteCategory(writer, "Image", AllFiles.Images);
+        await WriteCategory(writer, "Sheet", AllFiles.Sheets);
+        await WriteCategory(writer, "Slide", AllFiles.Slides);
     }
 
-    private static async Task WriteCategory(StreamWriter writer, string category, IEnumerable<string> allPaths)
+    static async Task WriteCategory(StreamWriter writer, string category, IReadOnlyDictionary<string, EmptyFile> files)
     {
         await writer.WriteLineAsync($"### {category}");
         await writer.WriteLineAsync("");
-        foreach (var path in allPaths)
+        foreach (var file in files)
         {
-            var size = Size.Suffix(new FileInfo(path).Length);
-            var ext = Path.GetExtension(path).Substring(1);
-            await writer.WriteLineAsync($"  * {ext} ({size})");
+            var size = Size.Suffix(new FileInfo(file.Value.Path).Length);
+            await writer.WriteLineAsync($"  * {file.Key} ({size})");
         }
     }
 
