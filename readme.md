@@ -42,50 +42,50 @@ All files: https://github.com/SimonCropp/EmptyFiles/tree/master/files
 
 ### Archive <!-- include: extensions. path: /src/EmptyFiles.Tests/extensions.include.md -->
 
+  * tar (1.5 KB)
+  * zip (22 bytes)
   * 7z (32 bytes)
   * bz2 (14 bytes)
   * gz (29 bytes)
-  * tar (1.5 KB)
-  * zip (22 bytes)
 ### Document
 
-  * docx (1.9 KB)
   * odt (2.2 KB)
-  * pdf (280 bytes)
   * rtf (6 bytes)
+  * pdf (280 bytes)
+  * docx (1.9 KB)
 ### Image
 
+  * jfif (734 bytes)
+  * pgm (12 bytes)
+  * jpeg (734 bytes)
+  * dib (58 bytes)
+  * tiff (250 bytes)
+  * jpg (734 bytes)
+  * j2c (270 bytes)
+  * webp (228 bytes)
   * bmp (58 bytes)
   * dds (136 bytes)
-  * dib (58 bytes)
-  * emf (620 bytes)
-  * exif (734 bytes)
-  * gif (799 bytes)
-  * ico (70 bytes)
-  * j2c (270 bytes)
-  * jfif (734 bytes)
-  * jp2 (355 bytes)
-  * jpc (270 bytes)
   * jpe (734 bytes)
-  * jpg (734 bytes)
-  * jpeg (734 bytes)
-  * jxr (300 bytes)
-  * pbm (8 bytes)
-  * pcx (131 bytes)
-  * pgm (12 bytes)
-  * png (119 bytes)
-  * ppm (14 bytes)
   * rle (58 bytes)
-  * tga (543 bytes)
-  * tif (250 bytes)
-  * tiff (250 bytes)
-  * wdp (300 bytes)
-  * webp (228 bytes)
+  * pbm (8 bytes)
+  * jpc (270 bytes)
+  * gif (799 bytes)
   * wmp (300 bytes)
+  * tif (250 bytes)
+  * png (119 bytes)
+  * ico (70 bytes)
+  * jp2 (355 bytes)
+  * exif (734 bytes)
+  * jxr (300 bytes)
+  * wdp (300 bytes)
+  * pcx (131 bytes)
+  * emf (620 bytes)
+  * ppm (14 bytes)
+  * tga (543 bytes)
 ### Sheet
 
-  * ods (2.7 KB)
   * xlsx (4.5 KB)
+  * ods (2.7 KB)
 ### Slide
 
   * odp (7.8 KB)
@@ -104,7 +104,7 @@ Creates a new empty file
 ```cs
 AllFiles.CreateFile(pathOfFileToCreate);
 ```
-<sup><a href='/src/EmptyFiles.Tests/Tests.cs#L45-L47' title='File snippet `createfile` was extracted from'>snippet source</a> | <a href='#snippet-createfile' title='Navigate to start of snippet `createfile`'>anchor</a></sup>
+<sup><a href='/src/EmptyFiles.Tests/Tests.cs#L46-L48' title='File snippet `createfile` was extracted from'>snippet source</a> | <a href='#snippet-createfile' title='Navigate to start of snippet `createfile`'>anchor</a></sup>
 <!-- endsnippet -->
 
 Throws an exception if the extension is not known. There is also a `TryCreateFile` that will return false if the extension is not known.
@@ -119,7 +119,7 @@ Gets the path to an empty file for a given extension
 ```cs
 var path = AllFiles.GetPathFor("jpg");
 ```
-<sup><a href='/src/EmptyFiles.Tests/Tests.cs#L30-L32' title='File snippet `getpathfor` was extracted from'>snippet source</a> | <a href='#snippet-getpathfor' title='Navigate to start of snippet `getpathfor`'>anchor</a></sup>
+<sup><a href='/src/EmptyFiles.Tests/Tests.cs#L31-L33' title='File snippet `getpathfor` was extracted from'>snippet source</a> | <a href='#snippet-getpathfor' title='Navigate to start of snippet `getpathfor`'>anchor</a></sup>
 <!-- endsnippet -->
 
 Throws an exception if the extension is not known. There is also a `TryGetPathFor` that will return false if the extension is not known.
@@ -137,7 +137,7 @@ Assert.True(AllFiles.IsEmptyFile(path));
 var temp = Path.GetTempFileName();
 Assert.False(AllFiles.IsEmptyFile(temp));
 ```
-<sup><a href='/src/EmptyFiles.Tests/Tests.cs#L71-L76' title='File snippet `isemptyfile` was extracted from'>snippet source</a> | <a href='#snippet-isemptyfile' title='Navigate to start of snippet `isemptyfile`'>anchor</a></sup>
+<sup><a href='/src/EmptyFiles.Tests/Tests.cs#L72-L77' title='File snippet `isemptyfile` was extracted from'>snippet source</a> | <a href='#snippet-isemptyfile' title='Navigate to start of snippet `isemptyfile`'>anchor</a></sup>
 <!-- endsnippet -->
 
 
@@ -153,7 +153,7 @@ foreach (var path in AllFiles.AllPaths)
     Trace.WriteLine(path);
 }
 ```
-<sup><a href='/src/EmptyFiles.Tests/Tests.cs#L96-L101' title='File snippet `allpaths` was extracted from'>snippet source</a> | <a href='#snippet-allpaths' title='Navigate to start of snippet `allpaths`'>anchor</a></sup>
+<sup><a href='/src/EmptyFiles.Tests/Tests.cs#L97-L102' title='File snippet `allpaths` was extracted from'>snippet source</a> | <a href='#snippet-allpaths' title='Navigate to start of snippet `allpaths`'>anchor</a></sup>
 <!-- endsnippet -->
 
 

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
@@ -19,42 +20,42 @@ namespace EmptyFiles
             get => files;
         }
 
-        static Dictionary<string, EmptyFile> files = new Dictionary<string, EmptyFile>();
+        static ConcurrentDictionary<string, EmptyFile> files = new ConcurrentDictionary<string, EmptyFile>();
 
         public static IReadOnlyDictionary<string, EmptyFile> Archives
         {
             get => archives;
         }
 
-        static Dictionary<string, EmptyFile> archives = new Dictionary<string, EmptyFile>();
+        static ConcurrentDictionary<string, EmptyFile> archives = new ConcurrentDictionary<string, EmptyFile>();
 
         public static IReadOnlyDictionary<string, EmptyFile> Documents
         {
             get => documents;
         }
 
-        static Dictionary<string, EmptyFile> documents = new Dictionary<string, EmptyFile>();
+        static ConcurrentDictionary<string, EmptyFile> documents = new ConcurrentDictionary<string, EmptyFile>();
 
         public static IReadOnlyDictionary<string, EmptyFile> Images
         {
             get => images;
         }
 
-        static Dictionary<string, EmptyFile> images = new Dictionary<string, EmptyFile>();
+        static ConcurrentDictionary<string, EmptyFile> images = new ConcurrentDictionary<string, EmptyFile>();
 
         public static IReadOnlyDictionary<string, EmptyFile> Sheets
         {
             get => sheets;
         }
 
-        static Dictionary<string, EmptyFile> sheets = new Dictionary<string, EmptyFile>();
+        static ConcurrentDictionary<string, EmptyFile> sheets = new ConcurrentDictionary<string, EmptyFile>();
 
         public static IReadOnlyDictionary<string, EmptyFile> Slides
         {
             get => slides;
         }
 
-        static Dictionary<string, EmptyFile> slides = new Dictionary<string, EmptyFile>();
+        static ConcurrentDictionary<string, EmptyFile> slides = new ConcurrentDictionary<string, EmptyFile>();
 
         static AllFiles()
         {
@@ -65,7 +66,7 @@ namespace EmptyFiles
                 var category = GetCategory(file);
                 var emptyFile = new EmptyFile(file, lastWriteTime, category);
                 var extension = Extensions.GetExtension(file);
-                Dictionary<string, EmptyFile>? categoryFiles = null;
+                ConcurrentDictionary<string, EmptyFile>? categoryFiles = null;
                 switch (category)
                 {
                     case Category.Archive:
@@ -112,7 +113,7 @@ namespace EmptyFiles
             get { return files.Values.Select(x => x.Path); }
         }
 
-        public static IReadOnlyCollection<string> AllExtensions
+        public static IEnumerable<string> AllExtensions
         {
             get { return files.Keys; }
         }
@@ -122,7 +123,7 @@ namespace EmptyFiles
             get { return archives.Values.Select(x => x.Path); }
         }
 
-        public static IReadOnlyCollection<string> ArchiveExtensions
+        public static IEnumerable<string> ArchiveExtensions
         {
             get { return archives.Keys; }
         }
@@ -132,7 +133,7 @@ namespace EmptyFiles
             get { return documents.Values.Select(x => x.Path); }
         }
 
-        public static IReadOnlyCollection<string> DocumentExtensions
+        public static IEnumerable<string> DocumentExtensions
         {
             get { return documents.Keys; }
         }
@@ -142,7 +143,7 @@ namespace EmptyFiles
             get { return images.Values.Select(x => x.Path); }
         }
 
-        public static IReadOnlyCollection<string> ImageExtensions
+        public static IEnumerable<string> ImageExtensions
         {
             get { return images.Keys; }
         }
@@ -152,7 +153,7 @@ namespace EmptyFiles
             get { return sheets.Values.Select(x => x.Path); }
         }
 
-        public static IReadOnlyCollection<string> SheetExtensions
+        public static IEnumerable<string> SheetExtensions
         {
             get { return sheets.Keys; }
         }
@@ -162,11 +163,10 @@ namespace EmptyFiles
             get { return slides.Values.Select(x => x.Path); }
         }
 
-        public static IReadOnlyCollection<string> SlideExtensions
+        public static IEnumerable<string> SlideExtensions
         {
             get { return slides.Keys; }
         }
-
 
         public static bool IsEmptyFile(string path)
         {
