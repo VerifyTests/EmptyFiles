@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using EmptyFiles;
 using Xunit;
@@ -118,7 +119,7 @@ public class Tests :
     {
         await writer.WriteLineAsync($"### {category}");
         await writer.WriteLineAsync("");
-        foreach (var file in files)
+        foreach (var file in files.OrderBy(x=>x.Key))
         {
             var size = Size.Suffix(new FileInfo(file.Value.Path).Length);
             await writer.WriteLineAsync($"  * {file.Key} ({size})");
