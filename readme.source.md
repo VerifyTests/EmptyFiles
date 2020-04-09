@@ -57,6 +57,13 @@ Enumerates all empty files
 snippet: AllPaths
 
 
+### UseFile
+
+Use or replace a file
+
+snippet: UseFile
+
+
 ### Extensions helper
 
 

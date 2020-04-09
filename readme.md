@@ -27,6 +27,7 @@ Support is available via a [Tidelift Subscription](https://tidelift.com/subscrip
     * [GetPathFor](#getpathfor)
     * [IsEmptyFile](#isemptyfile)
     * [AllPaths](#allpaths)
+    * [UseFile](#usefile)
     * [Extensions helper](#extensions-helper)
   * [Security contact information](#security-contact-information)<!-- endtoc -->
 
@@ -154,6 +155,20 @@ foreach (var path in AllFiles.AllPaths)
 }
 ```
 <sup><a href='/src/EmptyFiles.Tests/Tests.cs#L97-L102' title='File snippet `allpaths` was extracted from'>snippet source</a> | <a href='#snippet-allpaths' title='Navigate to start of snippet `allpaths`'>anchor</a></sup>
+<!-- endsnippet -->
+
+
+### UseFile
+
+Use or replace a file
+
+<!-- snippet: UseFile -->
+<a id='snippet-usefile'/></a>
+```cs
+AllFiles.UseFile(Category.Document, pathToFile);
+Assert.Contains(pathToFile, AllFiles.DocumentPaths);
+```
+<sup><a href='/src/EmptyFiles.Tests/Tests.cs#L109-L112' title='File snippet `usefile` was extracted from'>snippet source</a> | <a href='#snippet-usefile' title='Navigate to start of snippet `usefile`'>anchor</a></sup>
 <!-- endsnippet -->
 
 

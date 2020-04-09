@@ -62,29 +62,10 @@ namespace EmptyFiles
             var emptyFiles = Path.Combine(AssemblyLocation.CurrentDirectory, "EmptyFiles");
             foreach (var file in Directory.EnumerateFiles(emptyFiles, "*.*", SearchOption.AllDirectories))
             {
-                var lastWriteTime = File.GetLastWriteTime(file);
                 var category = GetCategory(file);
-                var emptyFile = new EmptyFile(file, lastWriteTime, category);
+                var emptyFile = EmptyFile.Build(file, category);
                 var extension = Extensions.GetExtension(file);
-                ConcurrentDictionary<string, EmptyFile>? categoryFiles = null;
-                switch (category)
-                {
-                    case Category.Archive:
-                        categoryFiles = archives;
-                        break;
-                    case Category.Document:
-                        categoryFiles = documents;
-                        break;
-                    case Category.Image:
-                        categoryFiles = images;
-                        break;
-                    case Category.Sheet:
-                        categoryFiles = sheets;
-                        break;
-                    case Category.Slide:
-                        categoryFiles = slides;
-                        break;
-                }
+                var categoryFiles = FindDictionaryForCategory(category);
 
                 categoryFiles![extension] = emptyFile;
                 files[extension] = emptyFile;
@@ -97,11 +78,29 @@ namespace EmptyFiles
             }
         }
 
-        //public void UseFile(Category category, string file)
-        //{
-        //    var directory = Directory.GetParent(file).Name;
-        //    return (Category) Enum.Parse(typeof(Category), directory, true);
-        //}
+
+        static ConcurrentDictionary<string, EmptyFile> FindDictionaryForCategory(Category category)
+        {
+            return category switch
+            {
+                Category.Archive => archives,
+                Category.Document => documents,
+                Category.Image => images,
+                Category.Sheet => sheets,
+                Category.Slide => slides,
+                _ => throw new Exception($"Unknown category: {category}")
+            };
+        }
+
+        public static void UseFile(Category category, string file)
+        {
+            Guard.FileExists(file, nameof(file));
+            var extension = Extensions.GetExtension(file);
+            var emptyFile = EmptyFile.Build(file, category);
+            FindDictionaryForCategory(category).AddOrUpdate(extension, s => emptyFile, (s, x) => emptyFile);
+            files.AddOrUpdate(extension, s => emptyFile, (s, x) => emptyFile);
+        }
+
         static Category GetCategory(string file)
         {
             var directory = Directory.GetParent(file).Name;

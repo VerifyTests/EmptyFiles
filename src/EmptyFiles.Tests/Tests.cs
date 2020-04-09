@@ -103,6 +103,16 @@ public class Tests :
     }
 
     [Fact]
+    public void UseFile()
+    {
+        var pathToFile = SourceFile;
+        #region UseFile
+        AllFiles.UseFile(Category.Document, pathToFile);
+        Assert.Contains(pathToFile, AllFiles.DocumentPaths);
+        #endregion
+    }
+
+    [Fact]
     public async Task WriteExtensions()
     {
         var md = Path.Combine(SourceDirectory, "extensions.include.md");
