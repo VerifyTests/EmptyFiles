@@ -30,7 +30,10 @@ namespace EmptyFiles
         {
             Guard.AgainstNullOrEmpty(extension, nameof(extension));
             extension = GetExtension(extension);
-            textExtensions.Remove(extension);
+            lock (textExtensions)
+            {
+                textExtensions.Remove(extension);
+            }
         }
 
         public static void RemoveTextExtensions(params string[] extensions)
@@ -55,7 +58,10 @@ namespace EmptyFiles
         {
             Guard.AgainstNullOrEmpty(extension, nameof(extension));
             extension = GetExtension(extension);
-            textExtensions.Add(extension);
+            lock (textExtensions)
+            {
+                textExtensions.Add(extension);
+            }
         }
 
         public static void AddTextExtensions(params string[] extensions)
