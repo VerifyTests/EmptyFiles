@@ -110,6 +110,8 @@ AllFiles.CreateFile(pathOfFileToCreate);
 
 Throws an exception if the extension is not known. There is also a `TryCreateFile` that will return false if the extension is not known.
 
+Use the optional `useEmptyStringForTextFiles` to create a empty text file if the extension is text. The file will be UTF8 no BOM as per https://www.unicode.org/versions/Unicode5.0.0/ch02.pdf "Use of a BOM is neither required nor recommended for UTF-8".
+
 
 ### GetPathFor
 

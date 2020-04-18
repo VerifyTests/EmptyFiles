@@ -185,6 +185,7 @@ namespace EmptyFiles
             if (useEmptyStringForTextFiles &&
                 Extensions.IsText(extension))
             {
+                //File.CreateText will be UTF8 no bom
                 File.CreateText(path).Dispose();
                 return;
             }
