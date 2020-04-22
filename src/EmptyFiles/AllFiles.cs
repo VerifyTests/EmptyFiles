@@ -59,7 +59,7 @@ namespace EmptyFiles
 
         static AllFiles()
         {
-            var emptyFiles = Path.Combine(AssemblyLocation.CurrentDirectory, "EmptyFiles");
+            var emptyFiles = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "EmptyFiles");
             foreach (var file in Directory.EnumerateFiles(emptyFiles, "*.*", SearchOption.AllDirectories))
             {
                 var category = GetCategory(file);
