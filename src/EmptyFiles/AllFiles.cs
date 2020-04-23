@@ -59,7 +59,7 @@ namespace EmptyFiles
 
         static AllFiles()
         {
-            var emptyFiles = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "EmptyFiles");
+            var emptyFiles = FindEmptyFilesDirectory();
             foreach (var file in Directory.EnumerateFiles(emptyFiles, "*.*", SearchOption.AllDirectories))
             {
                 var category = GetCategory(file);
@@ -76,6 +76,24 @@ namespace EmptyFiles
                     files[alias.Key] = emptyFile;
                 }
             }
+        }
+
+        static string FindEmptyFilesDirectory()
+        {
+            var currentDomainEmptyFiles = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "EmptyFiles");
+            if (Directory.Exists(currentDomainEmptyFiles ))
+            {
+                return currentDomainEmptyFiles ;
+            }
+            var codebaseEmptyFiles = Path.Combine(AssemblyLocation.CurrentDirectory, "EmptyFiles");
+            if (Directory.Exists(codebaseEmptyFiles))
+            {
+                return codebaseEmptyFiles;
+            }
+            throw new Exception(@"Could not find empty files directory. Searched:
+ * currentDomainEmptyFiles
+ * codebaseEmptyFiles
+");
         }
 
 
