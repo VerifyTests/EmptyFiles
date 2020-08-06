@@ -101,7 +101,7 @@ All files: https://github.com/SimonCropp/EmptyFiles/tree/master/files
 Creates a new empty file
 
 <!-- snippet: CreateFile -->
-<a id='snippet-createfile'/></a>
+<a id='snippet-createfile'></a>
 ```cs
 AllFiles.CreateFile(pathOfFileToCreate);
 ```
@@ -118,7 +118,7 @@ Use the optional `useEmptyStringForTextFiles` to create a empty text file if the
 Gets the path to an empty file for a given extension
 
 <!-- snippet: GetPathFor -->
-<a id='snippet-getpathfor'/></a>
+<a id='snippet-getpathfor'></a>
 ```cs
 var path = AllFiles.GetPathFor("jpg");
 ```
@@ -133,7 +133,7 @@ Throws an exception if the extension is not known. There is also a `TryGetPathFo
 Returns true if the target file is an empty file.
 
 <!-- snippet: IsEmptyFile -->
-<a id='snippet-isemptyfile'/></a>
+<a id='snippet-isemptyfile'></a>
 ```cs
 var path = AllFiles.GetPathFor("jpg");
 Assert.True(AllFiles.IsEmptyFile(path));
@@ -149,7 +149,7 @@ Assert.False(AllFiles.IsEmptyFile(temp));
 Enumerates all empty files
 
 <!-- snippet: AllPaths -->
-<a id='snippet-allpaths'/></a>
+<a id='snippet-allpaths'></a>
 ```cs
 foreach (var path in AllFiles.AllPaths)
 {
@@ -165,7 +165,7 @@ foreach (var path in AllFiles.AllPaths)
 Use or replace a file
 
 <!-- snippet: UseFile -->
-<a id='snippet-usefile'/></a>
+<a id='snippet-usefile'></a>
 ```cs
 AllFiles.UseFile(Category.Document, pathToFile);
 Assert.Contains(pathToFile, AllFiles.DocumentPaths);
@@ -182,7 +182,7 @@ Assert.Contains(pathToFile, AllFiles.DocumentPaths);
 https://github.com/sindresorhus/text-extensions/blob/master/text-extensions.json
 
 <!-- snippet: IsText -->
-<a id='snippet-istext'/></a>
+<a id='snippet-istext'></a>
 ```cs
 Assert.True(Extensions.IsText("file.txt"));
 Assert.False(Extensions.IsText("file.bin"));
@@ -198,7 +198,7 @@ Assert.False(Extensions.IsText("bin"));
 #### AddTextExtension
 
 <!-- snippet: AddTextExtension -->
-<a id='snippet-addtextextension'/></a>
+<a id='snippet-addtextextension'></a>
 ```cs
 Extensions.AddTextExtension("ext1");
 Extensions.AddTextExtension(".ext2");
@@ -212,7 +212,7 @@ Assert.True(Extensions.IsText("ext2"));
 #### RemoveTextExtension
 
 <!-- snippet: RemoveTextExtension -->
-<a id='snippet-removetextextension'/></a>
+<a id='snippet-removetextextension'></a>
 ```cs
 Extensions.AddTextExtension("ext1");
 Extensions.AddTextExtension(".ext2");
