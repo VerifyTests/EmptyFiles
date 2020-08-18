@@ -29,7 +29,7 @@ Support is available via a [Tidelift Subscription](https://tidelift.com/subscrip
     * [AllPaths](#allpaths)
     * [UseFile](#usefile)
     * [Extensions helper](#extensions-helper)
-  * [Security contact information](#security-contact-information)<!-- endtoc -->
+  * [Security contact information](#security-contact-information)<!-- endToc -->
 
 
 ## NuGet package
@@ -91,7 +91,7 @@ All files: https://github.com/SimonCropp/EmptyFiles/tree/master/files
 ### Slide
 
   * odp (7.8 KB)
-  * pptx (13.3 KB) <!-- end include: extensions. path: /src/EmptyFiles.Tests/extensions.include.md -->
+  * pptx (13.3 KB) <!-- endInclude -->
 
 
 ## Usage
@@ -107,7 +107,7 @@ Creates a new empty file
 AllFiles.CreateFile(pathOfFileToCreate);
 ```
 <sup><a href='/src/EmptyFiles.Tests/Tests.cs#L46-L48' title='File snippet `createfile` was extracted from'>snippet source</a> | <a href='#snippet-createfile' title='Navigate to start of snippet `createfile`'>anchor</a></sup>
-<!-- endsnippet -->
+<!-- endSnippet -->
 
 Throws an exception if the extension is not known. There is also a `TryCreateFile` that will return false if the extension is not known.
 
@@ -124,7 +124,7 @@ Gets the path to an empty file for a given extension
 var path = AllFiles.GetPathFor("jpg");
 ```
 <sup><a href='/src/EmptyFiles.Tests/Tests.cs#L31-L33' title='File snippet `getpathfor` was extracted from'>snippet source</a> | <a href='#snippet-getpathfor' title='Navigate to start of snippet `getpathfor`'>anchor</a></sup>
-<!-- endsnippet -->
+<!-- endSnippet -->
 
 Throws an exception if the extension is not known. There is also a `TryGetPathFor` that will return false if the extension is not known.
 
@@ -142,7 +142,7 @@ var temp = Path.GetTempFileName();
 Assert.False(AllFiles.IsEmptyFile(temp));
 ```
 <sup><a href='/src/EmptyFiles.Tests/Tests.cs#L72-L77' title='File snippet `isemptyfile` was extracted from'>snippet source</a> | <a href='#snippet-isemptyfile' title='Navigate to start of snippet `isemptyfile`'>anchor</a></sup>
-<!-- endsnippet -->
+<!-- endSnippet -->
 
 
 ### AllPaths
@@ -158,7 +158,7 @@ foreach (var path in AllFiles.AllPaths)
 }
 ```
 <sup><a href='/src/EmptyFiles.Tests/Tests.cs#L97-L102' title='File snippet `allpaths` was extracted from'>snippet source</a> | <a href='#snippet-allpaths' title='Navigate to start of snippet `allpaths`'>anchor</a></sup>
-<!-- endsnippet -->
+<!-- endSnippet -->
 
 
 ### UseFile
@@ -172,7 +172,7 @@ AllFiles.UseFile(Category.Document, pathToFile);
 Assert.Contains(pathToFile, AllFiles.DocumentPaths);
 ```
 <sup><a href='/src/EmptyFiles.Tests/Tests.cs#L109-L112' title='File snippet `usefile` was extracted from'>snippet source</a> | <a href='#snippet-usefile' title='Navigate to start of snippet `usefile`'>anchor</a></sup>
-<!-- endsnippet -->
+<!-- endSnippet -->
 
 
 ### Extensions helper
@@ -193,7 +193,7 @@ Assert.True(Extensions.IsText("txt"));
 Assert.False(Extensions.IsText("bin"));
 ```
 <sup><a href='/src/EmptyFiles.Tests/ExtensionsTests.cs#L11-L18' title='File snippet `istext` was extracted from'>snippet source</a> | <a href='#snippet-istext' title='Navigate to start of snippet `istext`'>anchor</a></sup>
-<!-- endsnippet -->
+<!-- endSnippet -->
 
 
 #### AddTextExtension
@@ -207,7 +207,7 @@ Assert.True(Extensions.IsText("ext1"));
 Assert.True(Extensions.IsText("ext2"));
 ```
 <sup><a href='/src/EmptyFiles.Tests/ExtensionsTests.cs#L24-L29' title='File snippet `addtextextension` was extracted from'>snippet source</a> | <a href='#snippet-addtextextension' title='Navigate to start of snippet `addtextextension`'>anchor</a></sup>
-<!-- endsnippet -->
+<!-- endSnippet -->
 
 
 #### RemoveTextExtension
@@ -225,7 +225,7 @@ Assert.False(Extensions.IsText("ext1"));
 Assert.False(Extensions.IsText("ext2"));
 ```
 <sup><a href='/src/EmptyFiles.Tests/ExtensionsTests.cs#L35-L44' title='File snippet `removetextextension` was extracted from'>snippet source</a> | <a href='#snippet-removetextextension' title='Navigate to start of snippet `removetextextension`'>anchor</a></sup>
-<!-- endsnippet -->
+<!-- endSnippet -->
 
 
 ## Security contact information
