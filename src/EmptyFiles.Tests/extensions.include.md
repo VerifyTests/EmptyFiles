@@ -13,6 +13,7 @@
   * rtf (6 bytes)
 ### Image
 
+  * avif (298 bytes)
   * bmp (58 bytes)
   * dds (136 bytes)
   * dib (58 bytes)
