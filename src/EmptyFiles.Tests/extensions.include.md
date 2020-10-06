@@ -1,3 +1,4 @@
+
 ### Archive
 
   * 7z (32 bytes)
@@ -5,12 +6,14 @@
   * gz (29 bytes)
   * tar (1.5 KB)
   * zip (22 bytes)
+
 ### Document
 
   * docx (1.9 KB)
   * odt (2.2 KB)
   * pdf (291 bytes)
   * rtf (6 bytes)
+
 ### Image
 
   * avif (298 bytes)
@@ -42,10 +45,12 @@
   * wdp (300 bytes)
   * webp (228 bytes)
   * wmp (300 bytes)
+
 ### Sheet
 
   * ods (2.7 KB)
   * xlsx (4.5 KB)
+
 ### Slide
 
   * odp (7.8 KB)

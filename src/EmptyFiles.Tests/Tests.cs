@@ -127,6 +127,7 @@ public class Tests :
 
     static async Task WriteCategory(StreamWriter writer, string category, IReadOnlyDictionary<string, EmptyFile> files)
     {
+        await writer.WriteLineAsync("");
         await writer.WriteLineAsync($"### {category}");
         await writer.WriteLineAsync("");
         foreach (var file in files.OrderBy(x=>x.Key))
