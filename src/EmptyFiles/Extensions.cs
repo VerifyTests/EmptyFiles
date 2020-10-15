@@ -329,6 +329,7 @@ namespace EmptyFiles
             "shtml",
             "sln",
             "sls",
+            "snap",
             "spec",
             "sql",
             "sqlite",
