@@ -60,6 +60,7 @@ All files: https://github.com/SimonCropp/EmptyFiles/tree/master/files
   * emf (620 bytes)
   * exif (734 bytes)
   * gif (799 bytes)
+  * heic (3.2 KB)
   * heif (209 bytes)
   * ico (70 bytes)
   * j2c (270 bytes)
