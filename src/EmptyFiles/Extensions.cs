@@ -83,7 +83,7 @@ namespace EmptyFiles
         }
 
         //From https://github.com/sindresorhus/text-extensions/blob/master/text-extensions.json
-        static HashSet<string> textExtensions = new HashSet<string>
+        static HashSet<string> textExtensions = new()
         {
             "ada",
             "adb",

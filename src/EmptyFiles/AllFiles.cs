@@ -9,7 +9,7 @@ namespace EmptyFiles
 {
     public static class AllFiles
     {
-        static Dictionary<string, string> aliases = new Dictionary<string, string>
+        static Dictionary<string, string> aliases = new()
         {
             {"jpeg", "jpg"},
             {"tiff", "tif"}
@@ -20,42 +20,42 @@ namespace EmptyFiles
             get => files;
         }
 
-        static ConcurrentDictionary<string, EmptyFile> files = new ConcurrentDictionary<string, EmptyFile>();
+        static ConcurrentDictionary<string, EmptyFile> files = new();
 
         public static IReadOnlyDictionary<string, EmptyFile> Archives
         {
             get => archives;
         }
 
-        static ConcurrentDictionary<string, EmptyFile> archives = new ConcurrentDictionary<string, EmptyFile>();
+        static ConcurrentDictionary<string, EmptyFile> archives = new();
 
         public static IReadOnlyDictionary<string, EmptyFile> Documents
         {
             get => documents;
         }
 
-        static ConcurrentDictionary<string, EmptyFile> documents = new ConcurrentDictionary<string, EmptyFile>();
+        static ConcurrentDictionary<string, EmptyFile> documents = new();
 
         public static IReadOnlyDictionary<string, EmptyFile> Images
         {
             get => images;
         }
 
-        static ConcurrentDictionary<string, EmptyFile> images = new ConcurrentDictionary<string, EmptyFile>();
+        static ConcurrentDictionary<string, EmptyFile> images = new();
 
         public static IReadOnlyDictionary<string, EmptyFile> Sheets
         {
             get => sheets;
         }
 
-        static ConcurrentDictionary<string, EmptyFile> sheets = new ConcurrentDictionary<string, EmptyFile>();
+        static ConcurrentDictionary<string, EmptyFile> sheets = new();
 
         public static IReadOnlyDictionary<string, EmptyFile> Slides
         {
             get => slides;
         }
 
-        static ConcurrentDictionary<string, EmptyFile> slides = new ConcurrentDictionary<string, EmptyFile>();
+        static ConcurrentDictionary<string, EmptyFile> slides = new();
 
         static AllFiles()
         {

@@ -10,7 +10,7 @@ static class AssemblyLocation
         var uri = new UriBuilder(assembly.CodeBase);
         var path = Uri.UnescapeDataString(uri.Path);
 
-        CurrentDirectory = Path.GetDirectoryName(path);
+        CurrentDirectory = Path.GetDirectoryName(path)!;
     }
 
     public static string CurrentDirectory;
