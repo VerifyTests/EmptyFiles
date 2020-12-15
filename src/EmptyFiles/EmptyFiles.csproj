@@ -11,7 +11,8 @@
     <PackageReference Include="Nullable" Version="1.3.0" PrivateAssets="All" />
     <Content Include="$(ProjectDir)..\..\files\**\empty.*">
       <Pack>true</Pack>
-      <PackagePath>any/any</PackagePath>
+      <PackagePath>contentFiles/any/any/EmptyFiles</PackagePath>
+      <PackageCopyToOutput>true</PackageCopyToOutput>
     </Content>
   </ItemGroup>
 </Project>
