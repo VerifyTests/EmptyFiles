@@ -115,8 +115,8 @@ namespace EmptyFiles
             Guard.FileExists(file, nameof(file));
             var extension = Extensions.GetExtension(file);
             var emptyFile = EmptyFile.Build(file, category);
-            FindDictionaryForCategory(category).AddOrUpdate(extension, s => emptyFile, (s, x) => emptyFile);
-            files.AddOrUpdate(extension, s => emptyFile, (s, x) => emptyFile);
+            FindDictionaryForCategory(category).AddOrUpdate(extension, _ => emptyFile, (_, _) => emptyFile);
+            files.AddOrUpdate(extension, _ => emptyFile, (_, _) => emptyFile);
         }
 
         static Category GetCategory(string file)
