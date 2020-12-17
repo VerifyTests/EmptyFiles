@@ -99,7 +99,7 @@ All files: https://github.com/SimonCropp/EmptyFiles/tree/master/files
 
 Currently there is no ability to hide NuGet ContentFiles from the SolutionExplorer. See [Provide an option to hide content files from project tree in new-style csproj](https://github.com/NuGet/Home/issues/4856).
 
-The current work-around is to add the following to the `.csproj` or the `Directory.Build.props`:
+The current work-around is to add the following to the `.csproj` or the `Directory.Build.targets`:
 
 ```
 <ItemGroup>
