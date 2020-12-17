@@ -16,7 +16,6 @@ Support is available via a [Tidelift Subscription](https://tidelift.com/subscrip
     * [Image](#image)
     * [Sheet](#sheet)
     * [Slide](#slide)
-  * [Hide `EmptyFiles` from Solution Explorer](#hide-emptyfiles-from-solution-explorer)
   * [Usage](#usage)
     * [CreateFile](#createfile)
     * [GetPathFor](#getpathfor)
