@@ -12,7 +12,10 @@ namespace EmptyFiles
         static Dictionary<string, string> aliases = new()
         {
             {"jpeg", "jpg"},
-            {"tiff", "tif"}
+            {"tiff", "tif"},
+            {"7zip", "7z"},
+            {"gzip", "gz"},
+            {"bzip2", "bz2"}
         };
 
         public static IReadOnlyDictionary<string, EmptyFile> Files
@@ -67,7 +70,7 @@ namespace EmptyFiles
                 var extension = Extensions.GetExtension(file);
                 var categoryFiles = FindDictionaryForCategory(category);
 
-                categoryFiles![extension] = emptyFile;
+                categoryFiles[extension] = emptyFile;
                 files[extension] = emptyFile;
                 var alias = aliases.SingleOrDefault(x => x.Value == extension);
                 if (alias.Key != null)

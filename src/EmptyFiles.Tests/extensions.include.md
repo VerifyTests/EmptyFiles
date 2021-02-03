@@ -2,9 +2,13 @@
 ### Archive
 
   * 7z (32 bytes)
+  * 7zip (32 bytes)
   * bz2 (14 bytes)
+  * bzip2 (14 bytes)
   * gz (29 bytes)
+  * gzip (29 bytes)
   * tar (1.5 KB)
+  * xz (32 bytes)
   * zip (22 bytes)
 
 ### Document
