@@ -12,6 +12,86 @@ public class Tests :
     XunitContextBase
 {
     [Fact]
+    public void CreateFile_overwrite_binary()
+    {
+        AllFiles.CreateFile("foo.bmp");
+        AllFiles.CreateFile("foo.bmp");
+        Assert.True(File.Exists("foo.bmp"));
+    }
+
+    [Fact]
+    public void CreateFile_NoDir_binary()
+    {
+        if (Directory.Exists("myTempDir"))
+        {
+            Directory.Delete("myTempDir", true);
+        }
+
+        AllFiles.CreateFile("myTempDir/foo.bmp");
+        Assert.True(File.Exists("myTempDir/foo.bmp"));
+    }
+
+    [Fact]
+    public void CreateFile_overwrite_txt()
+    {
+        AllFiles.CreateFile("foo.txt", true);
+        AllFiles.CreateFile("foo.txt", true);
+        Assert.True(File.Exists("foo.txt"));
+    }
+
+    [Fact]
+    public void CreateFile_NoDir_txt()
+    {
+        if (Directory.Exists("myTempDir"))
+        {
+            Directory.Delete("myTempDir", true);
+        }
+
+        AllFiles.CreateFile("myTempDir/foo.txt", true);
+        Assert.True(File.Exists("myTempDir/foo.txt"));
+    }
+
+    [Fact]
+    public void TryCreateFile_overwire_txt()
+    {
+        Assert.True(AllFiles.TryCreateFile("foo.txt", true));
+        Assert.True(AllFiles.TryCreateFile("foo.txt", true));
+        Assert.True(File.Exists("foo.txt"));
+    }
+
+    [Fact]
+    public void TryCreateFile_NoDir_txt()
+    {
+        if (Directory.Exists("myTempDir"))
+        {
+            Directory.Delete("myTempDir", true);
+        }
+
+        Assert.True(AllFiles.TryCreateFile("myTempDir/foo.txt", true));
+        Assert.True(File.Exists("myTempDir/foo.txt"));
+    }
+
+    [Fact]
+    public void TryCreateFile_overwrite_binary()
+    {
+        Assert.True(AllFiles.TryCreateFile("foo.bmp"));
+        Assert.True(AllFiles.TryCreateFile("foo.bmp"));
+        Assert.True(File.Exists("foo.bmp"));
+    }
+
+    [Fact]
+    public void TryCreateFile_NoDir_binary()
+    {
+        if (Directory.Exists("myTempDir"))
+        {
+            Directory.Delete("myTempDir", true);
+        }
+
+        Assert.True(AllFiles.TryCreateFile("myTempDir/foo.bmp"));
+        Assert.True(File.Exists("myTempDir/foo.bmp"));
+    }
+
+    [Fact]
     public void Unknown_extension()
     {
         Assert.Throws<Exception>(() => AllFiles.GetPathFor("txt"));
@@ -29,8 +109,11 @@ public class Tests :
     public void GetPathFor()
     {
         #region GetPathFor
+
         var path = AllFiles.GetPathFor("jpg");
+
         #endregion
+
         var path2 = AllFiles.GetPathFor(".jpg");
         Assert.NotNull(path);
         Assert.NotNull(path2);
@@ -43,9 +126,13 @@ public class Tests :
     {
         var pathOfFileToCreate = "file.jpg";
         File.Delete(pathOfFileToCreate);
+
         #region CreateFile
+
         AllFiles.CreateFile(pathOfFileToCreate);
+
         #endregion
+
         Assert.True(File.Exists(pathOfFileToCreate));
         File.Delete(pathOfFileToCreate);
 
@@ -70,10 +157,12 @@ public class Tests :
     public void IsEmptyFile()
     {
         #region IsEmptyFile
+
         var path = AllFiles.GetPathFor("jpg");
         Assert.True(AllFiles.IsEmptyFile(path));
         var temp = Path.GetTempFileName();
         Assert.False(AllFiles.IsEmptyFile(temp));
+
         #endregion
 
         var path2 = AllFiles.GetPathFor(".jpg");
@@ -94,11 +183,14 @@ public class Tests :
     public void AllPaths()
     {
         Assert.NotEmpty(AllFiles.AllPaths);
+
         #region AllPaths
+
         foreach (var path in AllFiles.AllPaths)
         {
             Trace.WriteLine(path);
         }
+
         #endregion
     }
 
@@ -106,9 +198,12 @@ public class Tests :
     public void UseFile()
     {
         var pathToFile = SourceFile;
+
         #region UseFile
+
         AllFiles.UseFile(Category.Document, pathToFile);
         Assert.Contains(pathToFile, AllFiles.DocumentPaths);
+
         #endregion
     }
 
@@ -130,7 +225,7 @@ public class Tests :
         await writer.WriteLineAsync("");
         await writer.WriteLineAsync($"### {category}");
         await writer.WriteLineAsync("");
-        foreach (var file in files.OrderBy(x=>x.Key))
+        foreach (var file in files.OrderBy(x => x.Key))
         {
             var size = Size.Suffix(new FileInfo(file.Value.Path).Length);
             await writer.WriteLineAsync($"  * {file.Key} ({size})");

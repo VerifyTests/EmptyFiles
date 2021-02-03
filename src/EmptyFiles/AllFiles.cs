@@ -81,21 +81,22 @@ namespace EmptyFiles
         static string FindEmptyFilesDirectory()
         {
             var currentDomainEmptyFiles = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "EmptyFiles");
-            if (Directory.Exists(currentDomainEmptyFiles ))
+            if (Directory.Exists(currentDomainEmptyFiles))
             {
-                return currentDomainEmptyFiles ;
+                return currentDomainEmptyFiles;
             }
+
             var codebaseEmptyFiles = Path.Combine(AssemblyLocation.CurrentDirectory, "EmptyFiles");
             if (Directory.Exists(codebaseEmptyFiles))
             {
                 return codebaseEmptyFiles;
             }
-            throw new Exception(@"Could not find empty files directory. Searched:
- * currentDomainEmptyFiles
- * codebaseEmptyFiles
+
+            throw new Exception($@"Could not find empty files directory. Searched:
+ * {currentDomainEmptyFiles}
+ * {codebaseEmptyFiles}
 ");
         }
-
 
         static ConcurrentDictionary<string, EmptyFile> FindDictionaryForCategory(Category category)
         {
@@ -199,10 +200,12 @@ namespace EmptyFiles
 
         public static void CreateFile(string path, bool useEmptyStringForTextFiles = false)
         {
+            TryCreateDirectory(path);
             var extension = Extensions.GetExtension(path);
             if (useEmptyStringForTextFiles &&
                 Extensions.IsText(extension))
             {
+                File.Delete(path);
                 //File.CreateText will be UTF8 no bom
                 File.CreateText(path).Dispose();
                 return;
@@ -231,6 +234,13 @@ namespace EmptyFiles
             if (useEmptyStringForTextFiles &&
                 Extensions.IsText(extension))
             {
+                TryCreateDirectory(path);
+
+                if (File.Exists(path))
+                {
+                    File.Delete(path);
+                }
+
                 File.CreateText(path).Dispose();
                 return true;
             }
@@ -240,8 +250,20 @@ namespace EmptyFiles
                 return false;
             }
 
+            TryCreateDirectory(path);
+
             File.Copy(source, path, true);
             return true;
+        }
+
+        static void TryCreateDirectory(string path)
+        {
+            var directory = Path.GetDirectoryName(path);
+
+            if (!string.IsNullOrWhiteSpace(directory))
+            {
+                Directory.CreateDirectory(directory);
+            }
         }
 
         public static bool TryGetPathFor(string extension, [NotNullWhen(true)] out string? path)

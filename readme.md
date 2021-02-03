@@ -2,6 +2,7 @@
 
 [![Build status](https://ci.appveyor.com/api/projects/status/4mrhpal9rwtqajws/branch/master?svg=true)](https://ci.appveyor.com/project/SimonCropp/EmptyFiles)
 [![NuGet Status](https://img.shields.io/nuget/v/EmptyFiles.svg?label=EmptyFiles)](https://www.nuget.org/packages/EmptyFiles/)
+[![NuGet Status](https://img.shields.io/nuget/v/EmptyFiles.Tool.svg?label=dotnet%20tool)](https://www.nuget.org/packages/EmptyFiles.Tool/)
 
 A collection of minimal binary files.
 
@@ -29,6 +30,7 @@ Support is available via a [Tidelift Subscription](https://tidelift.com/subscrip
 ## NuGet package
 
  * https://nuget.org/packages/EmptyFiles/
+ * https://nuget.org/packages/EmptyFiles.Tool/
 
 
 ## Files
@@ -95,7 +97,48 @@ All files: https://github.com/SimonCropp/EmptyFiles/tree/master/files
   * pptx (13.3 KB) <!-- endInclude -->
 
 
-## Usage
+## Tool Usage
+
+
+### Installation
+
+Ensure [dotnet CLI is installed](https://docs.microsoft.com/en-us/dotnet/core/tools/).
+
+Install [EmptyFiles.Tool](https://nuget.org/packages/EmptyFiles.Tool/)
+
+```ps
+dotnet tool install -g EmptyFiles.Tool
+```
+
+
+### Extension only Usage
+
+```
+emptyfile bmp
+```
+
+Creates `{CurrentDirectory}/empty.bmp`
+
+
+### File Usage
+
+```
+emptyfile myfile.bmp
+```
+
+Creates `{CurrentDirectory}/myfile.bmp`
+
+
+### Path Usage
+
+```
+emptyfile path/myfile.bmp
+```
+
+Creates `path/myfile.bmp`
+
+
+## Library Usage
 
 
 ### CreateFile
@@ -107,7 +150,7 @@ Creates a new empty file
 ```cs
 AllFiles.CreateFile(pathOfFileToCreate);
 ```
-<sup><a href='/src/EmptyFiles.Tests/Tests.cs#L46-L48' title='Snippet source file'>snippet source</a> | <a href='#snippet-createfile' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/EmptyFiles.Tests/Tests.cs#L128-L132' title='Snippet source file'>snippet source</a> | <a href='#snippet-createfile' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Throws an exception if the extension is not known. There is also a `TryCreateFile` that will return false if the extension is not known.
@@ -124,7 +167,7 @@ Gets the path to an empty file for a given extension
 ```cs
 var path = AllFiles.GetPathFor("jpg");
 ```
-<sup><a href='/src/EmptyFiles.Tests/Tests.cs#L31-L33' title='Snippet source file'>snippet source</a> | <a href='#snippet-getpathfor' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/EmptyFiles.Tests/Tests.cs#L109-L113' title='Snippet source file'>snippet source</a> | <a href='#snippet-getpathfor' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Throws an exception if the extension is not known. There is also a `TryGetPathFor` that will return false if the extension is not known.
@@ -142,7 +185,7 @@ Assert.True(AllFiles.IsEmptyFile(path));
 var temp = Path.GetTempFileName();
 Assert.False(AllFiles.IsEmptyFile(temp));
 ```
-<sup><a href='/src/EmptyFiles.Tests/Tests.cs#L72-L77' title='Snippet source file'>snippet source</a> | <a href='#snippet-isemptyfile' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/EmptyFiles.Tests/Tests.cs#L157-L164' title='Snippet source file'>snippet source</a> | <a href='#snippet-isemptyfile' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -158,7 +201,7 @@ foreach (var path in AllFiles.AllPaths)
     Trace.WriteLine(path);
 }
 ```
-<sup><a href='/src/EmptyFiles.Tests/Tests.cs#L97-L102' title='Snippet source file'>snippet source</a> | <a href='#snippet-allpaths' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/EmptyFiles.Tests/Tests.cs#L185-L192' title='Snippet source file'>snippet source</a> | <a href='#snippet-allpaths' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -172,7 +215,7 @@ Use or replace a file
 AllFiles.UseFile(Category.Document, pathToFile);
 Assert.Contains(pathToFile, AllFiles.DocumentPaths);
 ```
-<sup><a href='/src/EmptyFiles.Tests/Tests.cs#L109-L112' title='Snippet source file'>snippet source</a> | <a href='#snippet-usefile' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/EmptyFiles.Tests/Tests.cs#L200-L205' title='Snippet source file'>snippet source</a> | <a href='#snippet-usefile' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
