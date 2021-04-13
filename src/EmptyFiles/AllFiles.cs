@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
+using System.Text;
 
 namespace EmptyFiles
 {
@@ -201,6 +202,8 @@ namespace EmptyFiles
             return File.GetLastWriteTime(path) == emptyFile.LastWriteTime;
         }
 
+        static byte[] preamble = Encoding.UTF8.GetPreamble();
+
         public static void CreateFile(string path, bool useEmptyStringForTextFiles = false)
         {
             TryCreateDirectory(path);
@@ -209,8 +212,7 @@ namespace EmptyFiles
                 Extensions.IsText(extension))
             {
                 File.Delete(path);
-                //File.CreateText will be UTF8 no bom
-                File.CreateText(path).Dispose();
+                File.WriteAllBytes(path, preamble);
                 return;
             }
 
@@ -244,7 +246,7 @@ namespace EmptyFiles
                     File.Delete(path);
                 }
 
-                File.CreateText(path).Dispose();
+                File.WriteAllBytes(path, preamble);
                 return true;
             }
 
