@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using EmptyFiles;
 using Xunit;
@@ -29,6 +30,20 @@ public class Tests :
 
         AllFiles.CreateFile("myTempDir/foo.bmp");
         Assert.True(File.Exists("myTempDir/foo.bmp"));
+    }
+
+    [Fact]
+    public async Task CreateFile_preamble()
+    {
+        AllFiles.CreateFile("foo.txt", true);
+
+        var preamble = Encoding.UTF8.GetPreamble();
+        var bytes = await File.ReadAllBytesAsync("foo.txt");
+        if (bytes.Length < preamble.Length ||
+            preamble.Where((p, i) => p != bytes[i]).Any())
+        {
+            throw new ArgumentException("Not utf8-BOM");
+        }
     }
 
     [Fact]
