@@ -6,31 +6,6 @@
 
 A collection of minimal binary files.
 
-Support is available via a [Tidelift Subscription](https://tidelift.com/subscription/pkg/nuget-emptyfiles?utm_source=nuget-emptyfiles&utm_medium=referral&utm_campaign=enterprise).
-
-<!-- toc -->
-## Contents
-
-  * [Files](#files)
-    * [Archive](#archive)
-    * [Document](#document)
-    * [Image](#image)
-    * [Sheet](#sheet)
-    * [Slide](#slide)
-  * [Tool Usage](#tool-usage)
-    * [Installation](#installation)
-    * [Extension only Usage](#extension-only-usage)
-    * [File Usage](#file-usage)
-    * [Path Usage](#path-usage)
-  * [Library Usage](#library-usage)
-    * [CreateFile](#createfile)
-    * [GetPathFor](#getpathfor)
-    * [IsEmptyFile](#isemptyfile)
-    * [AllPaths](#allpaths)
-    * [UseFile](#usefile)
-    * [Extensions helper](#extensions-helper)
-  * [Security contact information](#security-contact-information)<!-- endToc -->
-
 
 ## NuGet package
 
@@ -280,10 +255,6 @@ Assert.False(Extensions.IsText("ext2"));
 <sup><a href='/src/EmptyFiles.Tests/ExtensionsTests.cs#L35-L44' title='Snippet source file'>snippet source</a> | <a href='#snippet-removetextextension' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
-
-## Security contact information
-
-To report a security vulnerability, use the [Tidelift security contact](https://tidelift.com/security). Tidelift will coordinate the fix and disclosure.
 
 
 ## Icon
