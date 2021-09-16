@@ -131,6 +131,15 @@ Creates a new empty file
 
 <!-- snippet: CreateFile -->
 <a id='snippet-createfile'></a>
+```cs
+AllFiles.CreateFile(pathOfFileToCreate);
+```
+<sup><a href='/index/empty.cs#L179-L183' title='Snippet source file'>snippet source</a> | <a href='#snippet-createfile' title='Start of snippet'>anchor</a></sup>
+<a id='snippet-createfile-1'></a>
+```cs
+AllFiles.CreateFile(pathOfFileToCreate);
+```
+<sup><a href='/src/EmptyFiles.Tests/Tests.cs#L179-L183' title='Snippet source file'>snippet source</a> | <a href='#snippet-createfile-1' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Throws an exception if the extension is not known. There is also a `TryCreateFile` that will return false if the extension is not known.
@@ -144,6 +153,15 @@ Gets the path to an empty file for a given extension
 
 <!-- snippet: GetPathFor -->
 <a id='snippet-getpathfor'></a>
+```cs
+var path = AllFiles.GetPathFor("jpg");
+```
+<sup><a href='/index/empty.cs#L160-L164' title='Snippet source file'>snippet source</a> | <a href='#snippet-getpathfor' title='Start of snippet'>anchor</a></sup>
+<a id='snippet-getpathfor-1'></a>
+```cs
+var path = AllFiles.GetPathFor("jpg");
+```
+<sup><a href='/src/EmptyFiles.Tests/Tests.cs#L160-L164' title='Snippet source file'>snippet source</a> | <a href='#snippet-getpathfor-1' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Throws an exception if the extension is not known. There is also a `TryGetPathFor` that will return false if the extension is not known.
@@ -154,6 +172,22 @@ Throws an exception if the extension is not known. There is also a `TryGetPathFo
 Returns true if the target file is an empty file.
 
 <!-- snippet: IsEmptyFile -->
+<a id='snippet-isemptyfile'></a>
+```cs
+var path = AllFiles.GetPathFor("jpg");
+Assert.True(AllFiles.IsEmptyFile(path));
+var temp = Path.GetTempFileName();
+Assert.False(AllFiles.IsEmptyFile(temp));
+```
+<sup><a href='/index/empty.cs#L208-L215' title='Snippet source file'>snippet source</a> | <a href='#snippet-isemptyfile' title='Start of snippet'>anchor</a></sup>
+<a id='snippet-isemptyfile-1'></a>
+```cs
+var path = AllFiles.GetPathFor("jpg");
+Assert.True(AllFiles.IsEmptyFile(path));
+var temp = Path.GetTempFileName();
+Assert.False(AllFiles.IsEmptyFile(temp));
+```
+<sup><a href='/src/EmptyFiles.Tests/Tests.cs#L208-L215' title='Snippet source file'>snippet source</a> | <a href='#snippet-isemptyfile-1' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -162,6 +196,22 @@ Returns true if the target file is an empty file.
 Enumerates all empty files
 
 <!-- snippet: AllPaths -->
+<a id='snippet-allpaths'></a>
+```cs
+foreach (var path in AllFiles.AllPaths)
+{
+    Trace.WriteLine(path);
+}
+```
+<sup><a href='/index/empty.cs#L236-L243' title='Snippet source file'>snippet source</a> | <a href='#snippet-allpaths' title='Start of snippet'>anchor</a></sup>
+<a id='snippet-allpaths-1'></a>
+```cs
+foreach (var path in AllFiles.AllPaths)
+{
+    Trace.WriteLine(path);
+}
+```
+<sup><a href='/src/EmptyFiles.Tests/Tests.cs#L236-L243' title='Snippet source file'>snippet source</a> | <a href='#snippet-allpaths-1' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -170,7 +220,18 @@ Enumerates all empty files
 Use or replace a file
 
 <!-- snippet: UseFile -->
-
+<a id='snippet-usefile'></a>
+```cs
+AllFiles.UseFile(Category.Document, pathToFile);
+Assert.Contains(pathToFile, AllFiles.DocumentPaths);
+```
+<sup><a href='/index/empty.cs#L251-L256' title='Snippet source file'>snippet source</a> | <a href='#snippet-usefile' title='Start of snippet'>anchor</a></sup>
+<a id='snippet-usefile-1'></a>
+```cs
+AllFiles.UseFile(Category.Document, pathToFile);
+Assert.Contains(pathToFile, AllFiles.DocumentPaths);
+```
+<sup><a href='/src/EmptyFiles.Tests/Tests.cs#L251-L256' title='Snippet source file'>snippet source</a> | <a href='#snippet-usefile-1' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
