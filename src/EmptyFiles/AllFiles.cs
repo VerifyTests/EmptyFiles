@@ -76,7 +76,7 @@ namespace EmptyFiles
                 var alias = aliases.SingleOrDefault(x => x.Value == extension);
                 if (alias.Key != null)
                 {
-                    categoryFiles![alias.Key] = emptyFile;
+                    categoryFiles[alias.Key] = emptyFile;
                     files[alias.Key] = emptyFile;
                 }
             }
