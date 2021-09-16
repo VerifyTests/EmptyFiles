@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
@@ -29,12 +28,12 @@ public class Tests :
         File.Delete(txtPath);
         using var csvFile = File.CreateText(csvPath);
         using var textFile = File.CreateText(txtPath);
-        foreach (var file in AllFiles.Files)
+        foreach (var (key, value) in AllFiles.Files)
         {
-            var path = file.Value.Path.Replace(Environment.CurrentDirectory,"")
+            var path = value.Path.Replace(Environment.CurrentDirectory,"")
                 .Replace('\\','/')
                 .Replace("/EmptyFiles","https://github.com/VerifyTests/EmptyFiles/raw/main/files");
-            csvFile.WriteLine($"{file.Key}, {path}");
+            csvFile.WriteLine($"{key}, {path}");
             textFile.WriteLine(path);
         }
     }
