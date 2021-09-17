@@ -21,3 +21,4 @@
 *.bmp binary
 
 /files/* binary
+/index/* binary
