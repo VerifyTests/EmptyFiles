@@ -29,19 +29,8 @@ public class Tests :
             File.Delete(toDelete);
         }
 
-        var csvPath = Path.Combine(rootDirectory, "index.csv");
-        var txtPath = Path.Combine(rootDirectory, "index.txt");
-        File.Delete(csvPath);
-        File.Delete(txtPath);
-        using var csvFile = File.CreateText(csvPath);
-        using var textFile = File.CreateText(txtPath);
         foreach (var (key, value) in AllFiles.Files.OrderBy(x=>x.Key))
         {
-            var path = value.Path.Replace(Environment.CurrentDirectory, "")
-                .Replace('\\', '/')
-                .Replace("/EmptyFiles", "https://github.com/VerifyTests/EmptyFiles/raw/main/files");
-            csvFile.WriteLine($"{key}, {path}");
-            textFile.WriteLine(path);
             File.Copy(value.Path, Path.Combine(indexPath, $"empty.{key}"));
         }
     }
