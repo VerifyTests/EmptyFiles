@@ -96,7 +96,7 @@ namespace EmptyFiles
                 return codebaseEmptyFiles;
             }
 
-            throw new Exception($@"Could not find empty files directory. Searched:
+            throw new($@"Could not find empty files directory. Searched:
  * {currentDomainEmptyFiles}
  * {codebaseEmptyFiles}
 ");
@@ -111,7 +111,7 @@ namespace EmptyFiles
                 Category.Image => images,
                 Category.Sheet => sheets,
                 Category.Slide => slides,
-                _ => throw new Exception($"Unknown category: {category}")
+                _ => throw new($"Unknown category: {category}")
             };
         }
 

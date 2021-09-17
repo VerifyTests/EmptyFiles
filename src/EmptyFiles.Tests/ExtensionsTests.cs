@@ -9,12 +9,14 @@ public class ExtensionsTests :
     public void IsText()
     {
         #region IsText
+
         Assert.True(Extensions.IsText("file.txt"));
         Assert.False(Extensions.IsText("file.bin"));
         Assert.True(Extensions.IsText(".txt"));
         Assert.False(Extensions.IsText(".bin"));
         Assert.True(Extensions.IsText("txt"));
         Assert.False(Extensions.IsText("bin"));
+
         #endregion
     }
 
@@ -22,10 +24,12 @@ public class ExtensionsTests :
     public void AddTextExtension()
     {
         #region AddTextExtension
+
         Extensions.AddTextExtension("ext1");
         Extensions.AddTextExtension(".ext2");
         Assert.True(Extensions.IsText("ext1"));
         Assert.True(Extensions.IsText("ext2"));
+
         #endregion
     }
 
@@ -33,6 +37,7 @@ public class ExtensionsTests :
     public void RemoveTextExtension()
     {
         #region RemoveTextExtension
+
         Extensions.AddTextExtension("ext1");
         Extensions.AddTextExtension(".ext2");
         Assert.True(Extensions.IsText("ext1"));
@@ -41,6 +46,7 @@ public class ExtensionsTests :
         Extensions.RemoveTextExtension(".ext2");
         Assert.False(Extensions.IsText("ext1"));
         Assert.False(Extensions.IsText("ext2"));
+
         #endregion
     }
 

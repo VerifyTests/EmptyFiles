@@ -38,7 +38,6 @@ namespace EmptyFiles
 
         public static void RemoveTextExtensions(params string[] extensions)
         {
-            Guard.AgainstNull(extensions, nameof(extensions));
             foreach (var extension in extensions)
             {
                 RemoveTextExtension(extension);
@@ -47,7 +46,6 @@ namespace EmptyFiles
 
         public static void RemoveTextExtensions(IEnumerable<string> extensions)
         {
-            Guard.AgainstNull(extensions, nameof(extensions));
             foreach (var extension in extensions)
             {
                 RemoveTextExtension(extension);
@@ -66,7 +64,6 @@ namespace EmptyFiles
 
         public static void AddTextExtensions(params string[] extensions)
         {
-            Guard.AgainstNull(extensions, nameof(extensions));
             foreach (var extension in extensions)
             {
                 AddTextExtension(extension);
@@ -75,7 +72,6 @@ namespace EmptyFiles
 
         public static void AddTextExtensions(IEnumerable<string> extensions)
         {
-            Guard.AgainstNull(extensions, nameof(extensions));
             foreach (var extension in extensions)
             {
                 AddTextExtension(extension);

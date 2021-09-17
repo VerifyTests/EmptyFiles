@@ -67,7 +67,7 @@ public class Tests :
     }
 
     [Fact]
-    public void TryCreateFile_overwire_txt()
+    public void TryCreateFile_overwrite_txt()
     {
         Assert.True(AllFiles.TryCreateFile("foo.txt", true));
         Assert.True(AllFiles.TryCreateFile("foo.txt", true));

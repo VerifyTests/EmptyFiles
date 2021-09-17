@@ -19,12 +19,4 @@ static class Guard
             throw new ArgumentNullException(argumentName);
         }
     }
-
-    public static void AgainstNull(object value, string argumentName)
-    {
-        if (value == null)
-        {
-            throw new ArgumentNullException(argumentName);
-        }
-    }
 }

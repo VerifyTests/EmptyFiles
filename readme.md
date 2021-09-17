@@ -81,6 +81,23 @@ All files: https://github.com/SimonCropp/EmptyFiles/tree/master/files
   * pptx (13.3 KB) <!-- endInclude -->
 
 
+## Consuming files as a web resource
+
+Files can be consumed as a web resource using the following url:
+
+```
+https://github.com/VerifyTests/EmptyFiles/raw/main/index/empty.{extension}
+```
+
+So for example to consume a jpg use
+
+```
+https://github.com/VerifyTests/EmptyFiles/raw/main/index/empty.jpg
+```
+
+A 404 will result for non-existent files.
+
+
 ## Tool Usage
 
 
@@ -134,12 +151,7 @@ Creates a new empty file
 ```cs
 AllFiles.CreateFile(pathOfFileToCreate);
 ```
-<sup><a href='/index/empty.cs#L168-L172' title='Snippet source file'>snippet source</a> | <a href='#snippet-createfile' title='Start of snippet'>anchor</a></sup>
-<a id='snippet-createfile-1'></a>
-```cs
-AllFiles.CreateFile(pathOfFileToCreate);
-```
-<sup><a href='/src/EmptyFiles.Tests/Tests.cs#L145-L149' title='Snippet source file'>snippet source</a> | <a href='#snippet-createfile-1' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/EmptyFiles.Tests/Tests.cs#L145-L149' title='Snippet source file'>snippet source</a> | <a href='#snippet-createfile' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Throws an exception if the extension is not known. There is also a `TryCreateFile` that will return false if the extension is not known.
@@ -156,12 +168,7 @@ Gets the path to an empty file for a given extension
 ```cs
 var path = AllFiles.GetPathFor("jpg");
 ```
-<sup><a href='/index/empty.cs#L149-L153' title='Snippet source file'>snippet source</a> | <a href='#snippet-getpathfor' title='Start of snippet'>anchor</a></sup>
-<a id='snippet-getpathfor-1'></a>
-```cs
-var path = AllFiles.GetPathFor("jpg");
-```
-<sup><a href='/src/EmptyFiles.Tests/Tests.cs#L126-L130' title='Snippet source file'>snippet source</a> | <a href='#snippet-getpathfor-1' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/EmptyFiles.Tests/Tests.cs#L126-L130' title='Snippet source file'>snippet source</a> | <a href='#snippet-getpathfor' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Throws an exception if the extension is not known. There is also a `TryGetPathFor` that will return false if the extension is not known.
@@ -179,15 +186,7 @@ Assert.True(AllFiles.IsEmptyFile(path));
 var temp = Path.GetTempFileName();
 Assert.False(AllFiles.IsEmptyFile(temp));
 ```
-<sup><a href='/index/empty.cs#L197-L204' title='Snippet source file'>snippet source</a> | <a href='#snippet-isemptyfile' title='Start of snippet'>anchor</a></sup>
-<a id='snippet-isemptyfile-1'></a>
-```cs
-var path = AllFiles.GetPathFor("jpg");
-Assert.True(AllFiles.IsEmptyFile(path));
-var temp = Path.GetTempFileName();
-Assert.False(AllFiles.IsEmptyFile(temp));
-```
-<sup><a href='/src/EmptyFiles.Tests/Tests.cs#L174-L181' title='Snippet source file'>snippet source</a> | <a href='#snippet-isemptyfile-1' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/EmptyFiles.Tests/Tests.cs#L174-L181' title='Snippet source file'>snippet source</a> | <a href='#snippet-isemptyfile' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -203,15 +202,7 @@ foreach (var path in AllFiles.AllPaths)
     Trace.WriteLine(path);
 }
 ```
-<sup><a href='/index/empty.cs#L225-L232' title='Snippet source file'>snippet source</a> | <a href='#snippet-allpaths' title='Start of snippet'>anchor</a></sup>
-<a id='snippet-allpaths-1'></a>
-```cs
-foreach (var path in AllFiles.AllPaths)
-{
-    Trace.WriteLine(path);
-}
-```
-<sup><a href='/src/EmptyFiles.Tests/Tests.cs#L202-L209' title='Snippet source file'>snippet source</a> | <a href='#snippet-allpaths-1' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/EmptyFiles.Tests/Tests.cs#L202-L209' title='Snippet source file'>snippet source</a> | <a href='#snippet-allpaths' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -225,13 +216,7 @@ Use or replace a file
 AllFiles.UseFile(Category.Document, pathToFile);
 Assert.Contains(pathToFile, AllFiles.DocumentPaths);
 ```
-<sup><a href='/index/empty.cs#L240-L245' title='Snippet source file'>snippet source</a> | <a href='#snippet-usefile' title='Start of snippet'>anchor</a></sup>
-<a id='snippet-usefile-1'></a>
-```cs
-AllFiles.UseFile(Category.Document, pathToFile);
-Assert.Contains(pathToFile, AllFiles.DocumentPaths);
-```
-<sup><a href='/src/EmptyFiles.Tests/Tests.cs#L217-L222' title='Snippet source file'>snippet source</a> | <a href='#snippet-usefile-1' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/EmptyFiles.Tests/Tests.cs#L217-L222' title='Snippet source file'>snippet source</a> | <a href='#snippet-usefile' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -252,7 +237,7 @@ Assert.False(Extensions.IsText(".bin"));
 Assert.True(Extensions.IsText("txt"));
 Assert.False(Extensions.IsText("bin"));
 ```
-<sup><a href='/src/EmptyFiles.Tests/ExtensionsTests.cs#L11-L18' title='Snippet source file'>snippet source</a> | <a href='#snippet-istext' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/EmptyFiles.Tests/ExtensionsTests.cs#L11-L20' title='Snippet source file'>snippet source</a> | <a href='#snippet-istext' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -266,7 +251,7 @@ Extensions.AddTextExtension(".ext2");
 Assert.True(Extensions.IsText("ext1"));
 Assert.True(Extensions.IsText("ext2"));
 ```
-<sup><a href='/src/EmptyFiles.Tests/ExtensionsTests.cs#L24-L29' title='Snippet source file'>snippet source</a> | <a href='#snippet-addtextextension' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/EmptyFiles.Tests/ExtensionsTests.cs#L26-L33' title='Snippet source file'>snippet source</a> | <a href='#snippet-addtextextension' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -284,7 +269,7 @@ Extensions.RemoveTextExtension(".ext2");
 Assert.False(Extensions.IsText("ext1"));
 Assert.False(Extensions.IsText("ext2"));
 ```
-<sup><a href='/src/EmptyFiles.Tests/ExtensionsTests.cs#L35-L44' title='Snippet source file'>snippet source</a> | <a href='#snippet-removetextextension' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/EmptyFiles.Tests/ExtensionsTests.cs#L39-L50' title='Snippet source file'>snippet source</a> | <a href='#snippet-removetextextension' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
