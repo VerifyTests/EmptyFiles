@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using EmptyFiles;
@@ -13,28 +12,6 @@ using Xunit.Abstractions;
 public class Tests :
     XunitContextBase
 {
-    [Fact]
-    public void CreateIndex()
-    {
-        InnerCreateIndex();
-    }
-
-    static void InnerCreateIndex([CallerFilePath] string filePath = "")
-    {
-        var rootDirectory = Path.GetFullPath(Path.Combine(Path.GetDirectoryName(filePath)!, @"..\..\"));
-        var indexPath = Path.Combine(rootDirectory, "index");
-        Directory.CreateDirectory(indexPath);
-        foreach (var toDelete in Directory.EnumerateFiles(indexPath))
-        {
-            File.Delete(toDelete);
-        }
-
-        foreach (var (key, value) in AllFiles.Files.OrderBy(x=>x.Key))
-        {
-            File.Copy(value.Path, Path.Combine(indexPath, $"empty.{key}"));
-        }
-    }
-
     [Fact]
     public void CreateFile_overwrite_binary()
     {

@@ -134,7 +134,12 @@ Creates a new empty file
 ```cs
 AllFiles.CreateFile(pathOfFileToCreate);
 ```
-<sup><a href='/src/EmptyFiles.Tests/Tests.cs#L168-L172' title='Snippet source file'>snippet source</a> | <a href='#snippet-createfile' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/index/empty.cs#L168-L172' title='Snippet source file'>snippet source</a> | <a href='#snippet-createfile' title='Start of snippet'>anchor</a></sup>
+<a id='snippet-createfile-1'></a>
+```cs
+AllFiles.CreateFile(pathOfFileToCreate);
+```
+<sup><a href='/src/EmptyFiles.Tests/Tests.cs#L145-L149' title='Snippet source file'>snippet source</a> | <a href='#snippet-createfile-1' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Throws an exception if the extension is not known. There is also a `TryCreateFile` that will return false if the extension is not known.
@@ -151,7 +156,12 @@ Gets the path to an empty file for a given extension
 ```cs
 var path = AllFiles.GetPathFor("jpg");
 ```
-<sup><a href='/src/EmptyFiles.Tests/Tests.cs#L149-L153' title='Snippet source file'>snippet source</a> | <a href='#snippet-getpathfor' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/index/empty.cs#L149-L153' title='Snippet source file'>snippet source</a> | <a href='#snippet-getpathfor' title='Start of snippet'>anchor</a></sup>
+<a id='snippet-getpathfor-1'></a>
+```cs
+var path = AllFiles.GetPathFor("jpg");
+```
+<sup><a href='/src/EmptyFiles.Tests/Tests.cs#L126-L130' title='Snippet source file'>snippet source</a> | <a href='#snippet-getpathfor-1' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Throws an exception if the extension is not known. There is also a `TryGetPathFor` that will return false if the extension is not known.
@@ -169,7 +179,15 @@ Assert.True(AllFiles.IsEmptyFile(path));
 var temp = Path.GetTempFileName();
 Assert.False(AllFiles.IsEmptyFile(temp));
 ```
-<sup><a href='/src/EmptyFiles.Tests/Tests.cs#L197-L204' title='Snippet source file'>snippet source</a> | <a href='#snippet-isemptyfile' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/index/empty.cs#L197-L204' title='Snippet source file'>snippet source</a> | <a href='#snippet-isemptyfile' title='Start of snippet'>anchor</a></sup>
+<a id='snippet-isemptyfile-1'></a>
+```cs
+var path = AllFiles.GetPathFor("jpg");
+Assert.True(AllFiles.IsEmptyFile(path));
+var temp = Path.GetTempFileName();
+Assert.False(AllFiles.IsEmptyFile(temp));
+```
+<sup><a href='/src/EmptyFiles.Tests/Tests.cs#L174-L181' title='Snippet source file'>snippet source</a> | <a href='#snippet-isemptyfile-1' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -185,7 +203,15 @@ foreach (var path in AllFiles.AllPaths)
     Trace.WriteLine(path);
 }
 ```
-<sup><a href='/src/EmptyFiles.Tests/Tests.cs#L225-L232' title='Snippet source file'>snippet source</a> | <a href='#snippet-allpaths' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/index/empty.cs#L225-L232' title='Snippet source file'>snippet source</a> | <a href='#snippet-allpaths' title='Start of snippet'>anchor</a></sup>
+<a id='snippet-allpaths-1'></a>
+```cs
+foreach (var path in AllFiles.AllPaths)
+{
+    Trace.WriteLine(path);
+}
+```
+<sup><a href='/src/EmptyFiles.Tests/Tests.cs#L202-L209' title='Snippet source file'>snippet source</a> | <a href='#snippet-allpaths-1' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -199,7 +225,13 @@ Use or replace a file
 AllFiles.UseFile(Category.Document, pathToFile);
 Assert.Contains(pathToFile, AllFiles.DocumentPaths);
 ```
-<sup><a href='/src/EmptyFiles.Tests/Tests.cs#L240-L245' title='Snippet source file'>snippet source</a> | <a href='#snippet-usefile' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/index/empty.cs#L240-L245' title='Snippet source file'>snippet source</a> | <a href='#snippet-usefile' title='Start of snippet'>anchor</a></sup>
+<a id='snippet-usefile-1'></a>
+```cs
+AllFiles.UseFile(Category.Document, pathToFile);
+Assert.Contains(pathToFile, AllFiles.DocumentPaths);
+```
+<sup><a href='/src/EmptyFiles.Tests/Tests.cs#L217-L222' title='Snippet source file'>snippet source</a> | <a href='#snippet-usefile-1' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

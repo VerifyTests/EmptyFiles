@@ -82,7 +82,7 @@ namespace EmptyFiles
             }
         }
 
-        static string FindEmptyFilesDirectory()
+        internal static string FindEmptyFilesDirectory()
         {
             var currentDomainEmptyFiles = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "EmptyFiles");
             if (Directory.Exists(currentDomainEmptyFiles))
