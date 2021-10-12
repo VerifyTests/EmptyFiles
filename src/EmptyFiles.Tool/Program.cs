@@ -1,6 +1,4 @@
-﻿using System;
-using System.Linq;
-using EmptyFiles;
+﻿using EmptyFiles;
 
 if (args.Length == 0)
 {

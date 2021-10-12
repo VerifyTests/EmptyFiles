@@ -1,8 +1,4 @@
-﻿using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using EmptyFiles;
+﻿using EmptyFiles;
 using Xunit;
 
 public class IndexWriter

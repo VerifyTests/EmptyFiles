@@ -1,6 +1,4 @@
-﻿using System;
-
-static class Size
+﻿static class Size
 {
     static string[] SizeSuffixes = { "bytes", "KB", "MB"};
 
