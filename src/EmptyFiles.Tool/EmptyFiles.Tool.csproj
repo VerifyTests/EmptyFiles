@@ -12,7 +12,7 @@
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\EmptyFiles\EmptyFiles.csproj" PrivateAssets="None" />
-    <PackageReference Include="ProjectDefaults" Version="1.0.59" PrivateAssets="All" />
+    <PackageReference Include="ProjectDefaults" Version="1.0.60" PrivateAssets="All" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.0.0" PrivateAssets="All" Condition="$(Configuration) == 'Release'" />
     <None Include="$(ProjectDir)..\..\files\**\empty.*">
       <Pack>true</Pack>
