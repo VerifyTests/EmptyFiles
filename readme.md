@@ -15,7 +15,7 @@ A collection of minimal binary files.
 
 ## Files
 
-All files: https://github.com/SimonCropp/EmptyFiles/tree/master/files
+All files: https://github.com/VerifyTests/EmptyFiles/tree/main/files
 
  <!-- include: extensions. path: /src/EmptyFiles.Tests/extensions.include.md -->
 ### Archive
