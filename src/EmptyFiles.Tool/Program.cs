@@ -9,7 +9,10 @@ if (args.Length == 0)
 var arg = args[0];
 
 string path;
-if (arg.Any(x => x == '.' || x == '/' || x == '\\'))
+if (arg.Any(x => x is
+        '.' or
+        '/' or
+        '\\'))
 {
     path = arg;
 }

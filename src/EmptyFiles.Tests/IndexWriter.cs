@@ -1,5 +1,4 @@
 ﻿using EmptyFiles;
-using Xunit;
 
 public class IndexWriter
 {

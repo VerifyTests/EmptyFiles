@@ -1,6 +1,4 @@
 ﻿using EmptyFiles;
-using Xunit;
-using Xunit.Abstractions;
 
 public class ExtensionsTests :
     XunitContextBase
