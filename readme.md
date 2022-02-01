@@ -1,6 +1,6 @@
 # <img src="/src/icon.png" height="30px"> EmptyFiles
 
-[![Build status](https://ci.appveyor.com/api/projects/status/4mrhpal9rwtqajws/branch/master?svg=true)](https://ci.appveyor.com/project/SimonCropp/EmptyFiles)
+[![Build status](https://ci.appveyor.com/api/projects/status/4mrhpal9rwtqajws/branch/main?svg=true)](https://ci.appveyor.com/project/SimonCropp/EmptyFiles)
 [![NuGet Status](https://img.shields.io/nuget/v/EmptyFiles.svg?label=EmptyFiles)](https://www.nuget.org/packages/EmptyFiles/)
 [![NuGet Status](https://img.shields.io/nuget/v/EmptyFiles.Tool.svg?label=dotnet%20tool)](https://www.nuget.org/packages/EmptyFiles.Tool/)
 
