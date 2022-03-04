@@ -13,45 +13,27 @@ public static class AllFiles
         {"bzip2", "bz2"}
     };
 
-    public static IReadOnlyDictionary<string, EmptyFile> Files
-    {
-        get => files;
-    }
+    public static IReadOnlyDictionary<string, EmptyFile> Files => files;
 
     static ConcurrentDictionary<string, EmptyFile> files = new();
 
-    public static IReadOnlyDictionary<string, EmptyFile> Archives
-    {
-        get => archives;
-    }
+    public static IReadOnlyDictionary<string, EmptyFile> Archives => archives;
 
     static ConcurrentDictionary<string, EmptyFile> archives = new();
 
-    public static IReadOnlyDictionary<string, EmptyFile> Documents
-    {
-        get => documents;
-    }
+    public static IReadOnlyDictionary<string, EmptyFile> Documents => documents;
 
     static ConcurrentDictionary<string, EmptyFile> documents = new();
 
-    public static IReadOnlyDictionary<string, EmptyFile> Images
-    {
-        get => images;
-    }
+    public static IReadOnlyDictionary<string, EmptyFile> Images => images;
 
     static ConcurrentDictionary<string, EmptyFile> images = new();
 
-    public static IReadOnlyDictionary<string, EmptyFile> Sheets
-    {
-        get => sheets;
-    }
+    public static IReadOnlyDictionary<string, EmptyFile> Sheets => sheets;
 
     static ConcurrentDictionary<string, EmptyFile> sheets = new();
 
-    public static IReadOnlyDictionary<string, EmptyFile> Slides
-    {
-        get => slides;
-    }
+    public static IReadOnlyDictionary<string, EmptyFile> Slides => slides;
 
     static ConcurrentDictionary<string, EmptyFile> slides = new();
 
@@ -129,60 +111,42 @@ public static class AllFiles
         get { return files.Values.Select(x => x.Path); }
     }
 
-    public static IEnumerable<string> AllExtensions
-    {
-        get { return files.Keys; }
-    }
+    public static IEnumerable<string> AllExtensions => files.Keys;
 
     public static IEnumerable<string> ArchivePaths
     {
         get { return archives.Values.Select(x => x.Path); }
     }
 
-    public static IEnumerable<string> ArchiveExtensions
-    {
-        get { return archives.Keys; }
-    }
+    public static IEnumerable<string> ArchiveExtensions => archives.Keys;
 
     public static IEnumerable<string> DocumentPaths
     {
         get { return documents.Values.Select(x => x.Path); }
     }
 
-    public static IEnumerable<string> DocumentExtensions
-    {
-        get { return documents.Keys; }
-    }
+    public static IEnumerable<string> DocumentExtensions => documents.Keys;
 
     public static IEnumerable<string> ImagePaths
     {
         get { return images.Values.Select(x => x.Path); }
     }
 
-    public static IEnumerable<string> ImageExtensions
-    {
-        get { return images.Keys; }
-    }
+    public static IEnumerable<string> ImageExtensions => images.Keys;
 
     public static IEnumerable<string> SheetPaths
     {
         get { return sheets.Values.Select(x => x.Path); }
     }
 
-    public static IEnumerable<string> SheetExtensions
-    {
-        get { return sheets.Keys; }
-    }
+    public static IEnumerable<string> SheetExtensions => sheets.Keys;
 
     public static IEnumerable<string> SlidePaths
     {
         get { return slides.Values.Select(x => x.Path); }
     }
 
-    public static IEnumerable<string> SlideExtensions
-    {
-        get { return slides.Keys; }
-    }
+    public static IEnumerable<string> SlideExtensions => slides.Keys;
 
     public static bool IsEmptyFile(string path)
     {

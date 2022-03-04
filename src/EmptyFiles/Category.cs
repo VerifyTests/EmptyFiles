@@ -1,11 +1,10 @@
-﻿namespace EmptyFiles
+﻿namespace EmptyFiles;
+
+public enum Category
 {
-    public enum Category
-    {
-        Archive,
-        Document,
-        Image,
-        Sheet,
-        Slide
-    }
+    Archive,
+    Document,
+    Image,
+    Sheet,
+    Slide
 }
