@@ -5,16 +5,12 @@ public class IndexWriter
     static List<KeyValuePair<string, EmptyFile>> files = null!;
 
     [ModuleInitializer]
-    public static void Init()
-    {
+    public static void Init() =>
         files = AllFiles.Files.OrderBy(x => x.Key).ToList();
-    }
 
     [Fact]
-    public void CreateIndex()
-    {
+    public void CreateIndex() =>
         InnerCreateIndex();
-    }
 
     static void InnerCreateIndex([CallerFilePath] string filePath = "")
     {

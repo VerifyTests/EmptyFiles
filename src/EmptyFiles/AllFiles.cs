@@ -78,9 +78,8 @@ public static class AllFiles
 ");
     }
 
-    static ConcurrentDictionary<string, EmptyFile> FindDictionaryForCategory(Category category)
-    {
-        return category switch
+    static ConcurrentDictionary<string, EmptyFile> FindDictionaryForCategory(Category category) =>
+        category switch
         {
             Category.Archive => archives,
             Category.Document => documents,
@@ -89,7 +88,6 @@ public static class AllFiles
             Category.Slide => slides,
             _ => throw new($"Unknown category: {category}")
         };
-    }
 
     public static void UseFile(Category category, string file)
     {
@@ -106,45 +104,27 @@ public static class AllFiles
         return (Category) Enum.Parse(typeof(Category), directory, true);
     }
 
-    public static IEnumerable<string> AllPaths
-    {
-        get { return files.Values.Select(x => x.Path); }
-    }
+    public static IEnumerable<string> AllPaths => files.Values.Select(x => x.Path);
 
     public static IEnumerable<string> AllExtensions => files.Keys;
 
-    public static IEnumerable<string> ArchivePaths
-    {
-        get { return archives.Values.Select(x => x.Path); }
-    }
+    public static IEnumerable<string> ArchivePaths => archives.Values.Select(x => x.Path);
 
     public static IEnumerable<string> ArchiveExtensions => archives.Keys;
 
-    public static IEnumerable<string> DocumentPaths
-    {
-        get { return documents.Values.Select(x => x.Path); }
-    }
+    public static IEnumerable<string> DocumentPaths => documents.Values.Select(x => x.Path);
 
     public static IEnumerable<string> DocumentExtensions => documents.Keys;
 
-    public static IEnumerable<string> ImagePaths
-    {
-        get { return images.Values.Select(x => x.Path); }
-    }
+    public static IEnumerable<string> ImagePaths => images.Values.Select(x => x.Path);
 
     public static IEnumerable<string> ImageExtensions => images.Keys;
 
-    public static IEnumerable<string> SheetPaths
-    {
-        get { return sheets.Values.Select(x => x.Path); }
-    }
+    public static IEnumerable<string> SheetPaths => sheets.Values.Select(x => x.Path);
 
     public static IEnumerable<string> SheetExtensions => sheets.Keys;
 
-    public static IEnumerable<string> SlidePaths
-    {
-        get { return slides.Values.Select(x => x.Path); }
-    }
+    public static IEnumerable<string> SlidePaths => slides.Values.Select(x => x.Path);
 
     public static IEnumerable<string> SlideExtensions => slides.Keys;
 

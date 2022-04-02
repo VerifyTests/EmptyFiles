@@ -406,8 +406,5 @@ public static class Extensions
         "zshrc"
     };
 
-    public static IEnumerable<string> TextExtensions
-    {
-        get => textExtensions;
-    }
+    public static IEnumerable<string> TextExtensions => textExtensions;
 }
