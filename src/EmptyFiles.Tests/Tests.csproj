@@ -9,7 +9,7 @@
     <PackageReference Include="MarkdownSnippets.MsBuild" Version="24.5.0" PrivateAssets="all" />
     <PackageReference Include="Xunit" Version="2.4.2" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.5" PrivateAssets="all" />
-    <PackageReference Include="ProjectDefaults" Version="1.0.79" PrivateAssets="all" />
+    <PackageReference Include="ProjectDefaults" Version="1.0.80" PrivateAssets="all" />
     <PackageReference Include="XunitContext" Version="3.2.3" />
     <ProjectReference Include="..\EmptyFiles\EmptyFiles.csproj" />
     <None Include="$(ProjectDir)..\..\files\**\*.*">
