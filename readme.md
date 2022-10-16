@@ -230,12 +230,12 @@ https://github.com/sindresorhus/text-extensions/blob/master/text-extensions.json
 <!-- snippet: IsText -->
 <a id='snippet-istext'></a>
 ```cs
-Assert.True(Extensions.IsText("file.txt"));
-Assert.False(Extensions.IsText("file.bin"));
-Assert.True(Extensions.IsText(".txt"));
-Assert.False(Extensions.IsText(".bin"));
-Assert.True(Extensions.IsText("txt"));
-Assert.False(Extensions.IsText("bin"));
+Assert.True(FileExtensions.IsText("file.txt"));
+Assert.False(FileExtensions.IsText("file.bin"));
+Assert.True(FileExtensions.IsText(".txt"));
+Assert.False(FileExtensions.IsText(".bin"));
+Assert.True(FileExtensions.IsText("txt"));
+Assert.False(FileExtensions.IsText("bin"));
 ```
 <sup><a href='/src/EmptyFiles.Tests/ExtensionsTests.cs#L9-L18' title='Snippet source file'>snippet source</a> | <a href='#snippet-istext' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
@@ -246,10 +246,10 @@ Assert.False(Extensions.IsText("bin"));
 <!-- snippet: AddTextExtension -->
 <a id='snippet-addtextextension'></a>
 ```cs
-Extensions.AddTextExtension("ext1");
-Extensions.AddTextExtension(".ext2");
-Assert.True(Extensions.IsText("ext1"));
-Assert.True(Extensions.IsText("ext2"));
+FileExtensions.AddTextExtension("ext1");
+FileExtensions.AddTextExtension(".ext2");
+Assert.True(FileExtensions.IsText("ext1"));
+Assert.True(FileExtensions.IsText("ext2"));
 ```
 <sup><a href='/src/EmptyFiles.Tests/ExtensionsTests.cs#L24-L31' title='Snippet source file'>snippet source</a> | <a href='#snippet-addtextextension' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
@@ -260,14 +260,14 @@ Assert.True(Extensions.IsText("ext2"));
 <!-- snippet: RemoveTextExtension -->
 <a id='snippet-removetextextension'></a>
 ```cs
-Extensions.AddTextExtension("ext1");
-Extensions.AddTextExtension(".ext2");
-Assert.True(Extensions.IsText("ext1"));
-Assert.True(Extensions.IsText("ext2"));
-Extensions.RemoveTextExtension("ext1");
-Extensions.RemoveTextExtension(".ext2");
-Assert.False(Extensions.IsText("ext1"));
-Assert.False(Extensions.IsText("ext2"));
+FileExtensions.AddTextExtension("ext1");
+FileExtensions.AddTextExtension(".ext2");
+Assert.True(FileExtensions.IsText("ext1"));
+Assert.True(FileExtensions.IsText("ext2"));
+FileExtensions.RemoveTextExtension("ext1");
+FileExtensions.RemoveTextExtension(".ext2");
+Assert.False(FileExtensions.IsText("ext1"));
+Assert.False(FileExtensions.IsText("ext2"));
 ```
 <sup><a href='/src/EmptyFiles.Tests/ExtensionsTests.cs#L37-L48' title='Snippet source file'>snippet source</a> | <a href='#snippet-removetextextension' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->

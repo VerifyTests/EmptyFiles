@@ -8,12 +8,12 @@ public class ExtensionsTests :
     {
         #region IsText
 
-        Assert.True(Extensions.IsText("file.txt"));
-        Assert.False(Extensions.IsText("file.bin"));
-        Assert.True(Extensions.IsText(".txt"));
-        Assert.False(Extensions.IsText(".bin"));
-        Assert.True(Extensions.IsText("txt"));
-        Assert.False(Extensions.IsText("bin"));
+        Assert.True(FileExtensions.IsText("file.txt"));
+        Assert.False(FileExtensions.IsText("file.bin"));
+        Assert.True(FileExtensions.IsText(".txt"));
+        Assert.False(FileExtensions.IsText(".bin"));
+        Assert.True(FileExtensions.IsText("txt"));
+        Assert.False(FileExtensions.IsText("bin"));
 
         #endregion
     }
@@ -23,10 +23,10 @@ public class ExtensionsTests :
     {
         #region AddTextExtension
 
-        Extensions.AddTextExtension("ext1");
-        Extensions.AddTextExtension(".ext2");
-        Assert.True(Extensions.IsText("ext1"));
-        Assert.True(Extensions.IsText("ext2"));
+        FileExtensions.AddTextExtension("ext1");
+        FileExtensions.AddTextExtension(".ext2");
+        Assert.True(FileExtensions.IsText("ext1"));
+        Assert.True(FileExtensions.IsText("ext2"));
 
         #endregion
     }
@@ -36,14 +36,14 @@ public class ExtensionsTests :
     {
         #region RemoveTextExtension
 
-        Extensions.AddTextExtension("ext1");
-        Extensions.AddTextExtension(".ext2");
-        Assert.True(Extensions.IsText("ext1"));
-        Assert.True(Extensions.IsText("ext2"));
-        Extensions.RemoveTextExtension("ext1");
-        Extensions.RemoveTextExtension(".ext2");
-        Assert.False(Extensions.IsText("ext1"));
-        Assert.False(Extensions.IsText("ext2"));
+        FileExtensions.AddTextExtension("ext1");
+        FileExtensions.AddTextExtension(".ext2");
+        Assert.True(FileExtensions.IsText("ext1"));
+        Assert.True(FileExtensions.IsText("ext2"));
+        FileExtensions.RemoveTextExtension("ext1");
+        FileExtensions.RemoveTextExtension(".ext2");
+        Assert.False(FileExtensions.IsText("ext1"));
+        Assert.False(FileExtensions.IsText("ext2"));
 
         #endregion
     }
@@ -51,11 +51,11 @@ public class ExtensionsTests :
     [Fact]
     public void Run()
     {
-        Assert.Equal("txt", Extensions.GetExtension("file.txt"));
-        Assert.Equal("txt", Extensions.GetExtension("c:/file.txt"));
-        Assert.Equal("txt", Extensions.GetExtension(".txt"));
-        Assert.Equal("txt", Extensions.GetExtension("./File.txt"));
-        Assert.Equal("txt", Extensions.GetExtension("txt"));
+        Assert.Equal("txt", FileExtensions.GetExtension("file.txt"));
+        Assert.Equal("txt", FileExtensions.GetExtension("c:/file.txt"));
+        Assert.Equal("txt", FileExtensions.GetExtension(".txt"));
+        Assert.Equal("txt", FileExtensions.GetExtension("./File.txt"));
+        Assert.Equal("txt", FileExtensions.GetExtension("txt"));
     }
 
     public ExtensionsTests(ITestOutputHelper output) :

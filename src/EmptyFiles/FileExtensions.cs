@@ -1,6 +1,6 @@
 ﻿namespace EmptyFiles;
 
-public static class Extensions
+public static class FileExtensions
 {
     public static string GetExtension(string extensionOrPath)
     {

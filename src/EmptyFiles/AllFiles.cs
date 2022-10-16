@@ -44,7 +44,7 @@ public static class AllFiles
         {
             var category = GetCategory(file);
             var emptyFile = EmptyFile.Build(file, category);
-            var extension = Extensions.GetExtension(file);
+            var extension = FileExtensions.GetExtension(file);
             var categoryFiles = FindDictionaryForCategory(category);
 
             categoryFiles[extension] = emptyFile;
@@ -92,7 +92,7 @@ public static class AllFiles
     public static void UseFile(Category category, string file)
     {
         Guard.FileExists(file, nameof(file));
-        var extension = Extensions.GetExtension(file);
+        var extension = FileExtensions.GetExtension(file);
         var emptyFile = EmptyFile.Build(file, category);
         FindDictionaryForCategory(category).AddOrUpdate(extension, _ => emptyFile, (_, _) => emptyFile);
         files.AddOrUpdate(extension, _ => emptyFile, (_, _) => emptyFile);
@@ -131,7 +131,7 @@ public static class AllFiles
     public static bool IsEmptyFile(string path)
     {
         Guard.FileExists(path, nameof(path));
-        var extension = Extensions.GetExtension(path);
+        var extension = FileExtensions.GetExtension(path);
         if (!files.TryGetValue(extension, out var emptyFile))
         {
             return false;
@@ -145,9 +145,9 @@ public static class AllFiles
     public static void CreateFile(string path, bool useEmptyStringForTextFiles = false)
     {
         TryCreateDirectory(path);
-        var extension = Extensions.GetExtension(path);
+        var extension = FileExtensions.GetExtension(path);
         if (useEmptyStringForTextFiles &&
-            Extensions.IsText(extension))
+            FileExtensions.IsText(extension))
         {
             File.Delete(path);
             File.WriteAllBytes(path, preamble);
@@ -160,7 +160,7 @@ public static class AllFiles
     public static string GetPathFor(string extension)
     {
         Guard.AgainstNullOrEmpty(extension, nameof(extension));
-        extension = Extensions.GetExtension(extension);
+        extension = FileExtensions.GetExtension(extension);
         if (files.TryGetValue(extension, out var emptyFile))
         {
             return emptyFile.Path;
@@ -175,7 +175,7 @@ public static class AllFiles
         var extension = Path.GetExtension(path);
 
         if (useEmptyStringForTextFiles &&
-            Extensions.IsText(extension))
+            FileExtensions.IsText(extension))
         {
             TryCreateDirectory(path);
 
@@ -211,7 +211,7 @@ public static class AllFiles
 
     public static bool TryGetPathFor(string extension, [NotNullWhen(true)] out string? path)
     {
-        extension = Extensions.GetExtension(extension);
+        extension = FileExtensions.GetExtension(extension);
         if (files.TryGetValue(extension, out var emptyFile))
         {
             path = emptyFile.Path;
