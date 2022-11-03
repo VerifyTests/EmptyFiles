@@ -1,4 +1,6 @@
-﻿namespace EmptyFiles;
+﻿using System.Diagnostics.CodeAnalysis;
+
+namespace EmptyFiles;
 
 public static class FileExtensions
 {
@@ -17,8 +19,13 @@ public static class FileExtensions
         return extension;
     }
 
-    public static bool IsText(string extensionOrPath)
+    public static bool IsText([NotNullWhen(true)] string? extensionOrPath)
     {
+        if (extensionOrPath == null)
+        {
+            return false;
+        }
+
         var extension = GetExtension(extensionOrPath);
         return textExtensions.Contains(extension);
     }
