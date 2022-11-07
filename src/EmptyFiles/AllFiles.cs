@@ -100,7 +100,7 @@ public static class AllFiles
 
     static Category GetCategory(string file)
     {
-        var directory = Directory.GetParent(file).Name;
+        var directory = Directory.GetParent(file)!.Name;
         return (Category) Enum.Parse(typeof(Category), directory, true);
     }
 
