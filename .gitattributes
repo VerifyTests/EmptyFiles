@@ -2,8 +2,8 @@
 *.snk binary
 *.png binary
 
-/files/* binary
-/index/* binary
+/files/** binary
+/index/** binary
 
 *.verified.txt text eol=lf
 *.verified.xml text eol=lf
