@@ -130,6 +130,7 @@ public static class FileExtensions
         "coffee",
         "coffeekup",
         "conf",
+        "config",
         "cp",
         "cpp",
         "cpt",
