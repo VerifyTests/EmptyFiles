@@ -215,6 +215,7 @@ public static class FileExtensions
         "htpasswd",
         "hxx",
         "iced",
+        "il",
         "iml",
         "inc",
         "inf",
