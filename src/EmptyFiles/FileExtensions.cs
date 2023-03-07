@@ -7,17 +7,43 @@ public static class FileExtensions
     public static string GetExtension(string extensionOrPath)
     {
         Guard.AgainstNullOrEmpty(extensionOrPath);
-        if (!extensionOrPath.Contains("."))
+        return GetExtension(extensionOrPath.AsSpan()).ToString();
+    }
+
+    public static CharSpan GetExtension(CharSpan extensionOrPath)
+    {
+        Guard.AgainstEmpty(extensionOrPath);
+        if (extensionOrPath.IndexOf('.') == -1)
         {
             return extensionOrPath;
         }
 
-        var extension = Path.GetExtension(extensionOrPath);
-        Guard.AgainstNullOrEmpty(extension);
-        extension = extension.TrimStart('.');
-        Guard.AgainstNullOrEmpty(extension);
-        return extension;
+        var length = extensionOrPath.Length;
+
+        for (var i = length - 1; i >= 0; i--)
+        {
+            var ch = extensionOrPath[i];
+            if (ch == '.')
+            {
+                if (i != length - 1)
+                {
+                    return extensionOrPath.Slice(i +1, length - i-1);
+                }
+
+                break;
+            }
+
+            if (IsDirectorySeparator(ch))
+            {
+                break;
+            }
+        }
+
+        throw new($"No extension. Path: {extensionOrPath.ToString()}");
     }
+
+    static bool IsDirectorySeparator(char c) =>
+        c is '/' or '\\';
 
     public static bool IsText([NotNullWhen(true)] string? extensionOrPath)
     {
@@ -28,6 +54,17 @@ public static class FileExtensions
 
         var extension = GetExtension(extensionOrPath);
         return textExtensions.Contains(extension);
+    }
+
+    public static bool IsText(CharSpan extensionOrPath)
+    {
+        if (extensionOrPath.Length == 0)
+        {
+            return false;
+        }
+
+        var extension = GetExtension(extensionOrPath);
+        return textExtensions.Contains(extension.ToString());
     }
 
     public static void RemoveTextExtension(string extension)

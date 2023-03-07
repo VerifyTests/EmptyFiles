@@ -2,8 +2,11 @@
 <Project>
   <PropertyGroup>
     <NoWarn>CS1591;CS0649</NoWarn>
-    <Version>4.2.0</Version>
+    <Version>4.3.0</Version>
     <AssemblyVersion>1.0.0</AssemblyVersion>
     <Description>A collection of minimal binary files.</Description>
   </PropertyGroup>
+  <ItemGroup>
+    <Using Include="System.ReadOnlySpan&lt;System.Char&gt;" Alias="CharSpan" />
+  </ItemGroup>
 </Project>
