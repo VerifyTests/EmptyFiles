@@ -14,7 +14,7 @@ public class EmptyFile
 
     public EmptyFile(string path, in DateTime lastWriteTime, in Category category)
     {
-        Guard.AgainstNullOrEmpty(path, nameof(path));
+        Guard.AgainstNullOrEmpty(path);
         Path = path;
         LastWriteTime = lastWriteTime;
         Category = category;

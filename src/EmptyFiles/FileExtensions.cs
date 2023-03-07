@@ -6,16 +6,16 @@ public static class FileExtensions
 {
     public static string GetExtension(string extensionOrPath)
     {
-        Guard.AgainstNullOrEmpty(extensionOrPath, nameof(extensionOrPath));
+        Guard.AgainstNullOrEmpty(extensionOrPath);
         if (!extensionOrPath.Contains("."))
         {
             return extensionOrPath;
         }
 
         var extension = Path.GetExtension(extensionOrPath);
-        Guard.AgainstNullOrEmpty(extension, nameof(extension));
+        Guard.AgainstNullOrEmpty(extension);
         extension = extension.TrimStart('.');
-        Guard.AgainstNullOrEmpty(extension, nameof(extension));
+        Guard.AgainstNullOrEmpty(extension);
         return extension;
     }
 
@@ -32,7 +32,7 @@ public static class FileExtensions
 
     public static void RemoveTextExtension(string extension)
     {
-        Guard.AgainstNullOrEmpty(extension, nameof(extension));
+        Guard.AgainstNullOrEmpty(extension);
         extension = GetExtension(extension);
         lock (textExtensions)
         {
@@ -58,7 +58,7 @@ public static class FileExtensions
 
     public static void AddTextExtension(string extension)
     {
-        Guard.AgainstNullOrEmpty(extension, nameof(extension));
+        Guard.AgainstNullOrEmpty(extension);
         extension = GetExtension(extension);
         lock (textExtensions)
         {

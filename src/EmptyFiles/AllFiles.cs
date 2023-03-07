@@ -91,7 +91,7 @@ public static class AllFiles
 
     public static void UseFile(Category category, string file)
     {
-        Guard.FileExists(file, nameof(file));
+        Guard.FileExists(file);
         var extension = FileExtensions.GetExtension(file);
         var emptyFile = EmptyFile.Build(file, category);
         FindDictionaryForCategory(category).AddOrUpdate(extension, _ => emptyFile, (_, _) => emptyFile);
@@ -130,7 +130,7 @@ public static class AllFiles
 
     public static bool IsEmptyFile(string path)
     {
-        Guard.FileExists(path, nameof(path));
+        Guard.FileExists(path);
         var extension = FileExtensions.GetExtension(path);
         if (!files.TryGetValue(extension, out var emptyFile))
         {
@@ -159,7 +159,7 @@ public static class AllFiles
 
     public static string GetPathFor(string extension)
     {
-        Guard.AgainstNullOrEmpty(extension, nameof(extension));
+        Guard.AgainstNullOrEmpty(extension);
         extension = FileExtensions.GetExtension(extension);
         if (files.TryGetValue(extension, out var emptyFile))
         {
@@ -171,7 +171,7 @@ public static class AllFiles
 
     public static bool TryCreateFile(string path, bool useEmptyStringForTextFiles = false)
     {
-        Guard.AgainstNullOrEmpty(path, nameof(path));
+        Guard.AgainstNullOrEmpty(path);
         var extension = Path.GetExtension(path);
 
         if (useEmptyStringForTextFiles &&
