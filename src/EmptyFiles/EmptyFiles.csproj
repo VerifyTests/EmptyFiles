@@ -10,7 +10,7 @@
     <PackageReference Include="System.Memory" Version="4.5.5" Condition="'$(TargetFrameworkIdentifier)' == '.NETStandard' OR '$(TargetFrameworkIdentifier)' == '.NETFramework'" />
     <PackageReference Include="ProjectDefaults" Version="1.0.90" PrivateAssets="all" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" Condition="$(Configuration) == 'Release'" />
-    <PackageReference Include="Polyfill" Version="0.10.0" PrivateAssets="All" />
+    <PackageReference Include="Polyfill" Version="0.14.0" PrivateAssets="All" />
     <None Include="EmptyFiles.targets" Pack="True" PackagePath="build\EmptyFiles.targets" CopyToOutputDirectory="PreserveNewest" />
     <None Include="EmptyFiles.targets" Pack="True" PackagePath="buildTransitive\EmptyFiles.targets" CopyToOutputDirectory="PreserveNewest" />
     <None Include="$(ProjectDir)..\..\files\**\empty.*">
