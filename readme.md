@@ -35,7 +35,7 @@ All files: https://github.com/VerifyTests/EmptyFiles/tree/main/files
 
   * docx (1.9 KB)
   * odt (2.2 KB)
-  * pdf (280 bytes)
+  * pdf (291 bytes)
   * rtf (6 bytes)
 
 ### Image
@@ -52,13 +52,13 @@ All files: https://github.com/VerifyTests/EmptyFiles/tree/main/files
   * ico (70 bytes)
   * j2c (270 bytes)
   * jfif (734 bytes)
-  * jp2 (354 bytes)
+  * jp2 (357 bytes)
   * jpc (270 bytes)
   * jpe (734 bytes)
   * jpeg (734 bytes)
   * jpg (734 bytes)
   * jxr (300 bytes)
-  * pbm (8 bytes)
+  * pbm (10 bytes)
   * pcx (131 bytes)
   * pgm (12 bytes)
   * png (119 bytes)
