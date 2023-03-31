@@ -31,19 +31,20 @@ public static class ContentTypes
             return true;
         }
 
-        var split = mediaType.Split('+', StringSplitOptions.RemoveEmptyEntries);
+        var mediaTypeSpan = mediaType.AsSpan();
+        var plusIndex = mediaTypeSpan.LastIndexOf('+');
 
-        if (split.Length == 2)
+        if (plusIndex > -1)
         {
-            extension = split[1];
+            extension = mediaTypeSpan[(plusIndex + 1)..].ToString();
             return true;
         }
 
-        split = mediaType.Split('/', StringSplitOptions.RemoveEmptyEntries);
+        var slashIndex = mediaTypeSpan.LastIndexOf('/');
 
-        if (split.Length == 2)
+        if (slashIndex > -1)
         {
-            extension = split[1];
+            extension = mediaTypeSpan[(slashIndex + 1)..].ToString();
             return true;
         }
 
