@@ -6,7 +6,7 @@ public class IndexWriter
 
     [ModuleInitializer]
     public static void Init() =>
-        files = AllFiles.Files.OrderBy(x => x.Key).ToList();
+        files = AllFiles.Files.OrderBy(_ => _.Key).ToList();
 
     [Fact]
     public void CreateIndex() =>

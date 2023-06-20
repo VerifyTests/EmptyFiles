@@ -49,7 +49,7 @@ public static class AllFiles
 
             categoryFiles[extension] = emptyFile;
             files[extension] = emptyFile;
-            var alias = aliases.SingleOrDefault(x => x.Value == extension);
+            var alias = aliases.SingleOrDefault(_ => _.Value == extension);
             if (alias.Key != null)
             {
                 categoryFiles[alias.Key] = emptyFile;
@@ -104,27 +104,27 @@ public static class AllFiles
         return (Category) Enum.Parse(typeof(Category), directory, true);
     }
 
-    public static IEnumerable<string> AllPaths => files.Values.Select(x => x.Path);
+    public static IEnumerable<string> AllPaths => files.Values.Select(_ => _.Path);
 
     public static IEnumerable<string> AllExtensions => files.Keys;
 
-    public static IEnumerable<string> ArchivePaths => archives.Values.Select(x => x.Path);
+    public static IEnumerable<string> ArchivePaths => archives.Values.Select(_ => _.Path);
 
     public static IEnumerable<string> ArchiveExtensions => archives.Keys;
 
-    public static IEnumerable<string> DocumentPaths => documents.Values.Select(x => x.Path);
+    public static IEnumerable<string> DocumentPaths => documents.Values.Select(_ => _.Path);
 
     public static IEnumerable<string> DocumentExtensions => documents.Keys;
 
-    public static IEnumerable<string> ImagePaths => images.Values.Select(x => x.Path);
+    public static IEnumerable<string> ImagePaths => images.Values.Select(_ => _.Path);
 
     public static IEnumerable<string> ImageExtensions => images.Keys;
 
-    public static IEnumerable<string> SheetPaths => sheets.Values.Select(x => x.Path);
+    public static IEnumerable<string> SheetPaths => sheets.Values.Select(_ => _.Path);
 
     public static IEnumerable<string> SheetExtensions => sheets.Keys;
 
-    public static IEnumerable<string> SlidePaths => slides.Values.Select(x => x.Path);
+    public static IEnumerable<string> SlidePaths => slides.Values.Select(_ => _.Path);
 
     public static IEnumerable<string> SlideExtensions => slides.Keys;
 

@@ -231,7 +231,7 @@ public class Tests :
         await writer.WriteLineAsync("");
         await writer.WriteLineAsync($"### {category}");
         await writer.WriteLineAsync("");
-        foreach (var file in files.OrderBy(x => x.Key))
+        foreach (var file in files.OrderBy(_ => _.Key))
         {
             var size = Size.Suffix(new FileInfo(file.Value.Path).Length);
             await writer.WriteLineAsync($"  * {file.Key} ({size})");
