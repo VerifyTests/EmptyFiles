@@ -18,7 +18,7 @@ A collection of minimal binary files.
 
 All files: https://github.com/VerifyTests/EmptyFiles/tree/main/files
 
- <!-- include: extensions. path: /src/EmptyFiles.Tests/extensions.include.md -->
+<!-- include: extensions. path: /src/EmptyFiles.Tests/extensions.include.md -->
 ### Archive
 
   * 7z (32 bytes)
@@ -79,7 +79,7 @@ All files: https://github.com/VerifyTests/EmptyFiles/tree/main/files
 ### Slide
 
   * odp (7.8 KB)
-  * pptx (13.3 KB) <!-- endInclude -->
+  * pptx (13.3 KB)<!-- endInclude -->
 
 
 ## Consuming files as a web resource
