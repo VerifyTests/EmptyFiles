@@ -5,6 +5,8 @@
     <Version>4.5.0</Version>
     <AssemblyVersion>1.0.0</AssemblyVersion>
     <Description>A collection of minimal binary files.</Description>
+    <CheckEolTargetFramework>false</CheckEolTargetFramework>
+    <SuppressNETCoreSdkPreviewMessage>true</SuppressNETCoreSdkPreviewMessage>
   </PropertyGroup>
   <ItemGroup>
     <Using Include="System.ReadOnlySpan&lt;System.Char&gt;" Alias="CharSpan" />
