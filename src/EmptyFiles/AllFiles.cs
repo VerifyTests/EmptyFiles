@@ -72,10 +72,12 @@ public static class AllFiles
             return codebaseEmptyFiles;
         }
 
-        throw new($@"Could not find empty files directory. Searched:
- * {currentDomainEmptyFiles}
- * {codebaseEmptyFiles}
-");
+        throw new($"""
+                   Could not find empty files directory. Searched:
+                    * {currentDomainEmptyFiles}
+                    * {codebaseEmptyFiles}
+
+                   """);
     }
 
     static ConcurrentDictionary<string, EmptyFile> FindDictionaryForCategory(Category category) =>
