@@ -3,6 +3,7 @@
   <PropertyGroup>
     <NoWarn>CS1591;CS0649</NoWarn>
     <Version>4.5.0</Version>
+    <LangVersion>preview</LangVersion>
     <AssemblyVersion>1.0.0</AssemblyVersion>
     <Description>A collection of minimal binary files.</Description>
     <CheckEolTargetFramework>false</CheckEolTargetFramework>
