@@ -1,4 +1,4 @@
-﻿static class Guard
+static class Guard
 {
     public static void FileExists(string path, [CallerArgumentExpression("path")] string argumentName = "")
     {
@@ -16,6 +16,7 @@
             throw new ArgumentNullException(argumentName);
         }
     }
+
     public static void AgainstEmpty(CharSpan value, [CallerArgumentExpression("value")] string argumentName = "")
     {
         if (value.Length == 0)
