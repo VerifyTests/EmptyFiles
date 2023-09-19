@@ -24,12 +24,12 @@ public class Tests(ITestOutputHelper output) :
     }
 
     [Fact]
-    public async Task CreateFile_preamble()
+    public void CreateFile_preamble()
     {
         AllFiles.CreateFile("foo.txt", true);
 
         var preamble = Encoding.UTF8.GetPreamble();
-        var bytes = await File.ReadAllBytesAsync("foo.txt");
+        var bytes = File.ReadAllBytes("foo.txt");
         if (bytes.Length < preamble.Length ||
             preamble.Where((p, i) => p != bytes[i]).Any())
         {
@@ -218,7 +218,7 @@ public class Tests(ITestOutputHelper output) :
     {
         var md = Path.Combine(SourceDirectory, "extensions.include.md");
         File.Delete(md);
-        await using var writer = File.CreateText(md);
+        using var writer = File.CreateText(md);
         await WriteCategory(writer, "Archive", AllFiles.Archives);
         await WriteCategory(writer, "Document", AllFiles.Documents);
         await WriteCategory(writer, "Image", AllFiles.Images);
