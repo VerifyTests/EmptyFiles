@@ -1,7 +1,7 @@
 ﻿using EmptyFiles;
 
-public class Tests :
-    XunitContextBase
+public class Tests(ITestOutputHelper output) :
+    XunitContextBase(output)
 {
     [Fact]
     public void CreateFile_overwrite_binary()
@@ -236,10 +236,5 @@ public class Tests :
             var size = Size.Suffix(new FileInfo(file.Value.Path).Length);
             await writer.WriteLineAsync($"  * {file.Key} ({size})");
         }
-    }
-
-    public Tests(ITestOutputHelper output) :
-        base(output)
-    {
     }
 }

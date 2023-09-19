@@ -1,7 +1,7 @@
 ﻿using EmptyFiles;
 
-public class ExtensionsTests :
-    XunitContextBase
+public class ExtensionsTests(ITestOutputHelper output) :
+    XunitContextBase(output)
 {
     [Fact]
     public void IsText()
@@ -56,10 +56,5 @@ public class ExtensionsTests :
         Assert.Equal("txt", FileExtensions.GetExtension(".txt"));
         Assert.Equal("txt", FileExtensions.GetExtension("./File.txt"));
         Assert.Equal("txt", FileExtensions.GetExtension("txt"));
-    }
-
-    public ExtensionsTests(ITestOutputHelper output) :
-        base(output)
-    {
     }
 }
