@@ -2,7 +2,7 @@
 <Project Condition="$(DesignTimeBuild) != true">
   <ItemGroup>
     <ContentWithTargetPath
-       Include="$(MSBuildThisFileDirectory)..\EmptyFiles\**\*.*"
+       Include="$(MSBuildThisFileDirectory)..\files\**\*.*"
        CopyToOutputDirectory="PreserveNewest"
        TargetPath="EmptyFiles\%(RecursiveDir)%(Filename)%(Extension)" />
   </ItemGroup>
