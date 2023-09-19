@@ -11,8 +11,8 @@
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" Condition="$(Configuration) == 'Release'" />
     <PackageReference Include="Polyfill" Version="1.28.0" PrivateAssets="all" />
     <PackageReference Include="System.ValueTuple" Version="4.5.0" Condition="$(TargetFramework) =='net461'" />
-    <None Include="EmptyFiles.targets" Pack="True" PackagePath="build\EmptyFiles.targets" CopyToOutputDirectory="PreserveNewest" />
-    <None Include="EmptyFiles.targets" Pack="True" PackagePath="buildTransitive\EmptyFiles.targets" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="..\EmptyFiles.targets" Pack="True" PackagePath="build\EmptyFiles.targets" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="..\EmptyFiles.targets" Pack="True" PackagePath="buildTransitive\EmptyFiles.targets" CopyToOutputDirectory="PreserveNewest" />
     <None Include="$(ProjectDir)..\..\files\**\empty.*">
       <Pack>true</Pack>
       <PackagePath>EmptyFiles</PackagePath>
