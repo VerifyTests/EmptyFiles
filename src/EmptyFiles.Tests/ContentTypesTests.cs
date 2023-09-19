@@ -1,7 +1,7 @@
 ﻿using EmptyFiles;
 
-public class ContentTypesTests :
-    XunitContextBase
+public class ContentTypesTests(ITestOutputHelper output) :
+    XunitContextBase(output)
 {
     [Fact]
     public void TryGetExtension()
@@ -22,10 +22,5 @@ public class ContentTypesTests :
         Assert.True(ContentTypes.IsText("foo/bar+json", out extension));
         Assert.Equal("json", extension);
         Assert.False(ContentTypes.IsText("foo/bin", out extension));
-    }
-
-    public ContentTypesTests(ITestOutputHelper output) :
-        base(output)
-    {
     }
 }
