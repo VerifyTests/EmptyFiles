@@ -1,6 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
-
-namespace EmptyFiles;
+﻿namespace EmptyFiles;
 
 public static class ContentTypes
 {

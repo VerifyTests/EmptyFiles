@@ -1,4 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿// ReSharper disable UnusedMember.Global
 
 namespace EmptyFiles;
 
@@ -78,6 +78,7 @@ public static class AllFiles
                     * {codebaseEmptyFiles}
 
                    """);
+        yield return Environment.CurrentDirectory;
     }
 
     static ConcurrentDictionary<string, EmptyFile> FindDictionaryForCategory(Category category) =>
