@@ -1,9 +1,8 @@
 ﻿using EmptyFiles;
 
-public class ExtensionsTests(ITestOutputHelper output) :
-    XunitContextBase(output)
+public class ExtensionsTests
 {
-    [Fact]
+    [Test]
     public void IsText()
     {
         #region IsText
@@ -18,7 +17,7 @@ public class ExtensionsTests(ITestOutputHelper output) :
         #endregion
     }
 
-    [Fact]
+    [Test]
     public void AddTextExtension()
     {
         #region AddTextExtension
@@ -31,7 +30,7 @@ public class ExtensionsTests(ITestOutputHelper output) :
         #endregion
     }
 
-    [Fact]
+    [Test]
     public void RemoveTextExtension()
     {
         #region RemoveTextExtension
@@ -48,13 +47,13 @@ public class ExtensionsTests(ITestOutputHelper output) :
         #endregion
     }
 
-    [Fact]
+    [Test]
     public void Run()
     {
-        Assert.Equal("txt", FileExtensions.GetExtension("file.txt"));
-        Assert.Equal("txt", FileExtensions.GetExtension("c:/file.txt"));
-        Assert.Equal("txt", FileExtensions.GetExtension(".txt"));
-        Assert.Equal("txt", FileExtensions.GetExtension("./File.txt"));
-        Assert.Equal("txt", FileExtensions.GetExtension("txt"));
+        Assert.AreEqual("txt", FileExtensions.GetExtension("file.txt"));
+        Assert.AreEqual("txt", FileExtensions.GetExtension("c:/file.txt"));
+        Assert.AreEqual("txt", FileExtensions.GetExtension(".txt"));
+        Assert.AreEqual("txt", FileExtensions.GetExtension("./File.txt"));
+        Assert.AreEqual("txt", FileExtensions.GetExtension("txt"));
     }
 }
