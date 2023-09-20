@@ -1,26 +1,25 @@
 ﻿using EmptyFiles;
 
-public class ContentTypesTests(ITestOutputHelper output) :
-    XunitContextBase(output)
+public class ContentTypesTests
 {
-    [Fact]
+    [Test]
     public void TryGetExtension()
     {
         Assert.True(ContentTypes.TryGetExtension("application/json", out var extension));
-        Assert.Equal("json", extension);
+        Assert.AreEqual("json", extension);
         Assert.True(ContentTypes.TryGetExtension("foo/bar+json", out extension));
-        Assert.Equal("json", extension);
+        Assert.AreEqual("json", extension);
         Assert.True(ContentTypes.TryGetExtension("foo/bin", out extension));
-        Assert.Equal("bin", extension);
+        Assert.AreEqual("bin", extension);
     }
 
-    [Fact]
+    [Test]
     public void IsText()
     {
         Assert.True(ContentTypes.IsText("application/json", out var extension));
-        Assert.Equal("json", extension);
+        Assert.AreEqual("json", extension);
         Assert.True(ContentTypes.IsText("foo/bar+json", out extension));
-        Assert.Equal("json", extension);
+        Assert.AreEqual("json", extension);
         Assert.False(ContentTypes.IsText("foo/bin", out extension));
     }
 }

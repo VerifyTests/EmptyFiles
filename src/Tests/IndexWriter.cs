@@ -8,7 +8,7 @@ public class IndexWriter
     public static void Init() =>
         files = AllFiles.Files.OrderBy(_ => _.Key).ToList();
 
-    [Fact]
+    [Test]
     public void CreateIndex() =>
         InnerCreateIndex();
 
