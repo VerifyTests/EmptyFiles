@@ -10,8 +10,8 @@
         var path = Uri.UnescapeDataString(uri.Path);
 #endif
 
-        CurrentDirectory = Path.GetDirectoryName(path)!;
+        Directory = Path.GetDirectoryName(path)!;
     }
 
-    public static string CurrentDirectory;
+    public static string Directory;
 }
