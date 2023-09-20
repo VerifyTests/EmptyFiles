@@ -1,4 +1,4 @@
-﻿using System.Diagnostics.CodeAnalysis;
+﻿// ReSharper disable UnusedMember.Global
 
 namespace EmptyFiles;
 
@@ -60,24 +60,29 @@ public static class AllFiles
 
     internal static string FindEmptyFilesDirectory()
     {
-        var currentDomainEmptyFiles = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "EmptyFiles");
-        if (Directory.Exists(currentDomainEmptyFiles))
+        var directories = FindDirectories()
+            .Select(_ => Path.Combine(_, "EmptyFiles"))
+            .ToList();
+        foreach (var directory in directories)
         {
-            return currentDomainEmptyFiles;
+            if (Directory.Exists(directory))
+            {
+                return directory;
+            }
         }
 
-        var codebaseEmptyFiles = Path.Combine(AssemblyLocation.CurrentDirectory, "EmptyFiles");
-        if (Directory.Exists(codebaseEmptyFiles))
-        {
-            return codebaseEmptyFiles;
-        }
+        throw new(
+            $"""
+             Could not find empty files directory. Searched:
+             {string.Join(Environment.NewLine, directories)}
+             """);
+    }
 
-        throw new($"""
-                   Could not find empty files directory. Searched:
-                    * {currentDomainEmptyFiles}
-                    * {codebaseEmptyFiles}
-
-                   """);
+    static IEnumerable<string> FindDirectories()
+    {
+        yield return AppDomain.CurrentDomain.BaseDirectory;
+        yield return AssemblyLocation.Directory;
+        yield return Environment.CurrentDirectory;
     }
 
     static ConcurrentDictionary<string, EmptyFile> FindDictionaryForCategory(Category category) =>
@@ -96,7 +101,8 @@ public static class AllFiles
         Guard.FileExists(file);
         var extension = FileExtensions.GetExtension(file);
         var emptyFile = EmptyFile.Build(file, category);
-        FindDictionaryForCategory(category).AddOrUpdate(extension, _ => emptyFile, (_, _) => emptyFile);
+        FindDictionaryForCategory(category)
+            .AddOrUpdate(extension, _ => emptyFile, (_, _) => emptyFile);
         files.AddOrUpdate(extension, _ => emptyFile, (_, _) => emptyFile);
     }
 
