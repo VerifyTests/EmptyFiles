@@ -1,6 +1,4 @@
-﻿using EmptyFiles;
-
-public class ContentTypesTests
+﻿public class ContentTypesTests
 {
     [Test]
     public void TryGetExtension()
