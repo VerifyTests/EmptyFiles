@@ -25,7 +25,7 @@ public static class FileExtensions
             {
                 if (i != length - 1)
                 {
-                    return extensionOrPath.Slice(i +1, length - i-1);
+                    return extensionOrPath.Slice(i + 1, length - i - 1);
                 }
 
                 break;
