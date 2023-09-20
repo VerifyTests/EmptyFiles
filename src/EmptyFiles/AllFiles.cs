@@ -58,7 +58,7 @@ public static class AllFiles
         }
     }
 
-    internal static string FindEmptyFilesDirectory()
+    static string FindEmptyFilesDirectory()
     {
         var directories = FindDirectories()
             .Select(_ => Path.Combine(_, "EmptyFiles"))
