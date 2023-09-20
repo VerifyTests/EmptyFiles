@@ -101,7 +101,8 @@ public static class AllFiles
         Guard.FileExists(file);
         var extension = FileExtensions.GetExtension(file);
         var emptyFile = EmptyFile.Build(file, category);
-        FindDictionaryForCategory(category).AddOrUpdate(extension, _ => emptyFile, (_, _) => emptyFile);
+        FindDictionaryForCategory(category)
+            .AddOrUpdate(extension, _ => emptyFile, (_, _) => emptyFile);
         files.AddOrUpdate(extension, _ => emptyFile, (_, _) => emptyFile);
     }
 
