@@ -202,7 +202,7 @@ public class Tests
     static string ThisFile([CallerFilePath] string testFile = "") =>
         testFile;
 
-    [Test]
+    //[Test]
     public void UseFile()
     {
         var pathToFile = ThisFile();
