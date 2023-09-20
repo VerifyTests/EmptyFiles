@@ -1,9 +1,8 @@
 ﻿using EmptyFiles;
 
-public class Tests(ITestOutputHelper output) :
-    XunitContextBase(output)
+public class Tests
 {
-    [Fact]
+    [Test]
     public void CreateFile_overwrite_binary()
     {
         AllFiles.CreateFile("foo.bmp");
@@ -11,7 +10,7 @@ public class Tests(ITestOutputHelper output) :
         Assert.True(File.Exists("foo.bmp"));
     }
 
-    [Fact]
+    [Test]
     public void CreateFile_NoDir_binary()
     {
         if (Directory.Exists("myTempDir"))
@@ -23,7 +22,7 @@ public class Tests(ITestOutputHelper output) :
         Assert.True(File.Exists("myTempDir/foo.bmp"));
     }
 
-    [Fact]
+    [Test]
     public void CreateFile_preamble()
     {
         AllFiles.CreateFile("foo.txt", true);
@@ -37,7 +36,7 @@ public class Tests(ITestOutputHelper output) :
         }
     }
 
-    [Fact]
+    [Test]
     public void CreateFile_overwrite_txt()
     {
         AllFiles.CreateFile("foo.txt", true);
@@ -45,7 +44,7 @@ public class Tests(ITestOutputHelper output) :
         Assert.True(File.Exists("foo.txt"));
     }
 
-    [Fact]
+    [Test]
     public void CreateFile_NoDir_txt()
     {
         if (Directory.Exists("myTempDir"))
@@ -57,7 +56,7 @@ public class Tests(ITestOutputHelper output) :
         Assert.True(File.Exists("myTempDir/foo.txt"));
     }
 
-    [Fact]
+    [Test]
     public void TryCreateFile_overwrite_txt()
     {
         Assert.True(AllFiles.TryCreateFile("foo.txt", true));
@@ -65,7 +64,7 @@ public class Tests(ITestOutputHelper output) :
         Assert.True(File.Exists("foo.txt"));
     }
 
-    [Fact]
+    [Test]
     public void TryCreateFile_NoDir_txt()
     {
         if (Directory.Exists("myTempDir"))
@@ -77,7 +76,7 @@ public class Tests(ITestOutputHelper output) :
         Assert.True(File.Exists("myTempDir/foo.txt"));
     }
 
-    [Fact]
+    [Test]
     public void TryCreateFile_overwrite_binary()
     {
         Assert.True(AllFiles.TryCreateFile("foo.bmp"));
@@ -85,7 +84,7 @@ public class Tests(ITestOutputHelper output) :
         Assert.True(File.Exists("foo.bmp"));
     }
 
-    [Fact]
+    [Test]
     public void TryCreateFile_NoDir_binary()
     {
         if (Directory.Exists("myTempDir"))
@@ -97,7 +96,7 @@ public class Tests(ITestOutputHelper output) :
         Assert.True(File.Exists("myTempDir/foo.bmp"));
     }
 
-    [Fact]
+    [Test]
     public void Unknown_extension()
     {
         Assert.Throws<Exception>(() => AllFiles.GetPathFor("txt"));
@@ -111,7 +110,7 @@ public class Tests(ITestOutputHelper output) :
         Assert.Throws<Exception>(() => AllFiles.CreateFile("foo.txt"));
     }
 
-    [Fact]
+    [Test]
     public void GetPathFor()
     {
         #region GetPathFor
@@ -127,7 +126,7 @@ public class Tests(ITestOutputHelper output) :
         Assert.True(File.Exists(path2));
     }
 
-    [Fact]
+    [Test]
     public void CreateFile()
     {
         var pathOfFileToCreate = "file.jpg";
@@ -159,7 +158,7 @@ public class Tests(ITestOutputHelper output) :
         File.Delete("foo.txt");
     }
 
-    [Fact]
+    [Test]
     public void IsEmptyFile()
     {
         #region IsEmptyFile
@@ -176,19 +175,19 @@ public class Tests(ITestOutputHelper output) :
         File.Delete(temp);
     }
 
-    [Fact]
+    [Test]
     public void Aliases()
     {
         var path = AllFiles.GetPathFor("jpeg");
         Assert.True(AllFiles.IsEmptyFile(path));
 
-        Assert.Contains("jpeg", AllFiles.ImageExtensions);
+        Assert.IsTrue(AllFiles.ImageExtensions.Contains("jpeg"));
     }
 
-    [Fact]
+    [Test]
     public void AllPaths()
     {
-        Assert.NotEmpty(AllFiles.AllPaths);
+        Assert.IsNotEmpty(AllFiles.AllPaths);
 
         #region AllPaths
 
@@ -200,23 +199,26 @@ public class Tests(ITestOutputHelper output) :
         #endregion
     }
 
-    [Fact]
+    static string ThisFile([CallerFilePath] string testFile = "") =>
+        testFile;
+
+    [Test]
     public void UseFile()
     {
-        var pathToFile = SourceFile;
+        var pathToFile = ThisFile();
 
         #region UseFile
 
         AllFiles.UseFile(Category.Document, pathToFile);
-        Assert.Contains(pathToFile, AllFiles.DocumentPaths);
+        Assert.IsTrue(AllFiles.DocumentPaths.Contains(pathToFile));
 
         #endregion
     }
 
-    [Fact]
+    [Test]
     public async Task WriteExtensions()
     {
-        var md = Path.Combine(SourceDirectory, "extensions.include.md");
+        var md = Path.Combine(SolutionDirectoryFinder.Find(), "extensions.include.md");
         File.Delete(md);
         using var writer = File.CreateText(md);
         await WriteCategory(writer, "Archive", AllFiles.Archives);
