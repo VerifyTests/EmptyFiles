@@ -1,6 +1,4 @@
-﻿using EmptyFiles;
-
-public class ExtensionsTests
+﻿public class ExtensionsTests
 {
     [Test]
     public void IsText()

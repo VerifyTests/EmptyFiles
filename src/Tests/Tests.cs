@@ -1,6 +1,4 @@
-﻿using EmptyFiles;
-
-public class Tests
+﻿public class Tests
 {
     [Test]
     public void CreateFile_overwrite_binary()

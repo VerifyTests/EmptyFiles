@@ -1,6 +1,4 @@
-﻿using EmptyFiles;
-
-public class IndexWriter
+﻿public class IndexWriter
 {
     static List<KeyValuePair<string, EmptyFile>> files = null!;
 
