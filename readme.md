@@ -7,6 +7,8 @@
 
 A collection of minimal binary files.
 
+**See [Milestones](../../milestones?state=closed) for release notes.**
+
 
 ## NuGet package
 
