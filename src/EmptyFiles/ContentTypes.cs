@@ -2,6 +2,9 @@
 
 public static class ContentTypes
 {
+    public static bool IsText(string? mediaType) =>
+        IsText(mediaType, out _);
+
     public static bool IsText(string? mediaType, [NotNullWhen(true)] out string? extension)
     {
         if (TryGetExtension(mediaType, out extension))
