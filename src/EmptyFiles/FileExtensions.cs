@@ -451,5 +451,5 @@ public static class FileExtensions
         "zshrc"
     };
 
-    public static IEnumerable<string> TextExtensions => textExtensions;
+    public static IReadOnlyCollection<string> TextExtensions => textExtensions;
 }
