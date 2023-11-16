@@ -14,7 +14,7 @@
   <ItemGroup>
     <ProjectReference Include="..\EmptyFiles\EmptyFiles.csproj" PrivateAssets="None" />
     <PackageReference Include="ProjectDefaults" Version="1.0.101" PrivateAssets="all" />
-    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" PrivateAssets="All" Condition="$(Configuration) == 'Release'" />
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0" PrivateAssets="All" Condition="$(Configuration) == 'Release'" />
     <None Include="$(ProjectDir)..\..\files\**\empty.*">
       <Pack>true</Pack>
       <PackagePath>tools\net8.0\any\EmptyFiles</PackagePath>
