@@ -4,38 +4,38 @@ namespace EmptyFiles;
 
 public static class AllFiles
 {
-    static Dictionary<string, string> aliases = new()
-    {
+    static Dictionary<string, string> aliases =
+    [
         {"jpeg", "jpg"},
         {"tiff", "tif"},
         {"7zip", "7z"},
         {"gzip", "gz"},
         {"bzip2", "bz2"}
-    };
+    ];
 
     public static IReadOnlyDictionary<string, EmptyFile> Files => files;
 
-    static ConcurrentDictionary<string, EmptyFile> files = new();
+    static ConcurrentDictionary<string, EmptyFile> files = [];
 
     public static IReadOnlyDictionary<string, EmptyFile> Archives => archives;
 
-    static ConcurrentDictionary<string, EmptyFile> archives = new();
+    static ConcurrentDictionary<string, EmptyFile> archives = [];
 
     public static IReadOnlyDictionary<string, EmptyFile> Documents => documents;
 
-    static ConcurrentDictionary<string, EmptyFile> documents = new();
+    static ConcurrentDictionary<string, EmptyFile> documents = [];
 
     public static IReadOnlyDictionary<string, EmptyFile> Images => images;
 
-    static ConcurrentDictionary<string, EmptyFile> images = new();
+    static ConcurrentDictionary<string, EmptyFile> images = [];
 
     public static IReadOnlyDictionary<string, EmptyFile> Sheets => sheets;
 
-    static ConcurrentDictionary<string, EmptyFile> sheets = new();
+    static ConcurrentDictionary<string, EmptyFile> sheets = [];
 
     public static IReadOnlyDictionary<string, EmptyFile> Slides => slides;
 
-    static ConcurrentDictionary<string, EmptyFile> slides = new();
+    static ConcurrentDictionary<string, EmptyFile> slides = [];
 
     static AllFiles()
     {
