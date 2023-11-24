@@ -118,8 +118,8 @@ public static class FileExtensions
     }
 
     //From https://github.com/sindresorhus/text-extensions/blob/master/text-extensions.json
-    static HashSet<string> textExtensions = new()
-    {
+    static HashSet<string> textExtensions =
+    [
         "ada",
         "adb",
         "ads",
@@ -449,7 +449,7 @@ public static class FileExtensions
         "yml",
         "zsh",
         "zshrc"
-    };
+    ];
 
     public static IReadOnlyCollection<string> TextExtensions => textExtensions;
 }
