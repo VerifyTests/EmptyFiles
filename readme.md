@@ -185,9 +185,9 @@ Returns true if the target file is an empty file.
 <a id='snippet-isemptyfile'></a>
 ```cs
 var path = AllFiles.GetPathFor("jpg");
-Assert.True(AllFiles.IsEmptyFile(path));
+True(AllFiles.IsEmptyFile(path));
 var temp = Path.GetTempFileName();
-Assert.False(AllFiles.IsEmptyFile(temp));
+False(AllFiles.IsEmptyFile(temp));
 ```
 <sup><a href='/src/Tests/Tests.cs#L162-L169' title='Snippet source file'>snippet source</a> | <a href='#snippet-isemptyfile' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
@@ -217,7 +217,7 @@ Use or replace a file
 <a id='snippet-usefile'></a>
 ```cs
 AllFiles.UseFile(Category.Document, pathToFile);
-Assert.IsTrue(AllFiles.DocumentPaths.Contains(pathToFile));
+IsTrue(AllFiles.DocumentPaths.Contains(pathToFile));
 ```
 <sup><a href='/src/Tests/Tests.cs#L208-L213' title='Snippet source file'>snippet source</a> | <a href='#snippet-usefile' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
@@ -233,12 +233,12 @@ https://github.com/sindresorhus/text-extensions/blob/master/text-extensions.json
 <!-- snippet: IsText -->
 <a id='snippet-istext'></a>
 ```cs
-Assert.True(FileExtensions.IsText("file.txt"));
-Assert.False(FileExtensions.IsText("file.bin"));
-Assert.True(FileExtensions.IsText(".txt"));
-Assert.False(FileExtensions.IsText(".bin"));
-Assert.True(FileExtensions.IsText("txt"));
-Assert.False(FileExtensions.IsText("bin"));
+True(FileExtensions.IsText("file.txt"));
+False(FileExtensions.IsText("file.bin"));
+True(FileExtensions.IsText(".txt"));
+False(FileExtensions.IsText(".bin"));
+True(FileExtensions.IsText("txt"));
+False(FileExtensions.IsText("bin"));
 ```
 <sup><a href='/src/Tests/ExtensionsTests.cs#L6-L15' title='Snippet source file'>snippet source</a> | <a href='#snippet-istext' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
@@ -251,8 +251,8 @@ Assert.False(FileExtensions.IsText("bin"));
 ```cs
 FileExtensions.AddTextExtension("ext1");
 FileExtensions.AddTextExtension(".ext2");
-Assert.True(FileExtensions.IsText("ext1"));
-Assert.True(FileExtensions.IsText("ext2"));
+True(FileExtensions.IsText("ext1"));
+True(FileExtensions.IsText("ext2"));
 ```
 <sup><a href='/src/Tests/ExtensionsTests.cs#L21-L28' title='Snippet source file'>snippet source</a> | <a href='#snippet-addtextextension' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
@@ -265,12 +265,12 @@ Assert.True(FileExtensions.IsText("ext2"));
 ```cs
 FileExtensions.AddTextExtension("ext1");
 FileExtensions.AddTextExtension(".ext2");
-Assert.True(FileExtensions.IsText("ext1"));
-Assert.True(FileExtensions.IsText("ext2"));
+True(FileExtensions.IsText("ext1"));
+True(FileExtensions.IsText("ext2"));
 FileExtensions.RemoveTextExtension("ext1");
 FileExtensions.RemoveTextExtension(".ext2");
-Assert.False(FileExtensions.IsText("ext1"));
-Assert.False(FileExtensions.IsText("ext2"));
+False(FileExtensions.IsText("ext1"));
+False(FileExtensions.IsText("ext2"));
 ```
 <sup><a href='/src/Tests/ExtensionsTests.cs#L34-L45' title='Snippet source file'>snippet source</a> | <a href='#snippet-removetextextension' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->

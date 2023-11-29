@@ -5,12 +5,12 @@
     {
         #region IsText
 
-        Assert.True(FileExtensions.IsText("file.txt"));
-        Assert.False(FileExtensions.IsText("file.bin"));
-        Assert.True(FileExtensions.IsText(".txt"));
-        Assert.False(FileExtensions.IsText(".bin"));
-        Assert.True(FileExtensions.IsText("txt"));
-        Assert.False(FileExtensions.IsText("bin"));
+        True(FileExtensions.IsText("file.txt"));
+        False(FileExtensions.IsText("file.bin"));
+        True(FileExtensions.IsText(".txt"));
+        False(FileExtensions.IsText(".bin"));
+        True(FileExtensions.IsText("txt"));
+        False(FileExtensions.IsText("bin"));
 
         #endregion
     }
@@ -22,8 +22,8 @@
 
         FileExtensions.AddTextExtension("ext1");
         FileExtensions.AddTextExtension(".ext2");
-        Assert.True(FileExtensions.IsText("ext1"));
-        Assert.True(FileExtensions.IsText("ext2"));
+        True(FileExtensions.IsText("ext1"));
+        True(FileExtensions.IsText("ext2"));
 
         #endregion
     }
@@ -35,12 +35,12 @@
 
         FileExtensions.AddTextExtension("ext1");
         FileExtensions.AddTextExtension(".ext2");
-        Assert.True(FileExtensions.IsText("ext1"));
-        Assert.True(FileExtensions.IsText("ext2"));
+        True(FileExtensions.IsText("ext1"));
+        True(FileExtensions.IsText("ext2"));
         FileExtensions.RemoveTextExtension("ext1");
         FileExtensions.RemoveTextExtension(".ext2");
-        Assert.False(FileExtensions.IsText("ext1"));
-        Assert.False(FileExtensions.IsText("ext2"));
+        False(FileExtensions.IsText("ext1"));
+        False(FileExtensions.IsText("ext2"));
 
         #endregion
     }
@@ -48,10 +48,10 @@
     [Test]
     public void Run()
     {
-        Assert.AreEqual("txt", FileExtensions.GetExtension("file.txt"));
-        Assert.AreEqual("txt", FileExtensions.GetExtension("c:/file.txt"));
-        Assert.AreEqual("txt", FileExtensions.GetExtension(".txt"));
-        Assert.AreEqual("txt", FileExtensions.GetExtension("./File.txt"));
-        Assert.AreEqual("txt", FileExtensions.GetExtension("txt"));
+        AreEqual("txt", FileExtensions.GetExtension("file.txt"));
+        AreEqual("txt", FileExtensions.GetExtension("c:/file.txt"));
+        AreEqual("txt", FileExtensions.GetExtension(".txt"));
+        AreEqual("txt", FileExtensions.GetExtension("./File.txt"));
+        AreEqual("txt", FileExtensions.GetExtension("txt"));
     }
 }

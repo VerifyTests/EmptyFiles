@@ -3,25 +3,25 @@
     [Test]
     public void TryGetExtension()
     {
-        Assert.True(ContentTypes.TryGetExtension("application/json", out var extension));
-        Assert.AreEqual("json", extension);
-        Assert.True(ContentTypes.TryGetExtension("foo/bar+json", out extension));
-        Assert.AreEqual("json", extension);
-        Assert.True(ContentTypes.TryGetExtension("foo/bin", out extension));
-        Assert.AreEqual("bin", extension);
+        True(ContentTypes.TryGetExtension("application/json", out var extension));
+        AreEqual("json", extension);
+        True(ContentTypes.TryGetExtension("foo/bar+json", out extension));
+        AreEqual("json", extension);
+        True(ContentTypes.TryGetExtension("foo/bin", out extension));
+        AreEqual("bin", extension);
     }
 
     [Test]
     public void IsText()
     {
-        Assert.True(ContentTypes.IsText("application/json", out var extension));
-        Assert.AreEqual("json", extension);
-        Assert.True(ContentTypes.IsText("foo/bar+json", out extension));
-        Assert.AreEqual("json", extension);
-        Assert.False(ContentTypes.IsText("foo/bin", out extension));
+        True(ContentTypes.IsText("application/json", out var extension));
+        AreEqual("json", extension);
+        True(ContentTypes.IsText("foo/bar+json", out extension));
+        AreEqual("json", extension);
+        False(ContentTypes.IsText("foo/bin", out extension));
 
-        Assert.True(ContentTypes.IsText("application/json"));
-        Assert.True(ContentTypes.IsText("foo/bar+json"));
-        Assert.False(ContentTypes.IsText("foo/bin"));
+        True(ContentTypes.IsText("application/json"));
+        True(ContentTypes.IsText("foo/bar+json"));
+        False(ContentTypes.IsText("foo/bin"));
     }
 }

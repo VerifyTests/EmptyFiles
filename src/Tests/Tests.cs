@@ -5,7 +5,7 @@
     {
         AllFiles.CreateFile("foo.bmp");
         AllFiles.CreateFile("foo.bmp");
-        Assert.True(File.Exists("foo.bmp"));
+        True(File.Exists("foo.bmp"));
     }
 
     [Test]
@@ -17,7 +17,7 @@
         }
 
         AllFiles.CreateFile("myTempDir/foo.bmp");
-        Assert.True(File.Exists("myTempDir/foo.bmp"));
+        True(File.Exists("myTempDir/foo.bmp"));
     }
 
     [Test]
@@ -39,7 +39,7 @@
     {
         AllFiles.CreateFile("foo.txt", true);
         AllFiles.CreateFile("foo.txt", true);
-        Assert.True(File.Exists("foo.txt"));
+        True(File.Exists("foo.txt"));
     }
 
     [Test]
@@ -51,15 +51,15 @@
         }
 
         AllFiles.CreateFile("myTempDir/foo.txt", true);
-        Assert.True(File.Exists("myTempDir/foo.txt"));
+        True(File.Exists("myTempDir/foo.txt"));
     }
 
     [Test]
     public void TryCreateFile_overwrite_txt()
     {
-        Assert.True(AllFiles.TryCreateFile("foo.txt", true));
-        Assert.True(AllFiles.TryCreateFile("foo.txt", true));
-        Assert.True(File.Exists("foo.txt"));
+        True(AllFiles.TryCreateFile("foo.txt", true));
+        True(AllFiles.TryCreateFile("foo.txt", true));
+        True(File.Exists("foo.txt"));
     }
 
     [Test]
@@ -70,16 +70,16 @@
             Directory.Delete("myTempDir", true);
         }
 
-        Assert.True(AllFiles.TryCreateFile("myTempDir/foo.txt", true));
-        Assert.True(File.Exists("myTempDir/foo.txt"));
+        True(AllFiles.TryCreateFile("myTempDir/foo.txt", true));
+        True(File.Exists("myTempDir/foo.txt"));
     }
 
     [Test]
     public void TryCreateFile_overwrite_binary()
     {
-        Assert.True(AllFiles.TryCreateFile("foo.bmp"));
-        Assert.True(AllFiles.TryCreateFile("foo.bmp"));
-        Assert.True(File.Exists("foo.bmp"));
+        True(AllFiles.TryCreateFile("foo.bmp"));
+        True(AllFiles.TryCreateFile("foo.bmp"));
+        True(File.Exists("foo.bmp"));
     }
 
     [Test]
@@ -90,22 +90,22 @@
             Directory.Delete("myTempDir", true);
         }
 
-        Assert.True(AllFiles.TryCreateFile("myTempDir/foo.bmp"));
-        Assert.True(File.Exists("myTempDir/foo.bmp"));
+        True(AllFiles.TryCreateFile("myTempDir/foo.bmp"));
+        True(File.Exists("myTempDir/foo.bmp"));
     }
 
     [Test]
     public void Unknown_extension()
     {
-        Assert.Throws<Exception>(() => AllFiles.GetPathFor("txt"));
-        Assert.False(AllFiles.TryGetPathFor("txt", out var result));
-        Assert.Null(result);
-        Assert.False(AllFiles.TryGetPathFor(".txt", out result));
-        Assert.Null(result);
-        Assert.False(AllFiles.TryCreateFile("foo.txt"));
-        Assert.Null(result);
-        Assert.Throws<Exception>(() => AllFiles.GetPathFor(".txt"));
-        Assert.Throws<Exception>(() => AllFiles.CreateFile("foo.txt"));
+        Throws<Exception>(() => AllFiles.GetPathFor("txt"));
+        False(AllFiles.TryGetPathFor("txt", out var result));
+        Null(result);
+        False(AllFiles.TryGetPathFor(".txt", out result));
+        Null(result);
+        False(AllFiles.TryCreateFile("foo.txt"));
+        Null(result);
+        Throws<Exception>(() => AllFiles.GetPathFor(".txt"));
+        Throws<Exception>(() => AllFiles.CreateFile("foo.txt"));
     }
 
     [Test]
@@ -118,10 +118,10 @@
         #endregion
 
         var path2 = AllFiles.GetPathFor(".jpg");
-        Assert.NotNull(path);
-        Assert.NotNull(path2);
-        Assert.True(File.Exists(path));
-        Assert.True(File.Exists(path2));
+        NotNull(path);
+        NotNull(path2);
+        True(File.Exists(path));
+        True(File.Exists(path2));
     }
 
     [Test]
@@ -136,23 +136,23 @@
 
         #endregion
 
-        Assert.True(File.Exists(pathOfFileToCreate));
+        True(File.Exists(pathOfFileToCreate));
         File.Delete(pathOfFileToCreate);
 
         AllFiles.CreateFile("foo.txt", true);
-        Assert.True(File.Exists("foo.txt"));
+        True(File.Exists("foo.txt"));
         File.Delete("foo.txt");
 
-        Assert.True(AllFiles.TryCreateFile(pathOfFileToCreate));
-        Assert.True(File.Exists(pathOfFileToCreate));
+        True(AllFiles.TryCreateFile(pathOfFileToCreate));
+        True(File.Exists(pathOfFileToCreate));
         File.Delete(pathOfFileToCreate);
 
-        Assert.False(AllFiles.TryCreateFile("foo.txt"));
-        Assert.False(File.Exists("foo.txt"));
+        False(AllFiles.TryCreateFile("foo.txt"));
+        False(File.Exists("foo.txt"));
         File.Delete("foo.txt");
 
-        Assert.True(AllFiles.TryCreateFile("foo.txt", true));
-        Assert.True(File.Exists("foo.txt"));
+        True(AllFiles.TryCreateFile("foo.txt", true));
+        True(File.Exists("foo.txt"));
         File.Delete("foo.txt");
     }
 
@@ -162,14 +162,14 @@
         #region IsEmptyFile
 
         var path = AllFiles.GetPathFor("jpg");
-        Assert.True(AllFiles.IsEmptyFile(path));
+        True(AllFiles.IsEmptyFile(path));
         var temp = Path.GetTempFileName();
-        Assert.False(AllFiles.IsEmptyFile(temp));
+        False(AllFiles.IsEmptyFile(temp));
 
         #endregion
 
         var path2 = AllFiles.GetPathFor(".jpg");
-        Assert.True(AllFiles.IsEmptyFile(path2));
+        True(AllFiles.IsEmptyFile(path2));
         File.Delete(temp);
     }
 
@@ -177,15 +177,15 @@
     public void Aliases()
     {
         var path = AllFiles.GetPathFor("jpeg");
-        Assert.True(AllFiles.IsEmptyFile(path));
+        True(AllFiles.IsEmptyFile(path));
 
-        Assert.IsTrue(AllFiles.ImageExtensions.Contains("jpeg"));
+        IsTrue(AllFiles.ImageExtensions.Contains("jpeg"));
     }
 
     [Test]
     public void AllPaths()
     {
-        Assert.IsNotEmpty(AllFiles.AllPaths);
+        IsNotEmpty(AllFiles.AllPaths);
 
         #region AllPaths
 
@@ -208,7 +208,7 @@
         #region UseFile
 
         AllFiles.UseFile(Category.Document, pathToFile);
-        Assert.IsTrue(AllFiles.DocumentPaths.Contains(pathToFile));
+        IsTrue(AllFiles.DocumentPaths.Contains(pathToFile));
 
         #endregion
     }
