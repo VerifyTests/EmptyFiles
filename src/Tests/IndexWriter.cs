@@ -4,7 +4,9 @@
 
     [ModuleInitializer]
     public static void Init() =>
-        files = AllFiles.Files.OrderBy(_ => _.Key).ToList();
+        files = AllFiles
+            .Files.OrderBy(_ => _.Key)
+            .ToList();
 
     [Test]
     public void CreateIndex() =>
