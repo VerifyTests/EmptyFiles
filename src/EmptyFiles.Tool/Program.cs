@@ -22,8 +22,8 @@ else
 }
 
 if (AllFiles.TryCreateFile(
-    path,
-    useEmptyStringForTextFiles: true))
+        path,
+        useEmptyStringForTextFiles: true))
 {
     return 0;
 }

@@ -28,7 +28,9 @@
         var preamble = Encoding.UTF8.GetPreamble();
         var bytes = File.ReadAllBytes("foo.txt");
         if (bytes.Length < preamble.Length ||
-            preamble.Where((p, i) => p != bytes[i]).Any())
+            preamble
+                .Where((p, i) => p != bytes[i])
+                .Any())
         {
             throw new ArgumentException("Not utf8-BOM");
         }

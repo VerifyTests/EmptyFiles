@@ -1,6 +1,11 @@
 ﻿static class Size
 {
-    static string[] SizeSuffixes = { "bytes", "KB", "MB"};
+    static string[] SizeSuffixes =
+    {
+        "bytes",
+        "KB",
+        "MB"
+    };
 
     public static string Suffix(long value)
     {
