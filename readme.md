@@ -154,7 +154,7 @@ Creates a new empty file
 ```cs
 AllFiles.CreateFile(pathOfFileToCreate);
 ```
-<sup><a href='/src/Tests/Tests.cs#L133-L137' title='Snippet source file'>snippet source</a> | <a href='#snippet-createfile' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Tests.cs#L135-L139' title='Snippet source file'>snippet source</a> | <a href='#snippet-createfile' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Throws an exception if the extension is not known. There is also a `TryCreateFile` that will return false if the extension is not known.
@@ -171,7 +171,7 @@ Gets the path to an empty file for a given extension
 ```cs
 var path = AllFiles.GetPathFor("jpg");
 ```
-<sup><a href='/src/Tests/Tests.cs#L114-L118' title='Snippet source file'>snippet source</a> | <a href='#snippet-getpathfor' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Tests.cs#L116-L120' title='Snippet source file'>snippet source</a> | <a href='#snippet-getpathfor' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Throws an exception if the extension is not known. There is also a `TryGetPathFor` that will return false if the extension is not known.
@@ -189,7 +189,7 @@ True(AllFiles.IsEmptyFile(path));
 var temp = Path.GetTempFileName();
 False(AllFiles.IsEmptyFile(temp));
 ```
-<sup><a href='/src/Tests/Tests.cs#L162-L169' title='Snippet source file'>snippet source</a> | <a href='#snippet-isemptyfile' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Tests.cs#L164-L171' title='Snippet source file'>snippet source</a> | <a href='#snippet-isemptyfile' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -205,7 +205,7 @@ foreach (var path in AllFiles.AllPaths)
     Trace.WriteLine(path);
 }
 ```
-<sup><a href='/src/Tests/Tests.cs#L190-L197' title='Snippet source file'>snippet source</a> | <a href='#snippet-allpaths' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Tests.cs#L192-L199' title='Snippet source file'>snippet source</a> | <a href='#snippet-allpaths' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -219,7 +219,7 @@ Use or replace a file
 AllFiles.UseFile(Category.Document, pathToFile);
 IsTrue(AllFiles.DocumentPaths.Contains(pathToFile));
 ```
-<sup><a href='/src/Tests/Tests.cs#L208-L213' title='Snippet source file'>snippet source</a> | <a href='#snippet-usefile' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Tests.cs#L210-L215' title='Snippet source file'>snippet source</a> | <a href='#snippet-usefile' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
