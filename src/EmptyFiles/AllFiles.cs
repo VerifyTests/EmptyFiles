@@ -6,11 +6,21 @@ public static class AllFiles
 {
     static Dictionary<string, string> aliases = new()
     {
-        {"jpeg", "jpg"},
-        {"tiff", "tif"},
-        {"7zip", "7z"},
-        {"gzip", "gz"},
-        {"bzip2", "bz2"}
+        {
+            "jpeg", "jpg"
+        },
+        {
+            "tiff", "tif"
+        },
+        {
+            "7zip", "7z"
+        },
+        {
+            "gzip", "gz"
+        },
+        {
+            "bzip2", "bz2"
+        }
     };
 
     public static IReadOnlyDictionary<string, EmptyFile> Files => files;

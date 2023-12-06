@@ -5,7 +5,8 @@ public static class FileExtensions
     public static string GetExtension(string extensionOrPath)
     {
         Guard.AgainstNullOrEmpty(extensionOrPath);
-        return GetExtension(extensionOrPath.AsSpan()).ToString();
+        return GetExtension(extensionOrPath.AsSpan())
+            .ToString();
     }
 
     public static CharSpan GetExtension(CharSpan extensionOrPath)
