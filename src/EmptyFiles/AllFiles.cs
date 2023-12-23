@@ -158,21 +158,25 @@ public static class AllFiles
         return File.GetLastWriteTime(path) == emptyFile.LastWriteTime;
     }
 
-    static byte[] preamble = Encoding.UTF8.GetPreamble();
-
-    public static void CreateFile(string path, bool useEmptyStringForTextFiles = false)
+    public static void CreateFile(string path, bool useEmptyStringForTextFiles = false, Encoding? encoding = null)
     {
         TryCreateDirectory(path);
         var extension = FileExtensions.GetExtension(path);
         if (useEmptyStringForTextFiles &&
             FileExtensions.IsText(extension))
         {
-            File.Delete(path);
-            File.WriteAllBytes(path, preamble);
+            CreateTextFile(path, encoding);
             return;
         }
 
         File.Copy(GetPathFor(extension), path, true);
+    }
+
+    static void CreateTextFile(string path, Encoding? encoding)
+    {
+        File.Delete(path);
+        encoding ??= Encoding.UTF8;
+        File.WriteAllBytes(path, encoding.GetPreamble());
     }
 
     public static string GetPathFor(string extension)
@@ -187,7 +191,7 @@ public static class AllFiles
         throw new($"Unknown extension: {extension}");
     }
 
-    public static bool TryCreateFile(string path, bool useEmptyStringForTextFiles = false)
+    public static bool TryCreateFile(string path, bool useEmptyStringForTextFiles = false, Encoding? encoding = null)
     {
         Guard.AgainstNullOrEmpty(path);
         var extension = Path.GetExtension(path);
@@ -197,12 +201,7 @@ public static class AllFiles
         {
             TryCreateDirectory(path);
 
-            if (File.Exists(path))
-            {
-                File.Delete(path);
-            }
-
-            File.WriteAllBytes(path, preamble);
+            CreateTextFile(path, encoding);
             return true;
         }
 
