@@ -45,7 +45,7 @@ public static class AllFiles
         var categoryDirectory = Path.Combine(emptyDirectory, category.ToString().ToLowerInvariant());
         foreach (var extension in extensions)
         {
-            var file = Path.Combine(categoryDirectory, $"empty.{extension}");
+            var file = Path.Combine(categoryDirectory, $"empty{extension}");
             var emptyFile = EmptyFile.Build(file, category);
             items[extension] = emptyFile;
             files[extension] = emptyFile;

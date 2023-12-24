@@ -37,8 +37,7 @@ public static class ContentTypes
 
         if (plusIndex > -1)
         {
-            extension = mediaTypeSpan[(plusIndex + 1)..]
-                .ToString();
+            extension = $".{mediaTypeSpan[(plusIndex + 1)..]}";
             return true;
         }
 
@@ -46,8 +45,7 @@ public static class ContentTypes
 
         if (slashIndex > -1)
         {
-            extension = mediaTypeSpan[(slashIndex + 1)..]
-                .ToString();
+            extension = $".{mediaTypeSpan[(slashIndex + 1)..]}";
             return true;
         }
 

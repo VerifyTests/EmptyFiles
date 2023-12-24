@@ -22,7 +22,66 @@ All files: https://github.com/VerifyTests/EmptyFiles/tree/main/files
 
 <!-- include: extensions. path: /src/extensions.include.md -->
 ### Archive
-<!-- endInclude -->
+
+  * .7z (32 bytes)
+  * .7zip (32 bytes)
+  * .bz2 (14 bytes)
+  * .bzip2 (14 bytes)
+  * .gz (29 bytes)
+  * .gzip (29 bytes)
+  * .tar (1.5 KB)
+  * .xz (32 bytes)
+  * .zip (22 bytes)
+
+### Document
+
+  * .docx (1.9 KB)
+  * .odt (2.2 KB)
+  * .pdf (280 bytes)
+  * .rtf (6 bytes)
+
+### Image
+
+  * .avif (298 bytes)
+  * .bmp (58 bytes)
+  * .dds (136 bytes)
+  * .dib (58 bytes)
+  * .emf (620 bytes)
+  * .exif (734 bytes)
+  * .gif (799 bytes)
+  * .heic (3.2 KB)
+  * .heif (209 bytes)
+  * .ico (70 bytes)
+  * .j2c (270 bytes)
+  * .jfif (734 bytes)
+  * .jp2 (354 bytes)
+  * .jpc (270 bytes)
+  * .jpe (734 bytes)
+  * .jpeg (734 bytes)
+  * .jpg (734 bytes)
+  * .jxr (300 bytes)
+  * .pbm (8 bytes)
+  * .pcx (131 bytes)
+  * .pgm (12 bytes)
+  * .png (119 bytes)
+  * .ppm (14 bytes)
+  * .rle (58 bytes)
+  * .tga (543 bytes)
+  * .tif (250 bytes)
+  * .tiff (250 bytes)
+  * .wdp (300 bytes)
+  * .webp (228 bytes)
+  * .wmp (300 bytes)
+
+### Sheet
+
+  * .ods (2.7 KB)
+  * .xlsx (4.5 KB)
+
+### Slide
+
+  * .odp (7.8 KB)
+  * .pptx (13.3 KB)<!-- endInclude -->
 
 
 ## Consuming files as a web resource
@@ -110,7 +169,7 @@ Gets the path to an empty file for a given extension
 <!-- snippet: GetPathFor -->
 <a id='snippet-getpathfor'></a>
 ```cs
-var path = AllFiles.GetPathFor("jpg");
+var path = AllFiles.GetPathFor(".jpg");
 ```
 <sup><a href='/src/Tests/Tests.cs#L116-L120' title='Snippet source file'>snippet source</a> | <a href='#snippet-getpathfor' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
@@ -125,7 +184,7 @@ Returns true if the target file is an empty file.
 <!-- snippet: IsEmptyFile -->
 <a id='snippet-isemptyfile'></a>
 ```cs
-var path = AllFiles.GetPathFor("jpg");
+var path = AllFiles.GetPathFor(".jpg");
 True(AllFiles.IsEmptyFile(path));
 var temp = Path.GetTempFileName();
 False(AllFiles.IsEmptyFile(temp));
@@ -176,8 +235,8 @@ https://github.com/sindresorhus/text-extensions/blob/master/text-extensions.json
 ```cs
 True(FileExtensions.IsTextFile("file.txt"));
 False(FileExtensions.IsTextFile("file.bin"));
-True(FileExtensions.IsTextExtension("txt"));
-False(FileExtensions.IsTextExtension("bin"));
+True(FileExtensions.IsTextExtension(".txt"));
+False(FileExtensions.IsTextExtension(".bin"));
 ```
 <sup><a href='/src/Tests/ExtensionsTests.cs#L6-L13' title='Snippet source file'>snippet source</a> | <a href='#snippet-istext' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->

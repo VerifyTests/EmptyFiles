@@ -115,7 +115,7 @@
     {
         #region GetPathFor
 
-        var path = AllFiles.GetPathFor("jpg");
+        var path = AllFiles.GetPathFor(".jpg");
 
         #endregion
 
@@ -160,7 +160,7 @@
     {
         #region IsEmptyFile
 
-        var path = AllFiles.GetPathFor("jpg");
+        var path = AllFiles.GetPathFor(".jpg");
         True(AllFiles.IsEmptyFile(path));
         var temp = Path.GetTempFileName();
         False(AllFiles.IsEmptyFile(temp));

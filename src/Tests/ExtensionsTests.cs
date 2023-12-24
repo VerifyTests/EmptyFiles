@@ -7,8 +7,8 @@
 
         True(FileExtensions.IsTextFile("file.txt"));
         False(FileExtensions.IsTextFile("file.bin"));
-        True(FileExtensions.IsTextExtension("txt"));
-        False(FileExtensions.IsTextExtension("bin"));
+        True(FileExtensions.IsTextExtension(".txt"));
+        False(FileExtensions.IsTextExtension(".bin"));
 
         #endregion
     }
