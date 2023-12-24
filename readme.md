@@ -154,7 +154,7 @@ Creates a new empty file
 ```cs
 AllFiles.CreateFile(pathOfFileToCreate);
 ```
-<sup><a href='/src/Tests/Tests.cs#L135-L139' title='Snippet source file'>snippet source</a> | <a href='#snippet-createfile' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Tests.cs#L132-L136' title='Snippet source file'>snippet source</a> | <a href='#snippet-createfile' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Throws an exception if the extension is not known. There is also a `TryCreateFile` that will return false if the extension is not known.
@@ -189,7 +189,7 @@ True(AllFiles.IsEmptyFile(path));
 var temp = Path.GetTempFileName();
 False(AllFiles.IsEmptyFile(temp));
 ```
-<sup><a href='/src/Tests/Tests.cs#L164-L171' title='Snippet source file'>snippet source</a> | <a href='#snippet-isemptyfile' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Tests.cs#L161-L168' title='Snippet source file'>snippet source</a> | <a href='#snippet-isemptyfile' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -205,7 +205,7 @@ foreach (var path in AllFiles.AllPaths)
     Trace.WriteLine(path);
 }
 ```
-<sup><a href='/src/Tests/Tests.cs#L183-L190' title='Snippet source file'>snippet source</a> | <a href='#snippet-allpaths' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Tests.cs#L178-L185' title='Snippet source file'>snippet source</a> | <a href='#snippet-allpaths' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -219,7 +219,7 @@ Use or replace a file
 AllFiles.UseFile(Category.Document, pathToFile);
 IsTrue(AllFiles.DocumentPaths.Contains(pathToFile));
 ```
-<sup><a href='/src/Tests/Tests.cs#L201-L206' title='Snippet source file'>snippet source</a> | <a href='#snippet-usefile' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Tests.cs#L196-L201' title='Snippet source file'>snippet source</a> | <a href='#snippet-usefile' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -233,14 +233,12 @@ https://github.com/sindresorhus/text-extensions/blob/master/text-extensions.json
 <!-- snippet: IsText -->
 <a id='snippet-istext'></a>
 ```cs
-True(FileExtensions.IsText("file.txt"));
-False(FileExtensions.IsText("file.bin"));
-True(FileExtensions.IsText(".txt"));
-False(FileExtensions.IsText(".bin"));
-True(FileExtensions.IsText("txt"));
-False(FileExtensions.IsText("bin"));
+True(FileExtensions.IsTextFile("file.txt"));
+False(FileExtensions.IsTextFile("file.bin"));
+True(FileExtensions.IsTextExtension("txt"));
+False(FileExtensions.IsTextExtension("bin"));
 ```
-<sup><a href='/src/Tests/ExtensionsTests.cs#L6-L15' title='Snippet source file'>snippet source</a> | <a href='#snippet-istext' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/ExtensionsTests.cs#L6-L13' title='Snippet source file'>snippet source</a> | <a href='#snippet-istext' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -250,11 +248,10 @@ False(FileExtensions.IsText("bin"));
 <a id='snippet-addtextextension'></a>
 ```cs
 FileExtensions.AddTextExtension("ext1");
-FileExtensions.AddTextExtension(".ext2");
-True(FileExtensions.IsText("ext1"));
-True(FileExtensions.IsText("ext2"));
+True(FileExtensions.IsTextExtension("ext1"));
+True(FileExtensions.IsTextFile("file.ext1"));
 ```
-<sup><a href='/src/Tests/ExtensionsTests.cs#L21-L28' title='Snippet source file'>snippet source</a> | <a href='#snippet-addtextextension' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/ExtensionsTests.cs#L19-L25' title='Snippet source file'>snippet source</a> | <a href='#snippet-addtextextension' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -264,15 +261,11 @@ True(FileExtensions.IsText("ext2"));
 <a id='snippet-removetextextension'></a>
 ```cs
 FileExtensions.AddTextExtension("ext1");
-FileExtensions.AddTextExtension(".ext2");
-True(FileExtensions.IsText("ext1"));
-True(FileExtensions.IsText("ext2"));
+True(FileExtensions.IsTextExtension("ext1"));
 FileExtensions.RemoveTextExtension("ext1");
-FileExtensions.RemoveTextExtension(".ext2");
-False(FileExtensions.IsText("ext1"));
-False(FileExtensions.IsText("ext2"));
+False(FileExtensions.IsTextExtension("ext1"));
 ```
-<sup><a href='/src/Tests/ExtensionsTests.cs#L34-L45' title='Snippet source file'>snippet source</a> | <a href='#snippet-removetextextension' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/ExtensionsTests.cs#L31-L38' title='Snippet source file'>snippet source</a> | <a href='#snippet-removetextextension' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
