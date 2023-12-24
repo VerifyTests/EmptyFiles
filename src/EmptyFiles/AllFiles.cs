@@ -4,68 +4,54 @@ namespace EmptyFiles;
 
 public static class AllFiles
 {
-    static Dictionary<string, string> aliases = new()
-    {
-        {
-            "jpeg", "jpg"
-        },
-        {
-            "tiff", "tif"
-        },
-        {
-            "7zip", "7z"
-        },
-        {
-            "gzip", "gz"
-        },
-        {
-            "bzip2", "bz2"
-        }
-    };
-
     public static IReadOnlyDictionary<string, EmptyFile> Files => files;
 
-    static ConcurrentDictionary<string, EmptyFile> files = [];
+    static Dictionary<string, EmptyFile> files = [];
 
     public static IReadOnlyDictionary<string, EmptyFile> Archives => archives;
 
-    static ConcurrentDictionary<string, EmptyFile> archives = [];
+    static Dictionary<string, EmptyFile> archives;
 
     public static IReadOnlyDictionary<string, EmptyFile> Documents => documents;
 
-    static ConcurrentDictionary<string, EmptyFile> documents = [];
+    static Dictionary<string, EmptyFile> documents;
 
     public static IReadOnlyDictionary<string, EmptyFile> Images => images;
 
-    static ConcurrentDictionary<string, EmptyFile> images = [];
+    static Dictionary<string, EmptyFile> images;
 
     public static IReadOnlyDictionary<string, EmptyFile> Sheets => sheets;
 
-    static ConcurrentDictionary<string, EmptyFile> sheets = [];
+    static Dictionary<string, EmptyFile> sheets;
 
     public static IReadOnlyDictionary<string, EmptyFile> Slides => slides;
 
-    static ConcurrentDictionary<string, EmptyFile> slides = [];
+    static Dictionary<string, EmptyFile> slides;
 
     static AllFiles()
     {
-        var emptyFiles = FindEmptyFilesDirectory();
-        foreach (var file in Directory.EnumerateFiles(emptyFiles, "*.*", SearchOption.AllDirectories))
-        {
-            var category = GetCategory(file);
-            var emptyFile = EmptyFile.Build(file, category);
-            var extension = FileExtensions.GetExtension(file);
-            var categoryFiles = FindDictionaryForCategory(category);
+        var directory = FindEmptyFilesDirectory();
 
-            categoryFiles[extension] = emptyFile;
+        archives = AddCategory(archiveExtensions, Category.Archive, directory);
+        documents = AddCategory(documentExtensions, Category.Document, directory);
+        images = AddCategory(imageExtensions, Category.Image, directory);
+        sheets = AddCategory(sheetExtensions, Category.Sheet, directory);
+        slides = AddCategory(slideExtensions, Category.Slide, directory);
+    }
+
+    static Dictionary<string, EmptyFile> AddCategory(HashSet<string> extensions, Category category, string emptyDirectory)
+    {
+        Dictionary<string, EmptyFile> items = [];
+        var categoryDirectory = Path.Combine(emptyDirectory, category.ToString().ToLowerInvariant());
+        foreach (var extension in extensions)
+        {
+            var file = Path.Combine(categoryDirectory, $"empty.{extension}");
+            var emptyFile = EmptyFile.Build(file, category);
+            items[extension] = emptyFile;
             files[extension] = emptyFile;
-            var alias = aliases.SingleOrDefault(_ => _.Value == extension);
-            if (alias.Key != null)
-            {
-                categoryFiles[alias.Key] = emptyFile;
-                files[alias.Key] = emptyFile;
-            }
         }
+
+        return items;
     }
 
     static string FindEmptyFilesDirectory()
@@ -95,14 +81,14 @@ public static class AllFiles
         yield return Environment.CurrentDirectory;
     }
 
-    static ConcurrentDictionary<string, EmptyFile> FindDictionaryForCategory(Category category) =>
+    static (Dictionary<string, EmptyFile> dictionary, HashSet<string> extensions) FindDictionaryForCategory(Category category) =>
         category switch
         {
-            Category.Archive => archives,
-            Category.Document => documents,
-            Category.Image => images,
-            Category.Sheet => sheets,
-            Category.Slide => slides,
+            Category.Archive => (archives, archiveExtensions),
+            Category.Document => (documents, documentExtensions),
+            Category.Image => (images, imageExtensions),
+            Category.Sheet => (sheets, sheetExtensions),
+            Category.Slide => (slides, slideExtensions),
             _ => throw new($"Unknown category: {category}")
         };
 
@@ -111,40 +97,102 @@ public static class AllFiles
         Guard.FileExists(file);
         var extension = FileExtensions.GetExtension(file);
         var emptyFile = EmptyFile.Build(file, category);
-        FindDictionaryForCategory(category)
-            .AddOrUpdate(extension, _ => emptyFile, (_, _) => emptyFile);
-        files.AddOrUpdate(extension, _ => emptyFile, (_, _) => emptyFile);
-    }
-
-    static Category GetCategory(string file)
-    {
-        var directory = Directory.GetParent(file)!.Name;
-        return (Category) Enum.Parse(typeof(Category), directory, true);
+        var (dictionary, extensions) = FindDictionaryForCategory(category);
+        extensions.Add(extension);
+        dictionary[extension] = emptyFile;
+        files[extension]= emptyFile;
     }
 
     public static IEnumerable<string> AllPaths => files.Values.Select(_ => _.Path);
 
-    public static IEnumerable<string> AllExtensions => files.Keys;
+    public static IReadOnlyCollection<string> AllExtensions => files.Keys;
 
     public static IEnumerable<string> ArchivePaths => archives.Values.Select(_ => _.Path);
 
-    public static IEnumerable<string> ArchiveExtensions => archives.Keys;
+    public static IReadOnlyCollection<string> ArchiveExtensions => archiveExtensions;
+
+    static HashSet<string> archiveExtensions =
+    [
+        "7z",
+        "7zip",
+        "bz2",
+        "bzip2",
+        "gz",
+        "gzip",
+        "tar",
+        "xz",
+        "zip"
+    ];
 
     public static IEnumerable<string> DocumentPaths => documents.Values.Select(_ => _.Path);
 
-    public static IEnumerable<string> DocumentExtensions => documents.Keys;
+    public static IReadOnlyCollection<string> DocumentExtensions => documentExtensions;
+
+    static HashSet<string> documentExtensions =
+    [
+        "docx",
+        "odt",
+        "pdf",
+        "rtf"
+    ];
 
     public static IEnumerable<string> ImagePaths => images.Values.Select(_ => _.Path);
 
-    public static IEnumerable<string> ImageExtensions => images.Keys;
+    public static IReadOnlyCollection<string> ImageExtensions => imageExtensions;
+
+    static HashSet<string> imageExtensions =
+    [
+        "avif",
+        "bmp",
+        "dds",
+        "dib",
+        "emf",
+        "exif",
+        "gif",
+        "heic",
+        "heif",
+        "ico",
+        "j2c",
+        "jfif",
+        "jp2",
+        "jpc",
+        "jpe",
+        "jpeg",
+        "jpg",
+        "jxr",
+        "pbm",
+        "pcx",
+        "pgm",
+        "png",
+        "ppm",
+        "rle",
+        "tga",
+        "tif",
+        "tiff",
+        "wdp",
+        "webp",
+        "wmp"
+    ];
 
     public static IEnumerable<string> SheetPaths => sheets.Values.Select(_ => _.Path);
 
-    public static IEnumerable<string> SheetExtensions => sheets.Keys;
+    public static IReadOnlyCollection<string> SheetExtensions => sheetExtensions;
+
+    static HashSet<string> sheetExtensions =
+    [
+        "ods",
+        "xlsx"
+    ];
 
     public static IEnumerable<string> SlidePaths => slides.Values.Select(_ => _.Path);
 
-    public static IEnumerable<string> SlideExtensions => slides.Keys;
+    public static IReadOnlyCollection<string> SlideExtensions => slideExtensions;
+
+    static HashSet<string> slideExtensions =
+    [
+        "odp",
+        "pptx"
+    ];
 
     public static bool IsEmptyFile(string path)
     {

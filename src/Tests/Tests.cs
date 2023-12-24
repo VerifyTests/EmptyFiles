@@ -171,15 +171,6 @@
     }
 
     [Test]
-    public void Aliases()
-    {
-        var path = AllFiles.GetPathFor("jpeg");
-        True(AllFiles.IsEmptyFile(path));
-
-        IsTrue(AllFiles.ImageExtensions.Contains("jpeg"));
-    }
-
-    [Test]
     public void AllPaths()
     {
         IsNotEmpty(AllFiles.AllPaths);

@@ -4,14 +4,16 @@
     {
         var assembly = typeof(AssemblyLocation).Assembly;
 #if NET5_0_OR_GREATER
-        var path = assembly.Location;
+        Path = assembly.Location;
 #else
         var uri = new UriBuilder(assembly.CodeBase);
-        var path = Uri.UnescapeDataString(uri.Path);
+        Path = Uri.UnescapeDataString(uri.Path);
 #endif
 
-        Directory = Path.GetDirectoryName(path)!;
+        Directory = System.IO.Path.GetDirectoryName(Path)!;
     }
+
+    public static string Path;
 
     public static string Directory;
 }
