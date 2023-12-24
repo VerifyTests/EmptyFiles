@@ -38,11 +38,8 @@ public static class FileExtensions
     public static bool IsTextFile(CharSpan path)
     {
         var extension = GetExtension(path);
-        return IsTextExtension(extension);
+        return IsTextExtension(extension.ToString());
     }
-
-    static bool IsTextExtension(CharSpan extension) =>
-        IsTextExtension(extension.ToString());
 
     public static void RemoveTextExtension(string extension)
     {
