@@ -18,8 +18,8 @@
     {
         #region AddTextExtension
 
-        FileExtensions.AddTextExtension("ext1");
-        True(FileExtensions.IsTextExtension("ext1"));
+        FileExtensions.AddTextExtension(".ext1");
+        True(FileExtensions.IsTextExtension(".ext1"));
         True(FileExtensions.IsTextFile("file.ext1"));
 
         #endregion
@@ -30,19 +30,11 @@
     {
         #region RemoveTextExtension
 
-        FileExtensions.AddTextExtension("ext1");
-        True(FileExtensions.IsTextExtension("ext1"));
-        FileExtensions.RemoveTextExtension("ext1");
-        False(FileExtensions.IsTextExtension("ext1"));
+        FileExtensions.AddTextExtension(".ext1");
+        True(FileExtensions.IsTextExtension(".ext1"));
+        FileExtensions.RemoveTextExtension(".ext1");
+        False(FileExtensions.IsTextExtension(".ext1"));
 
         #endregion
-    }
-
-    [Test]
-    public void Run()
-    {
-        AreEqual("txt", FileExtensions.GetExtension("file.txt"));
-        AreEqual("txt", FileExtensions.GetExtension("c:/file.txt"));
-        AreEqual("txt", FileExtensions.GetExtension("./File.txt"));
     }
 }

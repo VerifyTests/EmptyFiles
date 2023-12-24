@@ -22,66 +22,7 @@ All files: https://github.com/VerifyTests/EmptyFiles/tree/main/files
 
 <!-- include: extensions. path: /src/extensions.include.md -->
 ### Archive
-
-  * 7z (32 bytes)
-  * 7zip (32 bytes)
-  * bz2 (14 bytes)
-  * bzip2 (14 bytes)
-  * gz (29 bytes)
-  * gzip (29 bytes)
-  * tar (1.5 KB)
-  * xz (32 bytes)
-  * zip (22 bytes)
-
-### Document
-
-  * docx (1.9 KB)
-  * odt (2.2 KB)
-  * pdf (280 bytes)
-  * rtf (6 bytes)
-
-### Image
-
-  * avif (298 bytes)
-  * bmp (58 bytes)
-  * dds (136 bytes)
-  * dib (58 bytes)
-  * emf (620 bytes)
-  * exif (734 bytes)
-  * gif (799 bytes)
-  * heic (3.2 KB)
-  * heif (209 bytes)
-  * ico (70 bytes)
-  * j2c (270 bytes)
-  * jfif (734 bytes)
-  * jp2 (354 bytes)
-  * jpc (270 bytes)
-  * jpe (734 bytes)
-  * jpeg (734 bytes)
-  * jpg (734 bytes)
-  * jxr (300 bytes)
-  * pbm (8 bytes)
-  * pcx (131 bytes)
-  * pgm (12 bytes)
-  * png (119 bytes)
-  * ppm (14 bytes)
-  * rle (58 bytes)
-  * tga (543 bytes)
-  * tif (250 bytes)
-  * tiff (250 bytes)
-  * wdp (300 bytes)
-  * webp (228 bytes)
-  * wmp (300 bytes)
-
-### Sheet
-
-  * ods (2.7 KB)
-  * xlsx (4.5 KB)
-
-### Slide
-
-  * odp (7.8 KB)
-  * pptx (13.3 KB)<!-- endInclude -->
+<!-- endInclude -->
 
 
 ## Consuming files as a web resource
@@ -247,8 +188,8 @@ False(FileExtensions.IsTextExtension("bin"));
 <!-- snippet: AddTextExtension -->
 <a id='snippet-addtextextension'></a>
 ```cs
-FileExtensions.AddTextExtension("ext1");
-True(FileExtensions.IsTextExtension("ext1"));
+FileExtensions.AddTextExtension(".ext1");
+True(FileExtensions.IsTextExtension(".ext1"));
 True(FileExtensions.IsTextFile("file.ext1"));
 ```
 <sup><a href='/src/Tests/ExtensionsTests.cs#L19-L25' title='Snippet source file'>snippet source</a> | <a href='#snippet-addtextextension' title='Start of snippet'>anchor</a></sup>
@@ -260,10 +201,10 @@ True(FileExtensions.IsTextFile("file.ext1"));
 <!-- snippet: RemoveTextExtension -->
 <a id='snippet-removetextextension'></a>
 ```cs
-FileExtensions.AddTextExtension("ext1");
-True(FileExtensions.IsTextExtension("ext1"));
-FileExtensions.RemoveTextExtension("ext1");
-False(FileExtensions.IsTextExtension("ext1"));
+FileExtensions.AddTextExtension(".ext1");
+True(FileExtensions.IsTextExtension(".ext1"));
+FileExtensions.RemoveTextExtension(".ext1");
+False(FileExtensions.IsTextExtension(".ext1"));
 ```
 <sup><a href='/src/Tests/ExtensionsTests.cs#L31-L38' title='Snippet source file'>snippet source</a> | <a href='#snippet-removetextextension' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
