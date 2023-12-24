@@ -9,7 +9,7 @@ public static class ContentTypes
     {
         if (TryGetExtension(mediaType, out extension))
         {
-            if (FileExtensions.IsText(extension))
+            if (FileExtensions.IsTextExtension(extension))
             {
                 return true;
             }

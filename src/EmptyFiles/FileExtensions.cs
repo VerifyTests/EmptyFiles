@@ -2,78 +2,53 @@
 
 public static class FileExtensions
 {
-    public static string GetExtension(string extensionOrPath)
-    {
-        Guard.AgainstNullOrEmpty(extensionOrPath);
-        return GetExtension(extensionOrPath.AsSpan())
+    public static string GetExtension(string path) =>
+        GetExtension(path.AsSpan())
             .ToString();
+
+    public static CharSpan GetExtension(CharSpan path)
+    {
+        Guard.AgainstEmpty(path);
+        var indexOfPeriod = path.LastIndexOf('.');
+        if (indexOfPeriod == -1)
+        {
+            throw new("Must contain a period");
+        }
+
+        var extension = path[(indexOfPeriod+1)..];
+        if (extension.Length == 0)
+        {
+            throw new("No extension");
+        }
+        return extension;
     }
 
-    public static CharSpan GetExtension(CharSpan extensionOrPath)
+    public static bool IsTextFile(string path)
     {
-        Guard.AgainstEmpty(extensionOrPath);
-        if (extensionOrPath.IndexOf('.') == -1)
-        {
-            return extensionOrPath;
-        }
-
-        var length = extensionOrPath.Length;
-
-        for (var i = length - 1; i >= 0; i--)
-        {
-            var ch = extensionOrPath[i];
-            if (ch == '.')
-            {
-                if (i != length - 1)
-                {
-                    return extensionOrPath.Slice(i + 1, length - i - 1);
-                }
-
-                break;
-            }
-
-            if (IsDirectorySeparator(ch))
-            {
-                break;
-            }
-        }
-
-        throw new($"No extension. Path: {extensionOrPath.ToString()}");
+        var extension = GetExtension(path);
+        return IsTextExtension(extension);
     }
 
-    static bool IsDirectorySeparator(char c) =>
-        c is '/' or '\\';
-
-    public static bool IsText([NotNullWhen(true)] string? extensionOrPath)
+    public static bool IsTextExtension(string extension)
     {
-        if (extensionOrPath == null)
-        {
-            return false;
-        }
-
-        var extension = GetExtension(extensionOrPath);
+        Guard.AgainstPeriod(extension);
         return textExtensions.Contains(extension);
     }
 
-    public static bool IsText(CharSpan extensionOrPath)
+    public static bool IsTextFile(CharSpan path)
     {
-        if (extensionOrPath.Length == 0)
-        {
-            return false;
-        }
-
-        var extension = GetExtension(extensionOrPath);
-        return textExtensions.Contains(extension.ToString());
+        var extension = GetExtension(path);
+        return IsTextExtension(extension);
     }
+
+    static bool IsTextExtension(CharSpan extension) =>
+        IsTextExtension(extension.ToString());
 
     public static void RemoveTextExtension(string extension)
     {
         Guard.AgainstNullOrEmpty(extension);
-        extension = GetExtension(extension);
-        lock (textExtensions)
-        {
-            textExtensions.Remove(extension);
-        }
+        Guard.AgainstPeriod(extension);
+        textExtensions.Remove(extension);
     }
 
     public static void RemoveTextExtensions(params string[] extensions)
@@ -95,11 +70,8 @@ public static class FileExtensions
     public static void AddTextExtension(string extension)
     {
         Guard.AgainstNullOrEmpty(extension);
-        extension = GetExtension(extension);
-        lock (textExtensions)
-        {
-            textExtensions.Add(extension);
-        }
+        Guard.AgainstPeriod(extension);
+        textExtensions.Add(extension);
     }
 
     public static void AddTextExtensions(params string[] extensions)

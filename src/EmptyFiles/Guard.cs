@@ -24,4 +24,12 @@ static class Guard
             throw new ArgumentNullException(argumentName);
         }
     }
+
+    public static void AgainstPeriod(string value, [CallerArgumentExpression("value")] string argumentName = "")
+    {
+        if (value.Contains('.'))
+        {
+            throw new ArgumentException("Extension cannot contain period",argumentName);
+        }
+    }
 }
