@@ -45,7 +45,7 @@ public static class AllFiles
         var categoryDirectory = Path.Combine(emptyDirectory, category.ToString().ToLowerInvariant());
         foreach (var extension in extensions)
         {
-            var file = Path.Combine(categoryDirectory, $"empty.{extension}");
+            var file = Path.Combine(categoryDirectory, $"empty{extension}");
             var emptyFile = EmptyFile.Build(file, category);
             items[extension] = emptyFile;
             files[extension] = emptyFile;
@@ -95,7 +95,7 @@ public static class AllFiles
     public static void UseFile(Category category, string file)
     {
         Guard.FileExists(file);
-        var extension = FileExtensions.GetExtension(file);
+        var extension = Path.GetExtension(file);
         var emptyFile = EmptyFile.Build(file, category);
         var (dictionary, extensions) = FindDictionaryForCategory(category);
         extensions.Add(extension);
@@ -113,15 +113,15 @@ public static class AllFiles
 
     static HashSet<string> archiveExtensions =
     [
-        "7z",
-        "7zip",
-        "bz2",
-        "bzip2",
-        "gz",
-        "gzip",
-        "tar",
-        "xz",
-        "zip"
+        ".7z",
+        ".7zip",
+        ".bz2",
+        ".bzip2",
+        ".gz",
+        ".gzip",
+        ".tar",
+        ".xz",
+        ".zip"
     ];
 
     public static IEnumerable<string> DocumentPaths => documents.Values.Select(_ => _.Path);
@@ -130,10 +130,10 @@ public static class AllFiles
 
     static HashSet<string> documentExtensions =
     [
-        "docx",
-        "odt",
-        "pdf",
-        "rtf"
+        ".docx",
+        ".odt",
+        ".pdf",
+        ".rtf"
     ];
 
     public static IEnumerable<string> ImagePaths => images.Values.Select(_ => _.Path);
@@ -142,36 +142,36 @@ public static class AllFiles
 
     static HashSet<string> imageExtensions =
     [
-        "avif",
-        "bmp",
-        "dds",
-        "dib",
-        "emf",
-        "exif",
-        "gif",
-        "heic",
-        "heif",
-        "ico",
-        "j2c",
-        "jfif",
-        "jp2",
-        "jpc",
-        "jpe",
-        "jpeg",
-        "jpg",
-        "jxr",
-        "pbm",
-        "pcx",
-        "pgm",
-        "png",
-        "ppm",
-        "rle",
-        "tga",
-        "tif",
-        "tiff",
-        "wdp",
-        "webp",
-        "wmp"
+        ".avif",
+        ".bmp",
+        ".dds",
+        ".dib",
+        ".emf",
+        ".exif",
+        ".gif",
+        ".heic",
+        ".heif",
+        ".ico",
+        ".j2c",
+        ".jfif",
+        ".jp2",
+        ".jpc",
+        ".jpe",
+        ".jpeg",
+        ".jpg",
+        ".jxr",
+        ".pbm",
+        ".pcx",
+        ".pgm",
+        ".png",
+        ".ppm",
+        ".rle",
+        ".tga",
+        ".tif",
+        ".tiff",
+        ".wdp",
+        ".webp",
+        ".wmp"
     ];
 
     public static IEnumerable<string> SheetPaths => sheets.Values.Select(_ => _.Path);
@@ -180,8 +180,8 @@ public static class AllFiles
 
     static HashSet<string> sheetExtensions =
     [
-        "ods",
-        "xlsx"
+        ".ods",
+        ".xlsx"
     ];
 
     public static IEnumerable<string> SlidePaths => slides.Values.Select(_ => _.Path);
@@ -190,14 +190,14 @@ public static class AllFiles
 
     static HashSet<string> slideExtensions =
     [
-        "odp",
-        "pptx"
+        ".odp",
+        ".pptx"
     ];
 
     public static bool IsEmptyFile(string path)
     {
         Guard.FileExists(path);
-        var extension = FileExtensions.GetExtension(path);
+        var extension = Path.GetExtension(path);
         if (!files.TryGetValue(extension, out var emptyFile))
         {
             return false;
@@ -209,7 +209,7 @@ public static class AllFiles
     public static void CreateFile(string path, bool useEmptyStringForTextFiles = false, Encoding? encoding = null)
     {
         TryCreateDirectory(path);
-        var extension = FileExtensions.GetExtension(path);
+        var extension = Path.GetExtension(path);
         if (useEmptyStringForTextFiles &&
             FileExtensions.IsTextExtension(extension))
         {
@@ -241,7 +241,7 @@ public static class AllFiles
     public static bool TryCreateFile(string path, bool useEmptyStringForTextFiles = false, Encoding? encoding = null)
     {
         Guard.AgainstNullOrEmpty(path);
-        var extension = FileExtensions.GetExtension(path);
+        var extension = Path.GetExtension(path);
 
         if (useEmptyStringForTextFiles &&
             FileExtensions.IsTextExtension(extension))

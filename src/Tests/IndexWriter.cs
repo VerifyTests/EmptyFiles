@@ -24,7 +24,7 @@
 
         foreach (var (key, value) in files)
         {
-            File.Copy(value.Path, Path.Combine(indexPath, $"empty.{key}"));
+            File.Copy(value.Path, Path.Combine(indexPath, $"empty{key}"));
         }
     }
 }
