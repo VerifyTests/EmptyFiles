@@ -119,11 +119,8 @@
 
         #endregion
 
-        var path2 = AllFiles.GetPathFor(".jpg");
         NotNull(path);
-        NotNull(path2);
         True(File.Exists(path));
-        True(File.Exists(path2));
     }
 
     [Test]
@@ -170,8 +167,6 @@
 
         #endregion
 
-        var path2 = AllFiles.GetPathFor(".jpg");
-        True(AllFiles.IsEmptyFile(path2));
         File.Delete(temp);
     }
 
