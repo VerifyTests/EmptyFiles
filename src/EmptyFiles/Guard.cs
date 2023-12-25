@@ -24,4 +24,26 @@ static class Guard
             throw new ArgumentNullException(argumentName);
         }
     }
+    public static void ValidExtension(CharSpan extension, [CallerArgumentExpression("extension")] string argumentName = "")
+    {
+        if (extension.Length == 0)
+        {
+            throw new ArgumentNullException(argumentName);
+        }
+        if (extension[0] != '.')
+        {
+            throw new ArgumentNullException(argumentName, $"Extension must begin with a period. Value: {extension}");
+        }
+    }
+    public static void ValidExtension(string extension, [CallerArgumentExpression("extension")] string argumentName = "")
+    {
+        if (extension.Length == 0)
+        {
+            throw new ArgumentNullException(argumentName);
+        }
+        if (extension[0] != '.')
+        {
+            throw new ArgumentNullException(argumentName, $"Extension must begin with a period. Value: {extension}");
+        }
+    }
 }
