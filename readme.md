@@ -251,7 +251,7 @@ FileExtensions.AddTextExtension(".ext1");
 True(FileExtensions.IsTextExtension(".ext1"));
 True(FileExtensions.IsTextFile("file.ext1"));
 ```
-<sup><a href='/src/Tests/ExtensionsTests.cs#L19-L25' title='Snippet source file'>snippet source</a> | <a href='#snippet-addtextextension' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/ExtensionsTests.cs#L33-L39' title='Snippet source file'>snippet source</a> | <a href='#snippet-addtextextension' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -265,7 +265,7 @@ True(FileExtensions.IsTextExtension(".ext1"));
 FileExtensions.RemoveTextExtension(".ext1");
 False(FileExtensions.IsTextExtension(".ext1"));
 ```
-<sup><a href='/src/Tests/ExtensionsTests.cs#L31-L38' title='Snippet source file'>snippet source</a> | <a href='#snippet-removetextextension' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/ExtensionsTests.cs#L45-L52' title='Snippet source file'>snippet source</a> | <a href='#snippet-removetextextension' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

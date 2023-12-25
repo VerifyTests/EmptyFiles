@@ -12,6 +12,20 @@
 
         #endregion
     }
+    [Test]
+    public void IsTextLegacy()
+    {
+#pragma warning disable CS0618 // Type or member is obsolete
+        True(FileExtensions.IsText("file.txt"));
+        False(FileExtensions.IsText("file.bin"));
+        True(FileExtensions.IsText("c:/file.txt"));
+        False(FileExtensions.IsText("c:/file.bin"));
+        True(FileExtensions.IsText(".txt"));
+        True(FileExtensions.IsText("txt"));
+        False(FileExtensions.IsText(".bin"));
+        False(FileExtensions.IsText("bin"));
+#pragma warning restore CS0618 // Type or member is obsolete
+    }
 
     [Test]
     public void AddTextExtension()
