@@ -419,4 +419,27 @@ public static class FileExtensions
     ];
 
     public static IReadOnlyCollection<string> TextExtensions => textExtensions;
+
+    [Obsolete("Use IsTextFile or IsTextExtension")]
+    public static bool IsText([NotNullWhen(true)] string? extensionOrPath)
+    {
+        if (extensionOrPath == null)
+        {
+            return false;
+        }
+
+        if (extensionOrPath.Contains('.') ||
+            extensionOrPath.Contains(Path.DirectorySeparatorChar) ||
+            extensionOrPath.Contains(Path.AltDirectorySeparatorChar))
+        {
+            var extension = Path.GetExtension(extensionOrPath);
+            return textExtensions.Contains(extension);
+        }
+
+        return textExtensions.Contains($".{extensionOrPath}");
+    }
+
+    [Obsolete("Use IsTextFile or IsTextExtension")]
+    public static bool IsText(CharSpan extensionOrPath) =>
+        IsText(extensionOrPath.ToString());
 }
