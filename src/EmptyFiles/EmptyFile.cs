@@ -8,8 +8,8 @@ public class EmptyFile
 
     internal static EmptyFile Build(string file, Category category)
     {
-        var lastWriteTime = File.GetLastWriteTime(file);
-        return new(file, lastWriteTime, category);
+        var writeTime = File.GetLastWriteTime(file);
+        return new(file, writeTime, category);
     }
 
     public EmptyFile(string path, in DateTime lastWriteTime, in Category category)

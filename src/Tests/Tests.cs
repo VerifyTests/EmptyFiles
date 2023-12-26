@@ -121,6 +121,10 @@
 
         NotNull(path);
         True(File.Exists(path));
+
+        path = AllFiles.GetPathFor("jpg");
+        NotNull(path);
+        True(File.Exists(path));
     }
 
     [Test]
