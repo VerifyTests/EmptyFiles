@@ -9,9 +9,12 @@
         False(FileExtensions.IsTextFile("file.bin"));
         True(FileExtensions.IsTextExtension(".txt"));
         False(FileExtensions.IsTextExtension(".bin"));
+        True(FileExtensions.IsTextExtension("txt"));
+        False(FileExtensions.IsTextExtension("bin"));
 
         #endregion
     }
+
     [Test]
     public void IsTextLegacy()
     {
@@ -37,6 +40,10 @@
         True(FileExtensions.IsTextFile("file.ext1"));
 
         #endregion
+
+        FileExtensions.AddTextExtension("ext2");
+        True(FileExtensions.IsTextExtension("ext2"));
+        True(FileExtensions.IsTextFile("file.ext2"));
     }
 
     [Test]
@@ -50,5 +57,10 @@
         False(FileExtensions.IsTextExtension(".ext1"));
 
         #endregion
+
+        FileExtensions.AddTextExtension("ext1");
+        True(FileExtensions.IsTextExtension("ext1"));
+        FileExtensions.RemoveTextExtension("ext1");
+        False(FileExtensions.IsTextExtension("ext1"));
     }
 }

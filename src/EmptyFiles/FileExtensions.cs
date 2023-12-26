@@ -7,15 +7,13 @@ public static class FileExtensions
 
     public static bool IsTextExtension(string extension)
     {
-        Guard.ValidExtension(extension);
+        extension = Guard.ValidExtension(extension);
+
         return textExtensions.Contains(extension);
     }
 
-    public static bool IsTextExtension(CharSpan extension)
-    {
-        Guard.ValidExtension(extension);
-        return textExtensions.Contains(extension.ToString());
-    }
+    public static bool IsTextExtension(CharSpan extension) =>
+        IsTextExtension(extension.ToString());
 
     public static bool IsTextFile(CharSpan path)
     {
@@ -30,15 +28,12 @@ public static class FileExtensions
 
     public static void RemoveTextExtension(string extension)
     {
-        Guard.ValidExtension(extension);
+        extension = Guard.ValidExtension(extension);
         textExtensions.Remove(extension);
     }
 
-    public static void RemoveTextExtension(CharSpan extension)
-    {
-        Guard.ValidExtension(extension);
+    public static void RemoveTextExtension(CharSpan extension) =>
         textExtensions.Remove(extension.ToString());
-    }
 
     public static void RemoveTextExtensions(params string[] extensions)
     {
@@ -58,15 +53,12 @@ public static class FileExtensions
 
     public static void AddTextExtension(string extension)
     {
-        Guard.ValidExtension(extension);
+        extension = Guard.ValidExtension(extension);
         textExtensions.Add(extension);
     }
 
-    public static void AddTextExtension(CharSpan extension)
-    {
-        Guard.ValidExtension(extension);
-        textExtensions.Add(extension.ToString());
-    }
+    public static void AddTextExtension(CharSpan extension) =>
+        AddTextExtension(extension.ToString());
 
     public static void AddTextExtensions(params string[] extensions)
     {

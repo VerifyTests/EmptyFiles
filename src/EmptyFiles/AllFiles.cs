@@ -229,7 +229,7 @@ public static class AllFiles
 
     public static string GetPathFor(string extension)
     {
-        Guard.AgainstNullOrEmpty(extension);
+        extension = Guard.ValidExtension(extension);
         if (files.TryGetValue(extension, out var emptyFile))
         {
             return emptyFile.Path;
