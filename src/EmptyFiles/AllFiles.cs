@@ -109,7 +109,11 @@ public static class AllFiles
 
     public static IEnumerable<string> ArchivePaths => archives.Values.Select(_ => _.Path);
 
+#if NET6_0_OR_GREATER
     public static IReadOnlySet<string> ArchiveExtensions => archiveExtensions;
+#else
+    public static IReadOnlyCollection<string> ArchiveExtensions => archiveExtensions;
+#endif
 
     static HashSet<string> archiveExtensions =
     [
@@ -126,7 +130,11 @@ public static class AllFiles
 
     public static IEnumerable<string> DocumentPaths => documents.Values.Select(_ => _.Path);
 
+#if NET6_0_OR_GREATER
     public static IReadOnlySet<string> DocumentExtensions => documentExtensions;
+#else
+    public static IReadOnlyCollection<string> DocumentExtensions => documentExtensions;
+#endif
 
     static HashSet<string> documentExtensions =
     [
@@ -138,7 +146,11 @@ public static class AllFiles
 
     public static IEnumerable<string> ImagePaths => images.Values.Select(_ => _.Path);
 
+    #if NET6_0_OR_GREATER
     public static IReadOnlySet<string> ImageExtensions => imageExtensions;
+    #else
+    public static IReadOnlyCollection<string> ImageExtensions => imageExtensions;
+    #endif
 
     static HashSet<string> imageExtensions =
     [
@@ -176,7 +188,11 @@ public static class AllFiles
 
     public static IEnumerable<string> SheetPaths => sheets.Values.Select(_ => _.Path);
 
+#if NET6_0_OR_GREATER
     public static IReadOnlySet<string> SheetExtensions => sheetExtensions;
+#else
+    public static IReadOnlyCollection<string> SheetExtensions => sheetExtensions;
+#endif
 
     static HashSet<string> sheetExtensions =
     [
@@ -186,7 +202,11 @@ public static class AllFiles
 
     public static IEnumerable<string> SlidePaths => slides.Values.Select(_ => _.Path);
 
+#if NET6_0_OR_GREATER
     public static IReadOnlySet<string> SlideExtensions => slideExtensions;
+#else
+    public static IReadOnlyCollection<string> SlideExtensions => slideExtensions;
+#endif
 
     static HashSet<string> slideExtensions =
     [
