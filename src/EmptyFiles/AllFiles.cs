@@ -10,23 +10,23 @@ public static class AllFiles
 
     public static IReadOnlyDictionary<string, EmptyFile> Archives => archives;
 
-    static Dictionary<string, EmptyFile> archives;
+    static IReadOnlyDictionary<string, EmptyFile> archives;
 
     public static IReadOnlyDictionary<string, EmptyFile> Documents => documents;
 
-    static Dictionary<string, EmptyFile> documents;
+    static IReadOnlyDictionary<string, EmptyFile> documents;
 
     public static IReadOnlyDictionary<string, EmptyFile> Images => images;
 
-    static Dictionary<string, EmptyFile> images;
+    static IReadOnlyDictionary<string, EmptyFile> images;
 
     public static IReadOnlyDictionary<string, EmptyFile> Sheets => sheets;
 
-    static Dictionary<string, EmptyFile> sheets;
+    static IReadOnlyDictionary<string, EmptyFile> sheets;
 
     public static IReadOnlyDictionary<string, EmptyFile> Slides => slides;
 
-    static Dictionary<string, EmptyFile> slides;
+    static IReadOnlyDictionary<string, EmptyFile> slides;
 
     static AllFiles()
     {
@@ -81,17 +81,6 @@ public static class AllFiles
         yield return Environment.CurrentDirectory;
     }
 
-    static (Dictionary<string, EmptyFile> dictionary, HashSet<string> extensions) FindDictionaryForCategory(Category category) =>
-        category switch
-        {
-            Category.Archive => (archives, archiveExtensions),
-            Category.Document => (documents, documentExtensions),
-            Category.Image => (images, imageExtensions),
-            Category.Sheet => (sheets, sheetExtensions),
-            Category.Slide => (slides, slideExtensions),
-            _ => throw new($"Unknown category: {category}")
-        };
-
     public static void UseFile(Category category, string file)
     {
         Guard.FileExists(file);
@@ -118,7 +107,7 @@ public static class AllFiles
                 throw new($"Unknown category: {category}");
         }
 
-        void Init(ref Dictionary<string, EmptyFile> emptyFiles, ref HashSet<string> extensions)
+        void Init(ref IReadOnlyDictionary<string, EmptyFile> emptyFiles, ref HashSet<string> extensions)
         {
             emptyFiles = new Dictionary<string, EmptyFile>(emptyFiles)
             {
