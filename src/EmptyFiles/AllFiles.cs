@@ -42,7 +42,7 @@ public static class AllFiles
         slides = AddCategory(slideExtensions, Category.Slide, directory);
     }
 
-    static Dictionary<string, EmptyFile> AddCategory(ReadOnlySet extensions, Category category, string emptyDirectory)
+    static IReadOnlyDictionary<string, EmptyFile> AddCategory(ReadOnlySet extensions, Category category, string emptyDirectory)
     {
         Dictionary<string, EmptyFile> items = [];
         var categoryDirectory = Path.Combine(emptyDirectory, category.ToString().ToLowerInvariant());
@@ -54,7 +54,11 @@ public static class AllFiles
             files[extension] = emptyFile;
         }
 
+#if NET8_0_OR_GREATER
+        return items.ToFrozenDictionary();
+#else
         return items;
+#endif
     }
 
     static string FindEmptyFilesDirectory()
