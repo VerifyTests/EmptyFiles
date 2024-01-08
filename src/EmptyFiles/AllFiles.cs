@@ -1,5 +1,8 @@
-﻿// ReSharper disable UnusedMember.Global
-
+﻿#if NET6_0_OR_GREATER
+using ReadOnlySet = System.Collections.Generic.IReadOnlySet<string>;
+#else
+using ReadOnlySet = System.Collections.Generic.IReadOnlyCollection<string>;
+#endif
 namespace EmptyFiles;
 
 public static class AllFiles
@@ -105,15 +108,12 @@ public static class AllFiles
 
     public static IEnumerable<string> AllPaths => files.Values.Select(_ => _.Path);
 
+    // ReSharper disable once UseSymbolAlias
     public static IReadOnlyCollection<string> AllExtensions => files.Keys;
 
     public static IEnumerable<string> ArchivePaths => archives.Values.Select(_ => _.Path);
 
-#if NET6_0_OR_GREATER
-    public static IReadOnlySet<string> ArchiveExtensions => archiveExtensions;
-#else
-    public static IReadOnlyCollection<string> ArchiveExtensions => archiveExtensions;
-#endif
+    public static ReadOnlySet ArchiveExtensions => archiveExtensions;
 
     static HashSet<string> archiveExtensions =
     [
@@ -130,11 +130,7 @@ public static class AllFiles
 
     public static IEnumerable<string> DocumentPaths => documents.Values.Select(_ => _.Path);
 
-#if NET6_0_OR_GREATER
-    public static IReadOnlySet<string> DocumentExtensions => documentExtensions;
-#else
-    public static IReadOnlyCollection<string> DocumentExtensions => documentExtensions;
-#endif
+    public static ReadOnlySet DocumentExtensions => documentExtensions;
 
     static HashSet<string> documentExtensions =
     [
@@ -146,11 +142,7 @@ public static class AllFiles
 
     public static IEnumerable<string> ImagePaths => images.Values.Select(_ => _.Path);
 
-    #if NET6_0_OR_GREATER
-    public static IReadOnlySet<string> ImageExtensions => imageExtensions;
-    #else
-    public static IReadOnlyCollection<string> ImageExtensions => imageExtensions;
-    #endif
+    public static ReadOnlySet ImageExtensions => imageExtensions;
 
     static HashSet<string> imageExtensions =
     [
@@ -188,11 +180,7 @@ public static class AllFiles
 
     public static IEnumerable<string> SheetPaths => sheets.Values.Select(_ => _.Path);
 
-#if NET6_0_OR_GREATER
-    public static IReadOnlySet<string> SheetExtensions => sheetExtensions;
-#else
-    public static IReadOnlyCollection<string> SheetExtensions => sheetExtensions;
-#endif
+    public static ReadOnlySet SheetExtensions => sheetExtensions;
 
     static HashSet<string> sheetExtensions =
     [
@@ -202,11 +190,7 @@ public static class AllFiles
 
     public static IEnumerable<string> SlidePaths => slides.Values.Select(_ => _.Path);
 
-#if NET6_0_OR_GREATER
-    public static IReadOnlySet<string> SlideExtensions => slideExtensions;
-#else
-    public static IReadOnlyCollection<string> SlideExtensions => slideExtensions;
-#endif
+    public static ReadOnlySet SlideExtensions => slideExtensions;
 
     static HashSet<string> slideExtensions =
     [
