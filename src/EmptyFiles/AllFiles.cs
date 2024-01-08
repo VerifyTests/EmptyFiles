@@ -109,7 +109,7 @@ public static class AllFiles
 
     public static IEnumerable<string> ArchivePaths => archives.Values.Select(_ => _.Path);
 
-    public static IReadOnlyCollection<string> ArchiveExtensions => archiveExtensions;
+    public static IReadOnlySet<string> ArchiveExtensions => archiveExtensions;
 
     static HashSet<string> archiveExtensions =
     [
@@ -126,7 +126,7 @@ public static class AllFiles
 
     public static IEnumerable<string> DocumentPaths => documents.Values.Select(_ => _.Path);
 
-    public static IReadOnlyCollection<string> DocumentExtensions => documentExtensions;
+    public static IReadOnlySet<string> DocumentExtensions => documentExtensions;
 
     static HashSet<string> documentExtensions =
     [
@@ -138,7 +138,7 @@ public static class AllFiles
 
     public static IEnumerable<string> ImagePaths => images.Values.Select(_ => _.Path);
 
-    public static IReadOnlyCollection<string> ImageExtensions => imageExtensions;
+    public static IReadOnlySet<string> ImageExtensions => imageExtensions;
 
     static HashSet<string> imageExtensions =
     [
@@ -176,7 +176,7 @@ public static class AllFiles
 
     public static IEnumerable<string> SheetPaths => sheets.Values.Select(_ => _.Path);
 
-    public static IReadOnlyCollection<string> SheetExtensions => sheetExtensions;
+    public static IReadOnlySet<string> SheetExtensions => sheetExtensions;
 
     static HashSet<string> sheetExtensions =
     [
@@ -186,7 +186,7 @@ public static class AllFiles
 
     public static IEnumerable<string> SlidePaths => slides.Values.Select(_ => _.Path);
 
-    public static IReadOnlyCollection<string> SlideExtensions => slideExtensions;
+    public static IReadOnlySet<string> SlideExtensions => slideExtensions;
 
     static HashSet<string> slideExtensions =
     [
