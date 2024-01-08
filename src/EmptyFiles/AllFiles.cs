@@ -100,41 +100,31 @@ public static class AllFiles
         switch (category)
         {
             case Category.Archive:
-                archiveExtensions = NewSet(archiveExtensions);
-                archives = NewDictionary(archives);
+                Init(ref archives, ref archiveExtensions);
                 break;
             case Category.Document:
-                documentExtensions = NewSet(documentExtensions);
-                documents = NewDictionary(documents);
+                Init(ref documents, ref documentExtensions);
                 break;
             case Category.Image:
-                imageExtensions = NewSet(imageExtensions);
-                images = NewDictionary(images);
+                Init(ref images, ref imageExtensions);
                 break;
             case Category.Sheet:
-                sheetExtensions = NewSet(sheetExtensions);
-                sheets = NewDictionary(sheets);
+                Init(ref sheets, ref sheetExtensions);
                 break;
             case Category.Slide:
-                slideExtensions = NewSet(slideExtensions);
-                slides = NewDictionary(slides);
+                Init(ref slides, ref slideExtensions);
                 break;
             default:
                 throw new($"Unknown category: {category}");
         }
 
-        Dictionary<string, EmptyFile> NewDictionary(Dictionary<string, EmptyFile> emptyFiles)
+        void Init(ref Dictionary<string, EmptyFile> emptyFiles, ref HashSet<string> extensions)
         {
-            var tempDictionary = new Dictionary<string, EmptyFile>(emptyFiles)
+            emptyFiles = new Dictionary<string, EmptyFile>(emptyFiles)
             {
                 [extension] = emptyFile
             };
-            return tempDictionary;
-        }
-
-        HashSet<string> NewSet(HashSet<string> hashSet)
-        {
-            return new HashSet<string>(hashSet)
+            extensions = new HashSet<string>(extensions)
             {
                 extension
             };
