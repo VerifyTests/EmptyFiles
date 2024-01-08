@@ -1,9 +1,4 @@
-﻿#if NET6_0_OR_GREATER
-using ReadOnlySet = System.Collections.Generic.IReadOnlySet<string>;
-#else
-using ReadOnlySet = System.Collections.Generic.IReadOnlyCollection<string>;
-#endif
-namespace EmptyFiles;
+﻿namespace EmptyFiles;
 
 public static class AllFiles
 {
@@ -42,10 +37,12 @@ public static class AllFiles
         slides = AddCategory(slideExtensions, Category.Slide, directory);
     }
 
-    static IReadOnlyDictionary<string, EmptyFile> AddCategory(ReadOnlySet extensions, Category category, string emptyDirectory)
+    static IReadOnlyDictionary<string, EmptyFile> AddCategory(FrozenSet<string> extensions, Category category, string emptyDirectory)
     {
         Dictionary<string, EmptyFile> items = [];
-        var categoryDirectory = Path.Combine(emptyDirectory, category.ToString().ToLowerInvariant());
+        var categoryDirectory = Path.Combine(emptyDirectory, category
+            .ToString()
+            .ToLowerInvariant());
         foreach (var extension in extensions)
         {
             var file = Path.Combine(categoryDirectory, $"empty{extension}");
@@ -54,11 +51,7 @@ public static class AllFiles
             files[extension] = emptyFile;
         }
 
-#if NET8_0_OR_GREATER
         return items.ToFrozenDictionary();
-#else
-        return items;
-#endif
     }
 
     static string FindEmptyFilesDirectory()
@@ -114,28 +107,21 @@ public static class AllFiles
                 throw new($"Unknown category: {category}");
         }
 
-        void Init(ref IReadOnlyDictionary<string, EmptyFile> emptyFiles, ref ReadOnlySet extensions)
+        void Init(ref IReadOnlyDictionary<string, EmptyFile> emptyFiles, ref FrozenSet<string> extensions)
         {
             var tempDictionary = new Dictionary<string, EmptyFile>();
             foreach (var (key, value) in emptyFiles)
             {
                 tempDictionary[key] = value;
             }
+
             tempDictionary[extension] = emptyFile;
-#if NET8_0_OR_GREATER
             emptyFiles = tempDictionary.ToFrozenDictionary();
-#else
-            emptyFiles = tempDictionary;
-#endif
             var tempSet = new HashSet<string>(extensions)
             {
                 extension
             };
-#if NET8_0_OR_GREATER
             extensions = tempSet.ToFrozenSet();
-#else
-            extensions = tempSet;
-#endif
         }
     }
 
@@ -146,115 +132,90 @@ public static class AllFiles
 
     public static IEnumerable<string> ArchivePaths => archives.Values.Select(_ => _.Path);
 
-    public static ReadOnlySet ArchiveExtensions => archiveExtensions;
+    public static FrozenSet<string> ArchiveExtensions => archiveExtensions;
 
-    static ReadOnlySet archiveExtensions =
-        new HashSet<string>
-        {
-            ".7z",
-            ".7zip",
-            ".bz2",
-            ".bzip2",
-            ".gz",
-            ".gzip",
-            ".tar",
-            ".xz",
-            ".zip"
-        }
-#if NET8_0_OR_GREATER
-        .ToFrozenSet()
-#endif
-        ;
+    static FrozenSet<string> archiveExtensions = FrozenSet.ToFrozenSet(
+    [
+        ".7z",
+        ".7zip",
+        ".bz2",
+        ".bzip2",
+        ".gz",
+        ".gzip",
+        ".tar",
+        ".xz",
+        ".zip"
+    ]);
 
     public static IEnumerable<string> DocumentPaths => documents.Values.Select(_ => _.Path);
 
-    public static ReadOnlySet DocumentExtensions => documentExtensions;
+    public static FrozenSet<string> DocumentExtensions => documentExtensions;
 
-    static ReadOnlySet documentExtensions =
-        new HashSet<string>
-        {
-            ".docx",
-            ".odt",
-            ".pdf",
-            ".rtf"
-        }
-#if NET8_0_OR_GREATER
-        .ToFrozenSet()
-#endif
-        ;
+    static FrozenSet<string> documentExtensions = FrozenSet.ToFrozenSet(
+    [
+        ".docx",
+        ".odt",
+        ".pdf",
+        ".rtf"
+    ]);
 
     public static IEnumerable<string> ImagePaths => images.Values.Select(_ => _.Path);
 
-    public static ReadOnlySet ImageExtensions => imageExtensions;
+    public static FrozenSet<string> ImageExtensions => imageExtensions;
 
-    static ReadOnlySet imageExtensions =
-        new HashSet<string>
-        {
-            ".avif",
-            ".bmp",
-            ".dds",
-            ".dib",
-            ".emf",
-            ".exif",
-            ".gif",
-            ".heic",
-            ".heif",
-            ".ico",
-            ".j2c",
-            ".jfif",
-            ".jp2",
-            ".jpc",
-            ".jpe",
-            ".jpeg",
-            ".jpg",
-            ".jxr",
-            ".pbm",
-            ".pcx",
-            ".pgm",
-            ".png",
-            ".ppm",
-            ".rle",
-            ".tga",
-            ".tif",
-            ".tiff",
-            ".wdp",
-            ".webp",
-            ".wmp"
-        }
-#if NET8_0_OR_GREATER
-        .ToFrozenSet()
-#endif
-        ;
+    static FrozenSet<string> imageExtensions = FrozenSet.ToFrozenSet(
+    [
+        ".avif",
+        ".bmp",
+        ".dds",
+        ".dib",
+        ".emf",
+        ".exif",
+        ".gif",
+        ".heic",
+        ".heif",
+        ".ico",
+        ".j2c",
+        ".jfif",
+        ".jp2",
+        ".jpc",
+        ".jpe",
+        ".jpeg",
+        ".jpg",
+        ".jxr",
+        ".pbm",
+        ".pcx",
+        ".pgm",
+        ".png",
+        ".ppm",
+        ".rle",
+        ".tga",
+        ".tif",
+        ".tiff",
+        ".wdp",
+        ".webp",
+        ".wmp"
+    ]);
 
     public static IEnumerable<string> SheetPaths => sheets.Values.Select(_ => _.Path);
 
-    public static ReadOnlySet SheetExtensions => sheetExtensions;
+    public static FrozenSet<string> SheetExtensions => sheetExtensions;
 
-    static ReadOnlySet sheetExtensions =
-        new HashSet<string>
-            {
-            ".ods",
-            ".xlsx"
-        }
-#if NET8_0_OR_GREATER
-        .ToFrozenSet()
-#endif
-        ;
+    static FrozenSet<string> sheetExtensions = FrozenSet.ToFrozenSet(
+    [
+        ".ods",
+        ".xlsx"
+    ]);
 
     public static IEnumerable<string> SlidePaths => slides.Values.Select(_ => _.Path);
 
-    public static ReadOnlySet SlideExtensions => slideExtensions;
+    public static FrozenSet<string> SlideExtensions => slideExtensions;
 
-    static ReadOnlySet slideExtensions =
-        new HashSet<string>
-        {
-            ".odp",
-            ".pptx"
-        }
-#if NET8_0_OR_GREATER
-        .ToFrozenSet()
-#endif
-        ;
+    static FrozenSet<string> slideExtensions = FrozenSet.ToFrozenSet(
+    [
+        ".odp",
+        ".pptx"
+    ]);
 
     public static bool IsEmptyFile(string path)
     {
