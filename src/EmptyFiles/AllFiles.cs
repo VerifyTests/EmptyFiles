@@ -2,29 +2,29 @@
 
 public static class AllFiles
 {
-    public static IReadOnlyDictionary<string, EmptyFile> Files => files;
+    public static FrozenDictionary<string, EmptyFile> Files => files;
 
-    static Dictionary<string, EmptyFile> files = [];
+    static FrozenDictionary<string, EmptyFile> files;
 
-    public static IReadOnlyDictionary<string, EmptyFile> Archives => archives;
+    public static FrozenDictionary<string, EmptyFile> Archives => archives;
 
-    static IReadOnlyDictionary<string, EmptyFile> archives;
+    static FrozenDictionary<string, EmptyFile> archives;
 
-    public static IReadOnlyDictionary<string, EmptyFile> Documents => documents;
+    public static FrozenDictionary<string, EmptyFile> Documents => documents;
 
-    static IReadOnlyDictionary<string, EmptyFile> documents;
+    static FrozenDictionary<string, EmptyFile> documents;
 
-    public static IReadOnlyDictionary<string, EmptyFile> Images => images;
+    public static FrozenDictionary<string, EmptyFile> Images => images;
 
-    static IReadOnlyDictionary<string, EmptyFile> images;
+    static FrozenDictionary<string, EmptyFile> images;
 
-    public static IReadOnlyDictionary<string, EmptyFile> Sheets => sheets;
+    public static FrozenDictionary<string, EmptyFile> Sheets => sheets;
 
-    static IReadOnlyDictionary<string, EmptyFile> sheets;
+    static FrozenDictionary<string, EmptyFile> sheets;
 
-    public static IReadOnlyDictionary<string, EmptyFile> Slides => slides;
+    public static FrozenDictionary<string, EmptyFile> Slides => slides;
 
-    static IReadOnlyDictionary<string, EmptyFile> slides;
+    static FrozenDictionary<string, EmptyFile> slides;
 
     static AllFiles()
     {
@@ -35,9 +35,25 @@ public static class AllFiles
         images = AddCategory(imageExtensions, Category.Image, directory);
         sheets = AddCategory(sheetExtensions, Category.Sheet, directory);
         slides = AddCategory(slideExtensions, Category.Slide, directory);
+        var all = new Dictionary<string, EmptyFile>();
+        Append(archives);
+        Append(documents);
+        Append(images);
+        Append(sheets);
+        Append(slides);
+
+        files = all.ToFrozenDictionary();
+
+        void Append(FrozenDictionary<string, EmptyFile> files)
+        {
+            foreach (var (key, value) in files)
+            {
+                all[key] = value;
+            }
+        }
     }
 
-    static IReadOnlyDictionary<string, EmptyFile> AddCategory(FrozenSet<string> extensions, Category category, string emptyDirectory)
+    static FrozenDictionary<string, EmptyFile> AddCategory(FrozenSet<string> extensions, Category category, string emptyDirectory)
     {
         Dictionary<string, EmptyFile> items = [];
         var categoryDirectory = Path.Combine(emptyDirectory, category
@@ -46,9 +62,7 @@ public static class AllFiles
         foreach (var extension in extensions)
         {
             var file = Path.Combine(categoryDirectory, $"empty{extension}");
-            var emptyFile = EmptyFile.Build(file, category);
-            items[extension] = emptyFile;
-            files[extension] = emptyFile;
+            items[extension] = EmptyFile.Build(file, category);
         }
 
         return items.ToFrozenDictionary();
@@ -107,7 +121,7 @@ public static class AllFiles
                 throw new($"Unknown category: {category}");
         }
 
-        void Init(ref IReadOnlyDictionary<string, EmptyFile> emptyFiles, ref FrozenSet<string> extensions)
+        void Init(ref FrozenDictionary<string, EmptyFile> emptyFiles, ref FrozenSet<string> extensions)
         {
             var tempDictionary = new Dictionary<string, EmptyFile>();
             foreach (var (key, value) in emptyFiles)
