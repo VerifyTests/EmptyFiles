@@ -97,10 +97,48 @@ public static class AllFiles
         Guard.FileExists(file);
         var extension = Path.GetExtension(file);
         var emptyFile = EmptyFile.Build(file, category);
-        var (dictionary, extensions) = FindDictionaryForCategory(category);
-        extensions.Add(extension);
-        dictionary[extension] = emptyFile;
-        files[extension]= emptyFile;
+        switch (category)
+        {
+            case Category.Archive:
+                archiveExtensions = NewSet(archiveExtensions);
+                archives = NewDictionary(archives);
+                break;
+            case Category.Document:
+                documentExtensions = NewSet(documentExtensions);
+                documents = NewDictionary(documents);
+                break;
+            case Category.Image:
+                imageExtensions = NewSet(imageExtensions);
+                images = NewDictionary(images);
+                break;
+            case Category.Sheet:
+                sheetExtensions = NewSet(sheetExtensions);
+                sheets = NewDictionary(sheets);
+                break;
+            case Category.Slide:
+                slideExtensions = NewSet(slideExtensions);
+                slides = NewDictionary(slides);
+                break;
+            default:
+                throw new($"Unknown category: {category}");
+        }
+
+        Dictionary<string, EmptyFile> NewDictionary(Dictionary<string, EmptyFile> emptyFiles)
+        {
+            var tempDictionary = new Dictionary<string, EmptyFile>(emptyFiles)
+            {
+                [extension] = emptyFile
+            };
+            return tempDictionary;
+        }
+
+        HashSet<string> NewSet(HashSet<string> hashSet)
+        {
+            return new HashSet<string>(hashSet)
+            {
+                extension
+            };
+        }
     }
 
     public static IEnumerable<string> AllPaths => files.Values.Select(_ => _.Path);
