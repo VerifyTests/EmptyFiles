@@ -8,10 +8,10 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.9.0" />
     <PackageReference Include="MarkdownSnippets.MsBuild" Version="26.0.1" PrivateAssets="all" />
-    <PackageReference Include="Polyfill" Version="2.3.0" PrivateAssets="all" />
+    <PackageReference Include="Polyfill" Version="3.0.0" PrivateAssets="all" />
     <PackageReference Include="NUnit" Version="4.0.1" />
     <PackageReference Include="NUnit3TestAdapter" Version="4.5.0" />
-    <PackageReference Include="ProjectDefaults" Version="1.0.110" PrivateAssets="all" />
+    <PackageReference Include="ProjectDefaults" Version="1.0.111" PrivateAssets="all" />
     <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.4" />
     <ProjectReference Include="..\EmptyFiles\EmptyFiles.csproj" />
     <Using Include="NUnit.Framework.Legacy.ClassicAssert" Static="True" />
