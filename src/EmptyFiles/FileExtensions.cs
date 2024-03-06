@@ -192,6 +192,7 @@ public static class FileExtensions
         ".groupproj",
         ".grunit",
         ".gtmpl",
+        ".gv",
         ".gvimrc",
         ".h",
         ".haml",
