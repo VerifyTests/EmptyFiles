@@ -219,7 +219,7 @@ Use or replace a file
 AllFiles.UseFile(Category.Document, pathToFile);
 IsTrue(AllFiles.DocumentPaths.Contains(pathToFile));
 ```
-<sup><a href='/src/Tests/Tests.cs#L200-L205' title='Snippet source file'>snippet source</a> | <a href='#snippet-usefile' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Tests.cs#L202-L207' title='Snippet source file'>snippet source</a> | <a href='#snippet-usefile' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
