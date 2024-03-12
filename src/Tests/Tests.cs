@@ -193,7 +193,9 @@
         testFile;
 
     //[Test]
+#pragma warning disable CA1822
     public void UseFile()
+#pragma warning restore CA1822
     {
         var pathToFile = ThisFile();
 
