@@ -6,8 +6,8 @@
   <ItemGroup>
     <PackageReference Include="System.Memory" Version="4.5.5" Condition="'$(TargetFrameworkIdentifier)' == '.NETFramework'" />
     <PackageReference Include="System.Collections.Immutable" Version="8.0.0" Condition="'$(TargetFramework)' != 'net8.0'" />
-    <PackageReference Include="ProjectDefaults" Version="1.0.125" PrivateAssets="all" />
-    <PackageReference Include="Polyfill" Version="4.1.0" PrivateAssets="all" />
+    <PackageReference Include="ProjectDefaults" Version="1.0.126" PrivateAssets="all" />
+    <PackageReference Include="Polyfill" Version="4.2.0" PrivateAssets="all" />
     <PackageReference Include="System.ValueTuple" Version="4.5.0" Condition="$(TargetFramework) =='net461'" />
     <None Include="..\EmptyFiles.targets" Pack="True" PackagePath="build\EmptyFiles.targets" CopyToOutputDirectory="PreserveNewest" />
     <None Include="..\EmptyFiles.targets" Pack="True" PackagePath="buildTransitive\EmptyFiles.targets" CopyToOutputDirectory="PreserveNewest" />
