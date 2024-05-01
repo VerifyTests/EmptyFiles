@@ -11,7 +11,7 @@
     <PackageReference Include="Polyfill" Version="5.0.0" PrivateAssets="all" />
     <PackageReference Include="NUnit" Version="4.1.0" />
     <PackageReference Include="NUnit3TestAdapter" Version="4.5.0" />
-    <PackageReference Include="ProjectDefaults" Version="1.0.126" PrivateAssets="all" />
+    <PackageReference Include="ProjectDefaults" Version="1.0.127" PrivateAssets="all" />
     <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.4" />
     <ProjectReference Include="..\EmptyFiles\EmptyFiles.csproj" />
     <Using Include="NUnit.Framework.Legacy.ClassicAssert" Static="True" />
