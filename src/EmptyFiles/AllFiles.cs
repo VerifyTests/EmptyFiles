@@ -56,9 +56,11 @@ public static class AllFiles
     static FrozenDictionary<string, EmptyFile> AddCategory(FrozenSet<string> extensions, Category category, string emptyDirectory)
     {
         Dictionary<string, EmptyFile> items = [];
-        var categoryDirectory = Path.Combine(emptyDirectory, category
-            .ToString()
-            .ToLowerInvariant());
+        var categoryDirectory = Path.Combine(
+            emptyDirectory,
+            category
+                .ToString()
+                .ToLowerInvariant());
         foreach (var extension in extensions)
         {
             var file = Path.Combine(categoryDirectory, $"empty{extension}");
