@@ -248,6 +248,12 @@ public static class ContentTypes
             "text/html", "html"
         },
         {
+            "text/htmx", "htmx"
+        },
+        {
+            "text/javascript", "js"
+        },
+        {
             "text/plain", "txt"
         },
         {

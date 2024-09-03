@@ -213,6 +213,7 @@ public static class FileExtensions
             ".htc",
             ".htm",
             ".html",
+            ".htmx",
             ".htpasswd",
             ".hxx",
             ".ics",
@@ -234,6 +235,7 @@ public static class FileExtensions
             ".jhtm",
             ".jhtml",
             ".js",
+            ".javascript",
             ".jscsrc",
             ".jshintignore",
             ".jshintrc",
@@ -417,7 +419,8 @@ public static class FileExtensions
             ".yml",
             ".zsh",
             ".zshrc"
-        }.ToFrozenSet();
+        }
+        .ToFrozenSet();
 
     public static IReadOnlyCollection<string> TextExtensions => textExtensions;
 
