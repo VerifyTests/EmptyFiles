@@ -8,7 +8,7 @@
     <PackAsTool>True</PackAsTool>
     <Description>.NET Core Global Tool for creating minimal binary files</Description>
     <CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
-    <NoWarn>NU5118</NoWarn>
+    <NoWarn>$(NoWarn);NU5118;NU5119</NoWarn>
     <RollForward>LatestMajor</RollForward>
   </PropertyGroup>
   <ItemGroup>
