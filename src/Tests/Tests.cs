@@ -207,18 +207,22 @@
         #endregion
     }
 
+#if NET9_0
+
     [Test]
     public async Task WriteExtensions()
     {
         var md = Path.Combine(SolutionDirectoryFinder.Find(), "extensions.include.md");
         File.Delete(md);
-        using var writer = File.CreateText(md);
+        await using var writer = File.CreateText(md);
         await WriteCategory(writer, "Archive", AllFiles.Archives);
         await WriteCategory(writer, "Document", AllFiles.Documents);
         await WriteCategory(writer, "Image", AllFiles.Images);
         await WriteCategory(writer, "Sheet", AllFiles.Sheets);
         await WriteCategory(writer, "Slide", AllFiles.Slides);
     }
+
+#endif
 
     static async Task WriteCategory(StreamWriter writer, string category, IReadOnlyDictionary<string, EmptyFile> files)
     {
