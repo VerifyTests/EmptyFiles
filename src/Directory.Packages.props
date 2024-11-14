@@ -12,6 +12,5 @@
     <PackageVersion Include="ProjectDefaults" Version="1.0.144" />
     <PackageVersion Include="System.Collections.Immutable" Version="9.0.0" />
     <PackageVersion Include="System.Memory" Version="4.6.0" />
-    <PackageVersion Include="System.Threading.Tasks.Extensions" Version="4.6.0" />
   </ItemGroup>
 </Project>
