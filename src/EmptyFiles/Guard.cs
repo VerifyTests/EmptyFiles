@@ -17,28 +17,7 @@ static class Guard
         }
     }
 
-    public static void AgainstEmpty(CharSpan value, [CallerArgumentExpression("value")] string argumentName = "")
-    {
-        if (value.Length == 0)
-        {
-            throw new ArgumentNullException(argumentName);
-        }
-    }
-
-    public static void ValidExtension(CharSpan extension, [CallerArgumentExpression("extension")] string argumentName = "")
-    {
-        if (extension.Length == 0)
-        {
-            throw new ArgumentNullException(argumentName);
-        }
-
-        if (extension[0] != '.')
-        {
-            throw new ArgumentNullException(argumentName, $"Extension must begin with a period. Value: {extension}");
-        }
-    }
-
-    public static string ValidExtension(string extension, [CallerArgumentExpression("extension")] string argumentName = "")
+    public static string ValidExtension(string extension, [CallerArgumentExpression(nameof(extension))] string argumentName = "")
     {
         if (extension.Length == 0)
         {
