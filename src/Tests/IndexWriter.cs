@@ -1,4 +1,5 @@
-﻿public class IndexWriter
+﻿#if NET9_0
+public class IndexWriter
 {
     static List<KeyValuePair<string, EmptyFile>> files = null!;
 
@@ -7,7 +8,6 @@
         files = AllFiles
             .Files.OrderBy(_ => _.Key)
             .ToList();
-
     [Test]
     public void CreateIndex() =>
         InnerCreateIndex();
@@ -28,3 +28,4 @@
         }
     }
 }
+#endif
