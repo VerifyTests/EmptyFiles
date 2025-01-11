@@ -307,6 +307,7 @@ public static class FileExtensions
             ".prettierrc",
             ".properties",
             ".props",
+            ".ps1",
             ".pt",
             ".pug",
             ".purs",
