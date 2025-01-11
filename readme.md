@@ -299,6 +299,8 @@ True(FileExtensions.IsTextFile("c:/path/file.txtViaConvention"));
 <sup><a href='/src/Tests/ExtensionsTests.cs#L17-L21' title='Snippet source file'>snippet source</a> | <a href='#snippet-TextViaConvention' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
+An alternative approach to a text file convention would be to check if a file has a preamble that matches an known text encoding.
+
 
 ## Icon
 
