@@ -34,7 +34,6 @@
     {
 #pragma warning disable CS0618 // Type or member is obsolete
         True(FileExtensions.IsText("file.txt"));
-        True(FileExtensions.IsText("c:/path/file.txtViaConvention"));
         False(FileExtensions.IsText("file.bin"));
         True(FileExtensions.IsText("c:/file.txt"));
         False(FileExtensions.IsText("c:/file.bin"));

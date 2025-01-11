@@ -29,7 +29,8 @@ public static class FileExtensions
         var extension = Path.GetExtension(path);
         return IsTextExtension(extension);
 #else
-        return IsTextExtension(path.ToString());
+        var extension = Path.GetExtension(path.ToString());
+        return IsTextExtension(extension);
 #endif
     }
 
