@@ -81,6 +81,11 @@ public static class FileExtensions
         }
     }
 
+    public static void AddTextFileConvention(Func<string, bool> convention) =>
+        textFileConventions.Add(convention);
+
+    static List<Func<string, bool>> textFileConventions = [];
+
     //From https://github.com/sindresorhus/text-extensions/blob/master/text-extensions.json
     static IReadOnlyCollection<string> textExtensions = new HashSet<string>
         {
