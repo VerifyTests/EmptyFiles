@@ -20,6 +20,7 @@ A collection of minimal binary files.
 
 All files: https://github.com/VerifyTests/EmptyFiles/tree/main/files
 
+
 <!-- include: extensions. path: /src/extensions.include.md -->
 ### Archive
 
@@ -269,6 +270,19 @@ False(FileExtensions.IsTextExtension(".ext1"));
 ```
 <sup><a href='/src/Tests/ExtensionsTests.cs#L52-L59' title='Snippet source file'>snippet source</a> | <a href='#snippet-RemoveTextExtension' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
+
+
+#### AddTextFileConvention
+
+`AddTextFileConvention` allows the use of a convention based text file detection via a callback.
+
+At app startup add a convention using `FileExtensions.AddTextFileConvention`:
+
+snippet: AddTextFileConvention
+
+Then any call to `FileExtensions.IsTextFile` will, in addition to checking the known text extensions, also check if any of the added text contentions return true.
+
+snippet: TextViaConvention
 
 
 ## Icon
