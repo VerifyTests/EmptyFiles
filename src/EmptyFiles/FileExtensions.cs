@@ -2,9 +2,6 @@
 
 public static class FileExtensions
 {
-    public static bool IsTextFile(string path) =>
-        IsTextExtension(Path.GetExtension(path));
-
     public static bool IsTextExtension(string extension)
     {
         extension = Guard.ValidExtension(extension);
@@ -15,14 +12,16 @@ public static class FileExtensions
     public static bool IsTextExtension(CharSpan extension) =>
         IsTextExtension(extension.ToString());
 
+    public static bool IsTextFile(string path) =>
+        IsTextExtension(Path.GetExtension(path));
+
     public static bool IsTextFile(CharSpan path)
     {
 #if NET6_0_OR_GREATER
         var extension = Path.GetExtension(path);
-        return IsTextExtension(extension.ToString());
-#else
-        var extension = Path.GetExtension(path.ToString());
         return IsTextExtension(extension);
+#else
+        return IsTextFile(path.ToString());
 #endif
     }
 
