@@ -20,6 +20,7 @@ A collection of minimal binary files.
 
 All files: https://github.com/VerifyTests/EmptyFiles/tree/main/files
 
+
 <!-- include: extensions. path: /src/extensions.include.md -->
 ### Archive
 
@@ -37,7 +38,7 @@ All files: https://github.com/VerifyTests/EmptyFiles/tree/main/files
 
   * .docx (1.9 KB)
   * .odt (2.2 KB)
-  * .pdf (291 bytes)
+  * .pdf (280 bytes)
   * .rtf (6 bytes)
 
 ### Image
@@ -54,13 +55,13 @@ All files: https://github.com/VerifyTests/EmptyFiles/tree/main/files
   * .ico (70 bytes)
   * .j2c (270 bytes)
   * .jfif (734 bytes)
-  * .jp2 (357 bytes)
+  * .jp2 (354 bytes)
   * .jpc (270 bytes)
   * .jpe (734 bytes)
   * .jpeg (734 bytes)
   * .jpg (734 bytes)
   * .jxr (300 bytes)
-  * .pbm (10 bytes)
+  * .pbm (8 bytes)
   * .pcx (131 bytes)
   * .pgm (12 bytes)
   * .png (119 bytes)
@@ -253,7 +254,7 @@ FileExtensions.AddTextExtension(".ext1");
 True(FileExtensions.IsTextExtension(".ext1"));
 True(FileExtensions.IsTextFile("file.ext1"));
 ```
-<sup><a href='/src/Tests/ExtensionsTests.cs#L36-L42' title='Snippet source file'>snippet source</a> | <a href='#snippet-AddTextExtension' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/ExtensionsTests.cs#L50-L56' title='Snippet source file'>snippet source</a> | <a href='#snippet-AddTextExtension' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -267,8 +268,38 @@ True(FileExtensions.IsTextExtension(".ext1"));
 FileExtensions.RemoveTextExtension(".ext1");
 False(FileExtensions.IsTextExtension(".ext1"));
 ```
-<sup><a href='/src/Tests/ExtensionsTests.cs#L52-L59' title='Snippet source file'>snippet source</a> | <a href='#snippet-RemoveTextExtension' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/ExtensionsTests.cs#L66-L73' title='Snippet source file'>snippet source</a> | <a href='#snippet-RemoveTextExtension' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
+
+
+#### AddTextFileConvention
+
+`AddTextFileConvention` allows the use of a convention based text file detection via a callback.
+
+At app startup add a convention using `FileExtensions.AddTextFileConvention`:
+
+<!-- snippet: AddTextFileConvention -->
+<a id='snippet-AddTextFileConvention'></a>
+```cs
+[ModuleInitializer]
+public static void AddTextFileConvention() =>
+    // Treat files ending with .txtViaConvention as text files
+    FileExtensions.AddTextFileConvention(path => path.EndsWith(".txtViaConvention"));
+```
+<sup><a href='/src/Tests/ExtensionsTests.cs#L24-L30' title='Snippet source file'>snippet source</a> | <a href='#snippet-AddTextFileConvention' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+Then any call to `FileExtensions.IsTextFile` will, in addition to checking the known text extensions, also check if any of the added text contentions return true.
+
+<!-- snippet: TextViaConvention -->
+<a id='snippet-TextViaConvention'></a>
+```cs
+True(FileExtensions.IsTextFile("c:/path/file.txtViaConvention"));
+```
+<sup><a href='/src/Tests/ExtensionsTests.cs#L17-L21' title='Snippet source file'>snippet source</a> | <a href='#snippet-TextViaConvention' title='Start of snippet'>anchor</a></sup>
+<!-- endSnippet -->
+
+An alternative approach to a text file convention would be to check if a file has a preamble that matches an known text encoding.
 
 
 ## Icon

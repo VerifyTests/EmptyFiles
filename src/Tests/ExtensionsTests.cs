@@ -13,7 +13,21 @@
         False(FileExtensions.IsTextExtension("bin"));
 
         #endregion
+
+        #region TextViaConvention
+
+        True(FileExtensions.IsTextFile("c:/path/file.txtViaConvention"));
+
+        #endregion
     }
+
+    #region AddTextFileConvention
+    [ModuleInitializer]
+    public static void AddTextFileConvention() =>
+        // Treat files ending with .txtViaConvention as text files
+        FileExtensions.AddTextFileConvention(path => path.EndsWith(".txtViaConvention"));
+
+    #endregion
 
     [Test]
     public void IsTextLegacy()

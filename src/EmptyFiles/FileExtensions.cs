@@ -13,15 +13,24 @@ public static class FileExtensions
         IsTextExtension(extension.ToString());
 
     public static bool IsTextFile(string path) =>
-        IsTextExtension(Path.GetExtension(path));
+        IsTextFile(path.AsSpan());
 
     public static bool IsTextFile(CharSpan path)
     {
+        foreach (var convention in textFileConventions)
+        {
+            if (convention(path))
+            {
+                return true;
+            }
+        }
+
 #if NET6_0_OR_GREATER
         var extension = Path.GetExtension(path);
         return IsTextExtension(extension);
 #else
-        return IsTextFile(path.ToString());
+        var extension = Path.GetExtension(path.ToString());
+        return IsTextExtension(extension);
 #endif
     }
 
@@ -80,6 +89,11 @@ public static class FileExtensions
             AddTextExtension(extension);
         }
     }
+
+    public static void AddTextFileConvention(IsTextFile convention) =>
+        textFileConventions.Add(convention);
+
+    static List<IsTextFile> textFileConventions = [];
 
     //From https://github.com/sindresorhus/text-extensions/blob/master/text-extensions.json
     static IReadOnlyCollection<string> textExtensions = new HashSet<string>
