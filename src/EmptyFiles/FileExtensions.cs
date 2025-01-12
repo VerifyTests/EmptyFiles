@@ -25,13 +25,8 @@ public static class FileExtensions
             }
         }
 
-#if NET6_0_OR_GREATER
-        var extension = Path.GetExtension(path);
+        var extension = PathPolyfill.GetExtension(path);
         return IsTextExtension(extension);
-#else
-        var extension = Path.GetExtension(path.ToString());
-        return IsTextExtension(extension);
-#endif
     }
 
     public static void RemoveTextExtension(string extension)
