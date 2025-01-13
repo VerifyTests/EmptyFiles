@@ -14,6 +14,9 @@
 
         #endregion
 
+        False(FileExtensions.IsTextFile(".StartingWithDot"));
+        False(FileExtensions.IsTextFile("NoExtension"));
+
         #region TextViaConvention
 
         True(FileExtensions.IsTextFile("c:/path/file.txtViaConvention"));
