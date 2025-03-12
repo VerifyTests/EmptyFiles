@@ -7,6 +7,7 @@
     <PackageReference Include="System.Memory" Condition="'$(TargetFrameworkIdentifier)' == '.NETFramework'" />
     <PackageReference Include="System.Collections.Immutable" Condition="'$(TargetFramework)' != 'net8.0' AND '$(TargetFramework)' != 'net9.0'" />
     <PackageReference Include="ProjectDefaults" PrivateAssets="all" />
+    <PackageReference Include="System.ValueTuple"  Condition="'$(TargetFramework)' == 'net462'"  />
     <PackageReference Include="Polyfill" PrivateAssets="all" />
     <None Include="..\EmptyFiles.targets" Pack="True" PackagePath="build\EmptyFiles.targets" CopyToOutputDirectory="PreserveNewest" />
     <None Include="..\EmptyFiles.targets" Pack="True" PackagePath="buildTransitive\EmptyFiles.targets" CopyToOutputDirectory="PreserveNewest" />
