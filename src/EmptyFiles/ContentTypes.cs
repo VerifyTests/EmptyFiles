@@ -27,6 +27,12 @@ public static class ContentTypes
             return false;
         }
 
+        var indexOf = mediaType.IndexOf(';');
+        if(indexOf != -1)
+        {
+            mediaType = mediaType[..indexOf];
+        }
+
         if (mappings.TryGetValue(mediaType, out extension))
         {
             return true;
