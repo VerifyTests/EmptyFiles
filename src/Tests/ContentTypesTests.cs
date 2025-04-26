@@ -7,6 +7,8 @@
         AreEqual("json", extension);
         True(ContentTypes.TryGetExtension("foo/bar+json", out extension));
         AreEqual("json", extension);
+        True(ContentTypes.TryGetExtension("text/html; charset=utf-8", out extension));
+        AreEqual("html", extension);
         True(ContentTypes.TryGetExtension("foo/bin", out extension));
         AreEqual("bin", extension);
     }
@@ -16,6 +18,8 @@
     {
         True(ContentTypes.IsText("application/json", out var extension));
         AreEqual("json", extension);
+        True(ContentTypes.IsText("text/html; charset=utf-8", out extension));
+        AreEqual("html", extension);
         True(ContentTypes.IsText("foo/bar+json", out extension));
         AreEqual("json", extension);
         False(ContentTypes.IsText("foo/bin", out extension));
