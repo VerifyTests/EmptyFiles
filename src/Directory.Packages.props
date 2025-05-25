@@ -8,7 +8,7 @@
     <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.14.0" />
     <PackageVersion Include="NUnit" Version="4.3.2" />
     <PackageVersion Include="NUnit3TestAdapter" Version="5.0.0" />
-    <PackageVersion Include="Polyfill" Version="7.31.0" />
+    <PackageVersion Include="Polyfill" Version="7.32.0" />
     <PackageVersion Include="ProjectDefaults" Version="1.0.153" />
     <!-- Keep at 8 to support old frameworks -->
     <PackageVersion Include="System.Collections.Immutable" Version="8.0.0" />
