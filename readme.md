@@ -10,12 +10,12 @@ A collection of minimal binary files.
 **See [Milestones](../../milestones?state=closed) for release notes.**
 
 
-### Powered by
+## Sponsored by
 
 [![JetBrains logo.](https://resources.jetbrains.com/storage/products/company/brand/logos/jetbrains.svg)](https://jb.gg/OpenSourceSupport)
 
 
-## NuGet package
+## NuGet
 
  * https://nuget.org/packages/EmptyFiles/
  * https://nuget.org/packages/EmptyFiles.Tool/
