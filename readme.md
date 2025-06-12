@@ -5,7 +5,7 @@
 [![NuGet Status](https://img.shields.io/nuget/v/EmptyFiles.svg?label=EmptyFiles)](https://www.nuget.org/packages/EmptyFiles/)
 [![NuGet Status](https://img.shields.io/nuget/v/EmptyFiles.Tool.svg?label=dotnet%20tool)](https://www.nuget.org/packages/EmptyFiles.Tool/)
 
-A collection of minimal binary files.
+include: intro
 
 **See [Milestones](../../milestones?state=closed) for release notes.**
 
@@ -20,7 +20,7 @@ A collection of minimal binary files.
 [![Entity Framework Extensions](docs/zzz.png)](https://entityframework-extensions.net)<!-- endInclude -->
 
 
-## Sponsored by
+### JetBrains
 
 [![JetBrains logo.](https://resources.jetbrains.com/storage/products/company/brand/logos/jetbrains.svg)](https://jb.gg/OpenSourceSupport)
 
