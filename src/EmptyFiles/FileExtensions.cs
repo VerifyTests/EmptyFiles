@@ -358,6 +358,8 @@ public static class FileExtensions
             ".sh",
             ".shtml",
             ".sln",
+            ".slnx",
+            ".slnf",
             ".sls",
             ".spec",
             ".sql",
