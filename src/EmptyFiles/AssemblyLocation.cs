@@ -1,4 +1,6 @@
-﻿static class AssemblyLocation
+﻿#pragma warning disable IL3000
+
+static class AssemblyLocation
 {
     static AssemblyLocation()
     {
@@ -9,6 +11,11 @@
         var uri = new UriBuilder(assembly.CodeBase);
         Path = Uri.UnescapeDataString(uri.Path);
 #endif
+
+        if (string.IsNullOrWhiteSpace(Path))
+        {
+            Path = AppContext.BaseDirectory;
+        }
 
         Directory = System.IO.Path.GetDirectoryName(Path)!;
     }
