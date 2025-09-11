@@ -7,8 +7,6 @@
   * .bzip2 (14 bytes)
   * .gz (29 bytes)
   * .gzip (29 bytes)
-  * .kmz (292 bytes)
-  * .nupkg (1.8 KB)
   * .tar (1.5 KB)
   * .xz (32 bytes)
   * .zip (22 bytes)
