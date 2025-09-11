@@ -2,8 +2,8 @@
 <Project>
   <ItemGroup Condition="$(DesignTimeBuild) != true">
     <ContentWithTargetPath
-       Include="$(MSBuildThisFileDirectory)..\files\**\*.*"
-       CopyToOutputDirectory="PreserveNewest"
-       TargetPath="EmptyFiles\%(RecursiveDir)%(Filename)%(Extension)" />
+      Include="$(MSBuildThisFileDirectory)..\files\**\*.*"
+      CopyToOutputDirectory="PreserveNewest"
+      TargetPath="EmptyFiles\%(RecursiveDir)%(Filename)$([System.String]::Copy('%(Extension)').Replace('_', ''))" />
   </ItemGroup>
 </Project>
