@@ -158,6 +158,8 @@ public static class AllFiles
         ".bzip2",
         ".gz",
         ".gzip",
+        ".kmz",
+        ".nupkg",
         ".tar",
         ".xz",
         ".zip"
