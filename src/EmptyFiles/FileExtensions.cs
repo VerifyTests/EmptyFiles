@@ -337,6 +337,7 @@ public static class FileExtensions
             ".rc",
             ".rdoc",
             ".rdoc_options",
+            ".rels",
             ".resx",
             ".rexx",
             ".rhtml",
