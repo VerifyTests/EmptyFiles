@@ -55,7 +55,7 @@ All files: https://github.com/VerifyTests/EmptyFiles/tree/main/files
 
   * .docx (1.9 KB)
   * .odt (2.2 KB)
-  * .pdf (280 bytes)
+  * .pdf (291 bytes)
   * .rtf (6 bytes)
 
 ### Image
@@ -72,13 +72,13 @@ All files: https://github.com/VerifyTests/EmptyFiles/tree/main/files
   * .ico (70 bytes)
   * .j2c (270 bytes)
   * .jfif (734 bytes)
-  * .jp2 (354 bytes)
+  * .jp2 (357 bytes)
   * .jpc (270 bytes)
   * .jpe (734 bytes)
   * .jpeg (734 bytes)
   * .jpg (734 bytes)
   * .jxr (300 bytes)
-  * .pbm (8 bytes)
+  * .pbm (10 bytes)
   * .pcx (131 bytes)
   * .pgm (12 bytes)
   * .png (119 bytes)
@@ -99,7 +99,11 @@ All files: https://github.com/VerifyTests/EmptyFiles/tree/main/files
 ### Slide
 
   * .odp (7.8 KB)
-  * .pptx (13.3 KB)<!-- endInclude -->
+  * .pptx (13.3 KB)
+
+### Binary
+
+  * .bin (0 bytes)<!-- endInclude -->
 
 
 ## Consuming files as a web resource
@@ -172,7 +176,7 @@ Creates a new empty file
 ```cs
 AllFiles.CreateFile(pathOfFileToCreate);
 ```
-<sup><a href='/src/Tests/Tests.cs#L136-L140' title='Snippet source file'>snippet source</a> | <a href='#snippet-CreateFile' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Tests.cs#L138-L142' title='Snippet source file'>snippet source</a> | <a href='#snippet-CreateFile' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Throws an exception if the extension is not known. There is also a `TryCreateFile` that will return false if the extension is not known.
@@ -189,7 +193,7 @@ Gets the path to an empty file for a given extension
 ```cs
 var path = AllFiles.GetPathFor(".jpg");
 ```
-<sup><a href='/src/Tests/Tests.cs#L116-L120' title='Snippet source file'>snippet source</a> | <a href='#snippet-GetPathFor' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Tests.cs#L118-L122' title='Snippet source file'>snippet source</a> | <a href='#snippet-GetPathFor' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Throws an exception if the extension is not known. There is also a `TryGetPathFor` that will return false if the extension is not known.
@@ -207,7 +211,7 @@ True(AllFiles.IsEmptyFile(path));
 var temp = Path.GetTempFileName();
 False(AllFiles.IsEmptyFile(temp));
 ```
-<sup><a href='/src/Tests/Tests.cs#L165-L172' title='Snippet source file'>snippet source</a> | <a href='#snippet-IsEmptyFile' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Tests.cs#L167-L174' title='Snippet source file'>snippet source</a> | <a href='#snippet-IsEmptyFile' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -223,7 +227,7 @@ foreach (var path in AllFiles.AllPaths)
     Trace.WriteLine(path);
 }
 ```
-<sup><a href='/src/Tests/Tests.cs#L182-L189' title='Snippet source file'>snippet source</a> | <a href='#snippet-AllPaths' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Tests.cs#L184-L191' title='Snippet source file'>snippet source</a> | <a href='#snippet-AllPaths' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -237,7 +241,7 @@ Use or replace a file
 AllFiles.UseFile(Category.Document, pathToFile);
 IsTrue(AllFiles.DocumentPaths.Contains(pathToFile));
 ```
-<sup><a href='/src/Tests/Tests.cs#L202-L207' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseFile' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Tests.cs#L204-L209' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseFile' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

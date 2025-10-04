@@ -22,6 +22,10 @@ public static class AllFiles
 
     static FrozenDictionary<string, EmptyFile> sheets;
 
+    public static FrozenDictionary<string, EmptyFile> Binary => binary;
+
+    static FrozenDictionary<string, EmptyFile> binary;
+
     public static FrozenDictionary<string, EmptyFile> Slides => slides;
 
     static FrozenDictionary<string, EmptyFile> slides;
@@ -35,12 +39,14 @@ public static class AllFiles
         images = AddCategory(imageExtensions, Category.Image, directory);
         sheets = AddCategory(sheetExtensions, Category.Sheet, directory);
         slides = AddCategory(slideExtensions, Category.Slide, directory);
+        binary = AddCategory(binaryExtensions, Category.Binary, directory);
         var all = new Dictionary<string, EmptyFile>();
         Append(archives);
         Append(documents);
         Append(images);
         Append(sheets);
         Append(slides);
+        Append(binary);
 
         files = all.ToFrozenDictionary();
 
@@ -118,6 +124,9 @@ public static class AllFiles
                 break;
             case Category.Slide:
                 Init(ref slides, ref slideExtensions);
+                break;
+            case Category.Binary:
+                Init(ref binary, ref binaryExtensions);
                 break;
             default:
                 throw new($"Unknown category: {category}");
@@ -233,6 +242,15 @@ public static class AllFiles
     [
         ".odp",
         ".pptx"
+    ]);
+
+    public static IEnumerable<string> BinaryPaths => binary.Values.Select(_ => _.Path);
+
+    public static FrozenSet<string> BinaryExtensions => binaryExtensions;
+
+    static FrozenSet<string> binaryExtensions = FrozenSet.ToFrozenSet(
+    [
+        ".bin"
     ]);
 
     public static bool IsEmptyFile(string path)
