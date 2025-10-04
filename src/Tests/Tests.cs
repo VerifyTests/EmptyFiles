@@ -12,7 +12,6 @@ public class Tests
     [Test]
     public void CreateFile_NoDir_binary()
     {
-        File.Create($@"D:\Code\VerifyTests\EmptyFiles\files\binary\empty.bin").Dispose();
         if (Directory.Exists("myTempDir"))
         {
             Directory.Delete("myTempDir", true);
