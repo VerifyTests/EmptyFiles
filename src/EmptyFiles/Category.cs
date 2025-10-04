@@ -6,5 +6,6 @@ public enum Category
     Document,
     Image,
     Sheet,
-    Slide
+    Slide,
+    Binary
 }

@@ -1,4 +1,5 @@
-﻿public class Tests
+﻿[TestFixture]
+public class Tests
 {
     [Test]
     public void CreateFile_overwrite_binary()
@@ -11,6 +12,7 @@
     [Test]
     public void CreateFile_NoDir_binary()
     {
+        File.Create($@"D:\Code\VerifyTests\EmptyFiles\files\binary\empty.bin").Dispose();
         if (Directory.Exists("myTempDir"))
         {
             Directory.Delete("myTempDir", true);
@@ -220,6 +222,7 @@
         await WriteCategory(writer, "Image", AllFiles.Images);
         await WriteCategory(writer, "Sheet", AllFiles.Sheets);
         await WriteCategory(writer, "Slide", AllFiles.Slides);
+        await WriteCategory(writer, "Binary", AllFiles.Binary);
     }
 
 #endif
