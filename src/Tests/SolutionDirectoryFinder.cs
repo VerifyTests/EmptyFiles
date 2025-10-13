@@ -19,7 +19,7 @@ static class SolutionDirectoryFinder
         do
         {
             if (Directory
-                .GetFiles(currentDirectory, "*.sln").Length != 0)
+                .GetFiles(currentDirectory, "*.slnx").Length != 0)
             {
                 path = currentDirectory;
                 return true;
