@@ -11,7 +11,7 @@
     <PackageVersion Include="ProjectDefaults" Version="1.0.161" />
     <PackageVersion Include="Polyfill" Version="8.9.0" />
     <!-- Keep at 8 to support old frameworks -->
-    <PackageVersion Include="System.Collections.Immutable" Version="9.0.10" />
+    <PackageVersion Include="System.Collections.Immutable" Version="8.0.0" />
     <PackageVersion Include="System.Memory" Version="4.6.3" />
     <PackageVersion Include="System.ValueTuple" Version="4.6.1" />
     <PackageVersion Include="Microsoft.Sbom.Targets" Version="4.1.2" />
