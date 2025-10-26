@@ -400,6 +400,7 @@ public static class FileExtensions
             ".tmLanguage",
             ".tmpl",
             ".tmTheme",
+            ".toml",
             ".tpl",
             ".ts",
             ".tsv",
