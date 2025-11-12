@@ -25,7 +25,7 @@ public static class FileExtensions
             }
         }
 
-        var extension = PathPolyfill.GetExtension(path);
+        var extension = Path.GetExtension(path);
 
         if (extension.Length == 0)
         {

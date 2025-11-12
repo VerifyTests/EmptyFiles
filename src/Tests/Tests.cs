@@ -224,8 +224,6 @@ public class Tests
         await WriteCategory(writer, "Binary", AllFiles.Binary);
     }
 
-#endif
-
     static async Task WriteCategory(StreamWriter writer, string category, IReadOnlyDictionary<string, EmptyFile> files)
     {
         await writer.WriteLineAsync("");
@@ -237,4 +235,6 @@ public class Tests
             await writer.WriteLineAsync($"  * {file.Key} ({size})");
         }
     }
+
+#endif
 }

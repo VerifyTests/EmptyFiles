@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework>net10.0</TargetFramework>
     <ToolCommandName>emptyfile</ToolCommandName>
     <AssemblyName>emptyfile</AssemblyName>
     <PackageId>EmptyFiles.Tool</PackageId>
@@ -16,7 +16,7 @@
     <PackageReference Include="ProjectDefaults" PrivateAssets="all" />
     <None Include="$(ProjectDir)..\..\files\**\empty.*">
       <Pack>true</Pack>
-      <PackagePath>tools\net8.0\any\EmptyFiles</PackagePath>
+      <PackagePath>tools\net10.0\any\EmptyFiles</PackagePath>
     </None>
     <None Include="$(ProjectDir)..\..\files\**\*.*">
       <Link>EmptyFiles\%(RecursiveDir)%(Filename)%(Extension)</Link>
