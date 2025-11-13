@@ -3,6 +3,7 @@
 *.png binary
 
 /files/** binary
+/files/**/*.* binary
 /files/*.* binary
 /index/** binary
 /index/*.* binary
