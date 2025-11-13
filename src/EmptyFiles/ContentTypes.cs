@@ -2,8 +2,28 @@
 
 public static class ContentTypes
 {
+    static ContentTypes()
+    {
+        foreach (var (media, extension) in mediaToExtension)
+        {
+            extensionToMedia.TryAdd(extension, media);
+        }
+    }
+
+    static Dictionary<string, string> extensionToMedia = new(StringComparer.OrdinalIgnoreCase);
+
     public static bool IsText(string? mediaType) =>
         IsText(mediaType, out _);
+
+    public static bool TryGetMediaType(string extension, [NotNullWhen(true)] out string? mediaType)
+    {
+        if (extension.StartsWith('.'))
+        {
+            extension = extension[1..];
+        }
+
+        return extensionToMedia.TryGetValue(extension, out mediaType);
+    }
 
     public static bool IsText(string? mediaType, [NotNullWhen(true)] out string? extension)
     {
@@ -33,7 +53,7 @@ public static class ContentTypes
             mediaType = mediaType[..indexOf];
         }
 
-        if (mappings.TryGetValue(mediaType, out extension))
+        if (mediaToExtension.TryGetValue(mediaType, out extension))
         {
             return true;
         }
@@ -60,7 +80,7 @@ public static class ContentTypes
         return false;
     }
 
-    static Dictionary<string, string> mappings = new(StringComparer.OrdinalIgnoreCase)
+    static Dictionary<string, string> mediaToExtension = new(StringComparer.OrdinalIgnoreCase)
     {
         //extra
         {
@@ -137,6 +157,9 @@ public static class ContentTypes
             "application/postscript", "eps"
         },
         {
+            "application/xml", "xml"
+        },
+        {
             "application/soap+xml", "xml"
         },
         {
@@ -176,7 +199,7 @@ public static class ContentTypes
             "application/xrd+xml", "xml"
         },
         {
-            "application/xml", "xml"
+            "application/json", "json"
         },
         {
             "audio/aac", "aac"
