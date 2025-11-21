@@ -1,9 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project>
-  <ItemGroup Condition="$(DesignTimeBuild) != true">
-    <ContentWithTargetPath
-       Include="$(MSBuildThisFileDirectory)..\files\**\*.*"
-       CopyToOutputDirectory="PreserveNewest"
-       TargetPath="EmptyFiles\%(RecursiveDir)%(Filename)%(Extension)" />
-  </ItemGroup>
+  <PropertyGroup>
+    <EmptyFilesSourcePath>$(MSBuildThisFileDirectory)..\files</EmptyFilesSourcePath>
+    <EmptyFilesTargetPath>$(OutDir)EmptyFiles</EmptyFilesTargetPath>
+    <EmptyFilesMarker>$(EmptyFilesTargetPath)\.copied</EmptyFilesMarker>
+  </PropertyGroup>
+
+  <Target Name="CopyEmptyFilesIncremental"
+          BeforeTargets="Build"
+          Condition="$(DesignTimeBuild) != true"
+          Inputs="$(MSBuildThisFileFile)"
+          Outputs="$(EmptyFilesMarker)">
+
+    <ItemGroup>
+      <EmptyFilesToCopy Include="$(EmptyFilesSourcePath)\**\*.*" />
+    </ItemGroup>
+
+    <Copy SourceFiles="@(EmptyFilesToCopy)"
+          DestinationFiles="@(EmptyFilesToCopy->'$(EmptyFilesTargetPath)\%(RecursiveDir)%(Filename)%(Extension)')"
+          SkipUnchangedFiles="true" />
+
+    <Touch Files="$(EmptyFilesMarker)" AlwaysCreate="true" />
+  </Target>
 </Project>
