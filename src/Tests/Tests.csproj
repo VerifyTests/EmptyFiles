@@ -16,5 +16,5 @@
     <Using Include="NUnit.Framework.Legacy.ClassicAssert" Static="True" />
     <Using Include="NUnit.Framework.Assert" Static="True" />
   </ItemGroup>
-  <Import Project="$(ProjectDir)..\EmptyFiles.targets" />
+  <Import Project="$(SolutionDir)..\buildTransitive\EmptyFiles.targets" />
 </Project>
