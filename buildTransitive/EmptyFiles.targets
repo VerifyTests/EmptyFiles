@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project>
+  <PropertyGroup>
+    <EmptyFilesSourcePath>$(MSBuildThisFileDirectory)..\files</EmptyFilesSourcePath>
+  </PropertyGroup>
+
+  <Target Name="CopyEmptyFilesIncremental"
+          AfterTargets="Build"
+          Condition="$(DesignTimeBuild) != true"
+          Inputs="$(MSBuildThisFileFullPath)"
+          Outputs="$(IntermediateOutputPath)EmptyFiles.copied">
+
+    <PropertyGroup>
+      <EmptyFilesTargetPath>$(TargetDir)EmptyFiles</EmptyFilesTargetPath>
+      <EmptyFilesMarker>$(IntermediateOutputPath)EmptyFiles.copied</EmptyFilesMarker>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <EmptyFilesToCopy Include="$(EmptyFilesSourcePath)\**\*.*" />
+    </ItemGroup>
+
+    <Message Text="Copying EmptyFiles to $(EmptyFilesTargetPath)" Importance="high" />
+
+    <MakeDir Directories="$(EmptyFilesTargetPath)" />
+
+    <Copy SourceFiles="@(EmptyFilesToCopy)"
+          DestinationFiles="@(EmptyFilesToCopy->'$(EmptyFilesTargetPath)\%(RecursiveDir)%(Filename)%(Extension)')"
+          SkipUnchangedFiles="true" />
+
+    <Touch Files="$(EmptyFilesMarker)" AlwaysCreate="true" />
+  </Target>
+</Project>
