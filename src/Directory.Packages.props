@@ -13,7 +13,7 @@
     <PackageVersion Include="System.Memory" Version="4.6.3" />
     <PackageVersion Include="Microsoft.Sbom.Targets" Version="4.1.4" />
     <!-- Keep at 8 to support old frameworks -->
-    <PackageVersion Include="System.Collections.Immutable" Version="8.0.0" />
-    <PackageVersion Include="System.ValueTuple" Version="4.5.0" />
+    <PackageVersion Include="System.Collections.Immutable" Version="8.0.0" Pinned="true" />
+    <PackageVersion Include="System.ValueTuple" Version="4.5.0" Pinned="true" />
   </ItemGroup>
 </Project>
