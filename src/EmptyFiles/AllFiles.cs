@@ -2,33 +2,33 @@
 
 public static class AllFiles
 {
-    public static FrozenDictionary<string, EmptyFile> Files => files;
+    public static IReadOnlyDictionary<string, EmptyFile> Files => files;
 
-    static FrozenDictionary<string, EmptyFile> files;
+    static IReadOnlyDictionary<string, EmptyFile> files;
 
-    public static FrozenDictionary<string, EmptyFile> Archives => archives;
+    public static IReadOnlyDictionary<string, EmptyFile> Archives => archives;
 
-    static FrozenDictionary<string, EmptyFile> archives;
+    static IReadOnlyDictionary<string, EmptyFile> archives;
 
-    public static FrozenDictionary<string, EmptyFile> Documents => documents;
+    public static IReadOnlyDictionary<string, EmptyFile> Documents => documents;
 
-    static FrozenDictionary<string, EmptyFile> documents;
+    static IReadOnlyDictionary<string, EmptyFile> documents;
 
-    public static FrozenDictionary<string, EmptyFile> Images => images;
+    public static IReadOnlyDictionary<string, EmptyFile> Images => images;
 
-    static FrozenDictionary<string, EmptyFile> images;
+    static IReadOnlyDictionary<string, EmptyFile> images;
 
-    public static FrozenDictionary<string, EmptyFile> Sheets => sheets;
+    public static IReadOnlyDictionary<string, EmptyFile> Sheets => sheets;
 
-    static FrozenDictionary<string, EmptyFile> sheets;
+    static IReadOnlyDictionary<string, EmptyFile> sheets;
 
-    public static FrozenDictionary<string, EmptyFile> Binary => binary;
+    public static IReadOnlyDictionary<string, EmptyFile> Binary => binary;
 
-    static FrozenDictionary<string, EmptyFile> binary;
+    static IReadOnlyDictionary<string, EmptyFile> binary;
 
-    public static FrozenDictionary<string, EmptyFile> Slides => slides;
+    public static IReadOnlyDictionary<string, EmptyFile> Slides => slides;
 
-    static FrozenDictionary<string, EmptyFile> slides;
+    static IReadOnlyDictionary<string, EmptyFile> slides;
 
     static AllFiles()
     {
@@ -48,9 +48,9 @@ public static class AllFiles
         Append(slides);
         Append(binary);
 
-        files = all.ToFrozenDictionary();
+        files = all;
 
-        void Append(FrozenDictionary<string, EmptyFile> files)
+        void Append(IReadOnlyDictionary<string, EmptyFile> files)
         {
             foreach (var (key, value) in files)
             {
@@ -59,7 +59,7 @@ public static class AllFiles
         }
     }
 
-    static FrozenDictionary<string, EmptyFile> AddCategory(FrozenSet<string> extensions, Category category, string emptyDirectory)
+    static IReadOnlyDictionary<string, EmptyFile> AddCategory(IReadOnlyCollection<string> extensions, Category category, string emptyDirectory)
     {
         Dictionary<string, EmptyFile> items = [];
         var categoryDirectory = Path.Combine(
@@ -73,7 +73,7 @@ public static class AllFiles
             items[extension] = EmptyFile.Build(file, category);
         }
 
-        return items.ToFrozenDictionary();
+        return items;
     }
 
     static string FindEmptyFilesDirectory()
@@ -132,7 +132,7 @@ public static class AllFiles
                 throw new($"Unknown category: {category}");
         }
 
-        void Init(ref FrozenDictionary<string, EmptyFile> emptyFiles, ref FrozenSet<string> extensions)
+        void Init(ref IReadOnlyDictionary<string, EmptyFile> emptyFiles, ref IReadOnlyCollection<string> extensions)
         {
             var tempDictionary = new Dictionary<string, EmptyFile>();
             foreach (var (key, value) in emptyFiles)
@@ -141,12 +141,12 @@ public static class AllFiles
             }
 
             tempDictionary[extension] = emptyFile;
-            emptyFiles = tempDictionary.ToFrozenDictionary();
+            emptyFiles = tempDictionary;
             var tempSet = new HashSet<string>(extensions)
             {
                 extension
             };
-            extensions = tempSet.ToFrozenSet();
+            extensions = tempSet;
         }
     }
 
@@ -157,7 +157,7 @@ public static class AllFiles
 
     public static IEnumerable<string> ArchivePaths => archives.Values.Select(_ => _.Path);
 
-    public static FrozenSet<string> ArchiveExtensions => archiveExtensions;
+    public static IReadOnlyCollection<string> ArchiveExtensions => archiveExtensions;
 
     static FrozenSet<string> archiveExtensions = FrozenSet.ToFrozenSet(
     [
