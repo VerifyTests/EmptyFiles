@@ -97,8 +97,8 @@ public static class FileExtensions
     static List<IsTextFile> textFileConventions = [];
 
     //From https://github.com/sindresorhus/text-extensions/blob/master/text-extensions.json
-    static IReadOnlyCollection<string> textExtensions = new HashSet<string>
-        {
+    static IReadOnlyCollection<string> textExtensions = FrozenSet.Create<string>(
+        [
             ".ada",
             ".adb",
             ".ads",
@@ -440,9 +440,8 @@ public static class FileExtensions
             ".yaml",
             ".yml",
             ".zsh",
-            ".zshrc"
-        }
-        .ToFrozenSet();
+            ".zshrc",
+        ]);
 
     public static IReadOnlyCollection<string> TextExtensions => textExtensions;
 
