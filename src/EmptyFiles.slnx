@@ -13,4 +13,5 @@
   <Project Path="EmptyFiles.Tool/EmptyFiles.Tool.csproj" />
   <Project Path="EmptyFiles/EmptyFiles.csproj" />
   <Project Path="Tests/Tests.csproj" />
+  <Project Path="EmptyFiles.AotTests/EmptyFiles.AotTests.csproj" />
 </Solution>
