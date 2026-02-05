@@ -4,6 +4,12 @@
     <EmptyFilesSourcePath>$(MSBuildThisFileDirectory)..\files</EmptyFilesSourcePath>
   </PropertyGroup>
 
+  <Target Name="DeleteEmptyFilesMarkerIfTargetMissing"
+          BeforeTargets="CopyEmptyFilesIncremental"
+          Condition="$(DesignTimeBuild) != true AND !Exists('$(TargetDir)EmptyFiles')">
+    <Delete Files="$(IntermediateOutputPath)EmptyFiles.copied" />
+  </Target>
+
   <Target Name="CopyEmptyFilesIncremental"
           AfterTargets="Build"
           Condition="$(DesignTimeBuild) != true"
