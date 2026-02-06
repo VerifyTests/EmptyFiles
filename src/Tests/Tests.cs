@@ -213,7 +213,7 @@ public class Tests
     [Test]
     public async Task WriteExtensions()
     {
-        var md = Path.Combine(SolutionDirectoryFinder.Find(), "extensions.include.md");
+        var md = Path.Combine(ProjectFiles.SolutionDirectory, "extensions.include.md");
         File.Delete(md);
         await using var writer = File.CreateText(md);
         await WriteCategory(writer, "Archive", AllFiles.Archives);
