@@ -2,7 +2,7 @@
 <Project>
   <PropertyGroup>
     <NoWarn>CS1591;CS0649;NU5119;NU1608;NU1109</NoWarn>
-    <Version>8.17.1</Version>
+    <Version>8.17.2</Version>
     <LangVersion>preview</LangVersion>
     <AssemblyVersion>1.0.0</AssemblyVersion>
     <Description>A collection of minimal binary files.</Description>
