@@ -79,7 +79,7 @@ public class BuildTargetsTests
 
     static async Task<int> DotnetBuild(TempDirectory temp)
     {
-        var startInfo = new ProcessStartInfo("dotnet", "build --configuration Release --disable-build-servers")
+        var startInfo = new ProcessStartInfo("dotnet", "build --configuration Release --disable-build-servers /nodeReuse:false /p:UseSharedCompilation=false")
         {
             WorkingDirectory = temp.Path,
             RedirectStandardOutput = true,
