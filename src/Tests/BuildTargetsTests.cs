@@ -1,5 +1,3 @@
-using System.Diagnostics;
-
 public class BuildTargetsTests
 {
     [Test]
@@ -12,11 +10,11 @@ public class BuildTargetsTests
         WriteNugetConfig(temp, nugetSource);
 
         var exitCode = await DotnetBuild(temp);
-        Assert.That(exitCode, Is.EqualTo(0));
+        That(exitCode, Is.EqualTo(0));
 
         var emptyFilesDir = Path.Combine(temp.Path, "bin", "Release", "net10.0", "EmptyFiles");
-        Assert.That(Directory.Exists(emptyFilesDir), Is.True, "EmptyFiles directory should exist after build");
-        Assert.That(Directory.GetFiles(emptyFilesDir, "*", SearchOption.AllDirectories), Is.Not.Empty, "EmptyFiles directory should contain files");
+        That(Directory.Exists(emptyFilesDir), Is.True, "EmptyFiles directory should exist after build");
+        That(Directory.GetFiles(emptyFilesDir, "*", SearchOption.AllDirectories), Is.Not.Empty, "EmptyFiles directory should contain files");
     }
 
     [Test]
@@ -30,21 +28,21 @@ public class BuildTargetsTests
 
         // First build
         var exitCode = await DotnetBuild(temp);
-        Assert.That(exitCode, Is.EqualTo(0));
+        That(exitCode, Is.EqualTo(0));
 
         var emptyFilesDir = Path.Combine(temp.Path, "bin", "Release", "net10.0", "EmptyFiles");
-        Assert.That(Directory.Exists(emptyFilesDir), Is.True, "EmptyFiles directory should exist after first build");
+        That(Directory.Exists(emptyFilesDir), Is.True, "EmptyFiles directory should exist after first build");
 
         // Delete EmptyFiles directory from output (leave obj/ intact so marker file survives)
         Directory.Delete(emptyFilesDir, true);
-        Assert.That(Directory.Exists(emptyFilesDir), Is.False);
+        That(Directory.Exists(emptyFilesDir), Is.False);
 
         // Second build — should recover
         exitCode = await DotnetBuild(temp);
-        Assert.That(exitCode, Is.EqualTo(0));
+        That(exitCode, Is.EqualTo(0));
 
-        Assert.That(Directory.Exists(emptyFilesDir), Is.True, "EmptyFiles directory should exist after second build");
-        Assert.That(Directory.GetFiles(emptyFilesDir, "*", SearchOption.AllDirectories), Is.Not.Empty, "EmptyFiles directory should contain files after recovery");
+        That(Directory.Exists(emptyFilesDir), Is.True, "EmptyFiles directory should exist after second build");
+        That(Directory.GetFiles(emptyFilesDir, "*", SearchOption.AllDirectories), Is.Not.Empty, "EmptyFiles directory should contain files after recovery");
     }
 
     static void WriteCsproj(TempDirectory temp, string version)
@@ -79,7 +77,7 @@ public class BuildTargetsTests
 
     static async Task<int> DotnetBuild(TempDirectory temp)
     {
-        var startInfo = new ProcessStartInfo("dotnet", "build --configuration Release --disable-build-servers /nodeReuse:false /p:UseSharedCompilation=false")
+        var startInfo = new ProcessStartInfo("dotnet", "build --configuration Release --disable-build-servers -nodeReuse:false /p:UseSharedCompilation=false")
         {
             WorkingDirectory = temp.Path,
             RedirectStandardOutput = true,
@@ -88,7 +86,7 @@ public class BuildTargetsTests
             CreateNoWindow = true,
         };
 
-        var process = Process.Start(startInfo)!;
+        using var process = Process.Start(startInfo)!;
         var stdout = await process.StandardOutput.ReadToEndAsync();
         var stderr = await process.StandardError.ReadToEndAsync();
         await process.WaitForExitAsync();
@@ -122,9 +120,10 @@ public class BuildTargetsTests
 
     static string FindPackageVersion(string nugetSource)
     {
-        var nupkg = Directory.GetFiles(nugetSource, "EmptyFiles.*.nupkg")
-            .Where(_ => !Path.GetFileName(_).StartsWith("EmptyFiles.Tool"))
-            .FirstOrDefault() ?? throw new InvalidOperationException($"Cannot find EmptyFiles nupkg in {nugetSource}");
+        var nupkg = Directory
+            .GetFiles(nugetSource, "EmptyFiles.*.nupkg")
+            .FirstOrDefault(_ => !Path.GetFileName(_).StartsWith("EmptyFiles.Tool")) ??
+                    throw new InvalidOperationException($"Cannot find EmptyFiles nupkg in {nugetSource}");
 
         var fileName = Path.GetFileNameWithoutExtension(nupkg);
         return fileName["EmptyFiles.".Length..];
