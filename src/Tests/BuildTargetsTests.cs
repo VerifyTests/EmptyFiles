@@ -142,9 +142,158 @@ sealed class TempDirectory : IDisposable
 
     public void Dispose()
     {
-        if (Directory.Exists(Path))
+        if (!Directory.Exists(Path))
+        {
+            return;
+        }
+
+        try
         {
             Directory.Delete(Path, true);
         }
+        catch (IOException ex)
+        {
+            TestContext.Out.WriteLine($"Failed to delete temp directory: {Path}");
+            TestContext.Out.WriteLine($"Exception: {ex.Message}");
+            LogLockedFiles(Path);
+            throw;
+        }
+    }
+
+    static void LogLockedFiles(string directory)
+    {
+        TestContext.Out.WriteLine("Scanning for locked files...");
+
+        foreach (var file in Directory.GetFiles(directory, "*", SearchOption.AllDirectories))
+        {
+            if (IsFileLocked(file))
+            {
+                TestContext.Out.WriteLine($"LOCKED: {file}");
+                var processes = GetLockingProcesses(file);
+                foreach (var proc in processes)
+                {
+                    TestContext.Out.WriteLine($"  Locked by: {proc}");
+                }
+            }
+        }
+    }
+
+    static bool IsFileLocked(string filePath)
+    {
+        try
+        {
+            using var stream = new FileStream(filePath, FileMode.Open, FileAccess.ReadWrite, FileShare.None);
+            return false;
+        }
+        catch (IOException)
+        {
+            return true;
+        }
+        catch (UnauthorizedAccessException)
+        {
+            return true;
+        }
+    }
+
+    static List<string> GetLockingProcesses(string filePath)
+    {
+        var result = new List<string>();
+
+        var res = RmStartSession(out var sessionHandle, 0, Guid.NewGuid().ToString());
+        if (res != 0)
+        {
+            result.Add($"(Failed to start Restart Manager session: error {res})");
+            return result;
+        }
+
+        try
+        {
+            string[] resources = [filePath];
+            res = RmRegisterResources(sessionHandle, (uint)resources.Length, resources, 0, null, 0, null);
+            if (res != 0)
+            {
+                result.Add($"(Failed to register resource: error {res})");
+                return result;
+            }
+
+            uint procInfoNeeded = 0;
+            uint procInfo = 0;
+            uint rebootReasons = 0;
+
+            res = RmGetList(sessionHandle, out procInfoNeeded, ref procInfo, null, ref rebootReasons);
+            if (res == ERROR_MORE_DATA && procInfoNeeded > 0)
+            {
+                var processInfo = new RM_PROCESS_INFO[procInfoNeeded];
+                procInfo = procInfoNeeded;
+
+                res = RmGetList(sessionHandle, out procInfoNeeded, ref procInfo, processInfo, ref rebootReasons);
+                if (res == 0)
+                {
+                    for (var i = 0; i < procInfo; i++)
+                    {
+                        try
+                        {
+                            var proc = Process.GetProcessById(processInfo[i].Process.dwProcessId);
+                            result.Add($"PID {proc.Id}: {proc.ProcessName} ({proc.MainModule?.FileName ?? "unknown path"})");
+                        }
+                        catch
+                        {
+                            result.Add($"PID {processInfo[i].Process.dwProcessId}: {processInfo[i].strAppName} (process no longer running or inaccessible)");
+                        }
+                    }
+                }
+            }
+            else if (res == 0 && procInfoNeeded == 0)
+            {
+                result.Add("(No processes found via Restart Manager - file may be locked by system)");
+            }
+        }
+        finally
+        {
+            RmEndSession(sessionHandle);
+        }
+
+        if (result.Count == 0)
+        {
+            result.Add("(Unable to determine locking process)");
+        }
+
+        return result;
+    }
+
+    const int ERROR_MORE_DATA = 234;
+
+    [DllImport("rstrtmgr.dll", CharSet = CharSet.Unicode)]
+    static extern int RmStartSession(out uint pSessionHandle, int dwSessionFlags, string strSessionKey);
+
+    [DllImport("rstrtmgr.dll")]
+    static extern int RmEndSession(uint pSessionHandle);
+
+    [DllImport("rstrtmgr.dll", CharSet = CharSet.Unicode)]
+    static extern int RmRegisterResources(uint pSessionHandle, uint nFiles, string[]? rgsFilenames, uint nApplications, RM_UNIQUE_PROCESS[]? rgApplications, uint nServices, string[]? rgsServiceNames);
+
+    [DllImport("rstrtmgr.dll")]
+    static extern int RmGetList(uint dwSessionHandle, out uint pnProcInfoNeeded, ref uint pnProcInfo, [In, Out] RM_PROCESS_INFO[]? rgAffectedApps, ref uint lpdwRebootReasons);
+
+    [StructLayout(LayoutKind.Sequential)]
+    struct RM_UNIQUE_PROCESS
+    {
+        public int dwProcessId;
+        public System.Runtime.InteropServices.ComTypes.FILETIME ProcessStartTime;
+    }
+
+    [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
+    struct RM_PROCESS_INFO
+    {
+        public RM_UNIQUE_PROCESS Process;
+        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 256)]
+        public string strAppName;
+        [MarshalAs(UnmanagedType.ByValTStr, SizeConst = 64)]
+        public string strServiceShortName;
+        public int ApplicationType;
+        public uint AppStatus;
+        public uint TSSessionId;
+        [MarshalAs(UnmanagedType.Bool)]
+        public bool bRestartable;
     }
 }
