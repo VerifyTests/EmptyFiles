@@ -16,6 +16,6 @@
     <!-- Keep at 8 to support old frameworks -->
     <PackageVersion Include="System.Collections.Immutable" Version="8.0.0" Pinned="true" />
     <PackageVersion Include="System.ValueTuple" Version="4.5.0" Pinned="true" />
-    <PackageVersion Include="Verify" Version="31.12.0" />
+    <PackageVersion Include="Verify" Version="31.12.3" />
   </ItemGroup>
 </Project>
