@@ -12,7 +12,7 @@ public class BuildTargetsTests
         var exitCode = await DotnetBuild(temp);
         That(exitCode, Is.EqualTo(0));
 
-        var emptyFilesDir = Path.Combine(temp.Path, "bin", "Release", "net10.0", "EmptyFiles");
+        var emptyFilesDir = Path.Combine(temp.Path, "bin", "Release", "net11.0", "EmptyFiles");
         That(Directory.Exists(emptyFilesDir), Is.True, "EmptyFiles directory should exist after build");
         That(Directory.GetFiles(emptyFilesDir, "*", SearchOption.AllDirectories), Is.Not.Empty, "EmptyFiles directory should contain files");
     }
@@ -30,7 +30,7 @@ public class BuildTargetsTests
         var exitCode = await DotnetBuild(temp);
         That(exitCode, Is.EqualTo(0));
 
-        var emptyFilesDir = Path.Combine(temp.Path, "bin", "Release", "net10.0", "EmptyFiles");
+        var emptyFilesDir = Path.Combine(temp.Path, "bin", "Release", "net11.0", "EmptyFiles");
         That(Directory.Exists(emptyFilesDir), Is.True, "EmptyFiles directory should exist after first build");
 
         // Delete EmptyFiles directory from output (leave obj/ intact so marker file survives)
@@ -50,7 +50,7 @@ public class BuildTargetsTests
         var csproj = $"""
             <Project Sdk="Microsoft.NET.Sdk">
               <PropertyGroup>
-                <TargetFramework>net10.0</TargetFramework>
+                <TargetFramework>net11.0</TargetFramework>
                 <RestorePackagesPath>packages</RestorePackagesPath>
               </PropertyGroup>
               <ItemGroup>
