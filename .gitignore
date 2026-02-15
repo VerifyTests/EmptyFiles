@@ -8,4 +8,3 @@ obj/
 *.received.*
 nugets/
 /src/Tests/EmptyFiles
-*claude*
