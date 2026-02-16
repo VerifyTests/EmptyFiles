@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(unzip:*)",
+      "Bash(powershell -Command:*)",
+      "Bash(python:*)",
+      "Bash(ls:*)"
+    ]
+  }
+}
