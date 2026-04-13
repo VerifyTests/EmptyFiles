@@ -7,7 +7,7 @@ public class EmptyFile
         get
         {
             EnsureExtracted();
-            return path;
+            return path!;
         }
     }
 
@@ -24,34 +24,30 @@ public class EmptyFile
     public string Extension { get; }
     internal string ResourceName { get; }
 
-    string path;
+    string? path;
     DateTime lastWriteTime;
     bool extracted;
     readonly object sync = new();
 
-    internal static EmptyFile Embedded(string targetPath, Category category, string extension, string resourceName) =>
-        new(targetPath, category, extension, resourceName, extracted: false, lastWriteTime: default);
+    internal static EmptyFile Embedded(Category category, string extension, string resourceName) =>
+        new(category, extension, resourceName);
 
-    EmptyFile(string path, Category category, string extension, string resourceName, bool extracted, DateTime lastWriteTime)
+    EmptyFile(Category category, string extension, string resourceName)
     {
-        Guard.AgainstNullOrEmpty(path);
-        this.path = path;
         Category = category;
         Extension = extension;
         ResourceName = resourceName;
-        this.extracted = extracted;
-        this.lastWriteTime = lastWriteTime;
     }
 
     public EmptyFile(string path, in DateTime lastWriteTime, in Category category)
-        : this(
-            path,
-            category,
-            System.IO.Path.GetExtension(path),
-            $"EmptyFiles.{category.ToString().ToLowerInvariant()}.empty{System.IO.Path.GetExtension(path)}",
-            extracted: true,
-            lastWriteTime: lastWriteTime)
     {
+        Guard.AgainstNullOrEmpty(path);
+        this.path = path;
+        this.lastWriteTime = lastWriteTime;
+        Category = category;
+        Extension = System.IO.Path.GetExtension(path);
+        ResourceName = $"EmptyFiles.{category.ToString().ToLowerInvariant()}.empty{Extension}";
+        extracted = true;
     }
 
     void EnsureExtracted()
@@ -68,18 +64,21 @@ public class EmptyFile
                 return;
             }
 
-            var directory = System.IO.Path.GetDirectoryName(path)!;
+            var categoryName = Category.ToString().ToLowerInvariant();
+            var directory = System.IO.Path.Combine(AllFiles.ExtractDirectory, categoryName);
             Directory.CreateDirectory(directory);
+            var target = System.IO.Path.Combine(directory, $"empty{Extension}");
             var assembly = typeof(EmptyFile).Assembly;
             using var resource = assembly.GetManifestResourceStream(ResourceName) ??
                                  throw new($"Embedded resource not found: {ResourceName}");
-            if (!File.Exists(path) || new FileInfo(path).Length != resource.Length)
+            if (!File.Exists(target) || new FileInfo(target).Length != resource.Length)
             {
-                using var fileStream = File.Create(path);
+                using var fileStream = File.Create(target);
                 resource.CopyTo(fileStream);
             }
 
-            lastWriteTime = File.GetLastWriteTime(path);
+            path = target;
+            lastWriteTime = File.GetLastWriteTime(target);
             extracted = true;
         }
     }

@@ -32,14 +32,12 @@ public static class AllFiles
 
     static AllFiles()
     {
-        var directory = ExtractDirectory();
-
-        archives = AddCategory(archiveExtensions, Category.Archive, directory);
-        documents = AddCategory(documentExtensions, Category.Document, directory);
-        images = AddCategory(imageExtensions, Category.Image, directory);
-        sheets = AddCategory(sheetExtensions, Category.Sheet, directory);
-        slides = AddCategory(slideExtensions, Category.Slide, directory);
-        binary = AddCategory(binaryExtensions, Category.Binary, directory);
+        archives = AddCategory(archiveExtensions, Category.Archive);
+        documents = AddCategory(documentExtensions, Category.Document);
+        images = AddCategory(imageExtensions, Category.Image);
+        sheets = AddCategory(sheetExtensions, Category.Sheet);
+        slides = AddCategory(slideExtensions, Category.Slide);
+        binary = AddCategory(binaryExtensions, Category.Binary);
         var all = new Dictionary<string, EmptyFile>();
         Append(archives);
         Append(documents);
@@ -59,29 +57,30 @@ public static class AllFiles
         }
     }
 
-    static FrozenDictionary<string, EmptyFile> AddCategory(FrozenSet<string> extensions, Category category, string emptyDirectory)
+    static FrozenDictionary<string, EmptyFile> AddCategory(FrozenSet<string> extensions, Category category)
     {
         Dictionary<string, EmptyFile> items = [];
         var categoryName = category
             .ToString()
             .ToLowerInvariant();
-        var categoryDirectory = Path.Combine(emptyDirectory, categoryName);
         foreach (var extension in extensions)
         {
-            var file = Path.Combine(categoryDirectory, $"empty{extension}");
             var resourceName = $"EmptyFiles.{categoryName}.empty{extension}";
-            items[extension] = EmptyFile.Embedded(file, category, extension, resourceName);
+            items[extension] = EmptyFile.Embedded(category, extension, resourceName);
         }
 
         return items.ToFrozenDictionary();
     }
 
-    static string ExtractDirectory()
-    {
-        var assembly = typeof(AllFiles).Assembly;
-        var version = assembly.GetName().Version?.ToString() ?? "unknown";
-        return Path.Combine(Path.GetTempPath(), "EmptyFiles", version);
-    }
+    static readonly Lazy<string> extractDirectory = new(
+        () =>
+        {
+            var assembly = typeof(AllFiles).Assembly;
+            var version = assembly.GetName().Version?.ToString() ?? "unknown";
+            return Path.Combine(Path.GetTempPath(), "EmptyFiles", version);
+        });
+
+    internal static string ExtractDirectory => extractDirectory.Value;
 
     static void ExtractAll(string directory)
     {
