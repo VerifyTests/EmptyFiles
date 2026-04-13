@@ -226,7 +226,7 @@ foreach (var path in AllFiles.AllPaths)
     Trace.WriteLine(path);
 }
 ```
-<sup><a href='/src/Tests/Tests.cs#L217-L224' title='Snippet source file'>snippet source</a> | <a href='#snippet-AllPaths' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Tests.cs#L213-L220' title='Snippet source file'>snippet source</a> | <a href='#snippet-AllPaths' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -240,7 +240,7 @@ Use or replace a file
 AllFiles.UseFile(Category.Document, pathToFile);
 IsTrue(AllFiles.DocumentPaths.Contains(pathToFile));
 ```
-<sup><a href='/src/Tests/Tests.cs#L237-L242' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseFile' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Tests.cs#L233-L238' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseFile' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

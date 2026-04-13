@@ -1,5 +1,3 @@
-using System.Reflection;
-
 namespace EmptyFiles;
 
 public static class AllFiles
@@ -35,7 +33,6 @@ public static class AllFiles
     static AllFiles()
     {
         var directory = ExtractDirectory();
-        ExtractAll(directory);
 
         archives = AddCategory(archiveExtensions, Category.Archive, directory);
         documents = AddCategory(documentExtensions, Category.Document, directory);
@@ -73,7 +70,7 @@ public static class AllFiles
         {
             var file = Path.Combine(categoryDirectory, $"empty{extension}");
             var resourceName = $"EmptyFiles.{categoryName}.empty{extension}";
-            items[extension] = EmptyFile.Build(file, category, resourceName);
+            items[extension] = EmptyFile.Embedded(file, category, extension, resourceName);
         }
 
         return items.ToFrozenDictionary();
@@ -128,8 +125,7 @@ public static class AllFiles
     {
         Guard.FileExists(file);
         var extension = Path.GetExtension(file);
-        var resourceName = $"EmptyFiles.{category.ToString().ToLowerInvariant()}.empty{extension}";
-        var emptyFile = EmptyFile.Build(file, category, resourceName);
+        var emptyFile = new EmptyFile(file, File.GetLastWriteTime(file), category);
         switch (category)
         {
             case Category.Archive:

@@ -178,11 +178,7 @@ public class Tests
     [Test]
     public void WriteAllTo()
     {
-        var directory = Path.Combine(Path.GetTempPath(), "EmptyFilesWriteAllTo");
-        if (Directory.Exists(directory))
-        {
-            Directory.Delete(directory, true);
-        }
+        using var directory = new TempDirectory();
 
         #region WriteAllTo
 
