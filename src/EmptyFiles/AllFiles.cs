@@ -1,4 +1,6 @@
-﻿namespace EmptyFiles;
+using System.Reflection;
+
+namespace EmptyFiles;
 
 public static class AllFiles
 {
@@ -32,7 +34,8 @@ public static class AllFiles
 
     static AllFiles()
     {
-        var directory = FindEmptyFilesDirectory();
+        var directory = ExtractDirectory();
+        ExtractAll(directory);
 
         archives = AddCategory(archiveExtensions, Category.Archive, directory);
         documents = AddCategory(documentExtensions, Category.Document, directory);
@@ -62,52 +65,71 @@ public static class AllFiles
     static FrozenDictionary<string, EmptyFile> AddCategory(FrozenSet<string> extensions, Category category, string emptyDirectory)
     {
         Dictionary<string, EmptyFile> items = [];
-        var categoryDirectory = Path.Combine(
-            emptyDirectory,
-            category
-                .ToString()
-                .ToLowerInvariant());
+        var categoryName = category
+            .ToString()
+            .ToLowerInvariant();
+        var categoryDirectory = Path.Combine(emptyDirectory, categoryName);
         foreach (var extension in extensions)
         {
             var file = Path.Combine(categoryDirectory, $"empty{extension}");
-            items[extension] = EmptyFile.Build(file, category);
+            var resourceName = $"EmptyFiles.{categoryName}.empty{extension}";
+            items[extension] = EmptyFile.Build(file, category, resourceName);
         }
 
         return items.ToFrozenDictionary();
     }
 
-    static string FindEmptyFilesDirectory()
+    static string ExtractDirectory()
     {
-        var directories = FindDirectories()
-            .Select(_ => Path.Combine(_, "EmptyFiles"))
-            .ToList();
-        foreach (var directory in directories)
-        {
-            if (Directory.Exists(directory))
-            {
-                return directory;
-            }
-        }
-
-        throw new(
-            $"""
-             Could not find empty files directory. Searched:
-             {string.Join(Environment.NewLine, directories)}
-             """);
+        var assembly = typeof(AllFiles).Assembly;
+        var version = assembly.GetName().Version?.ToString() ?? "unknown";
+        return Path.Combine(Path.GetTempPath(), "EmptyFiles", version);
     }
 
-    static IEnumerable<string> FindDirectories()
+    static void ExtractAll(string directory)
     {
-        yield return AppDomain.CurrentDomain.BaseDirectory;
-        yield return AssemblyLocation.Directory;
-        yield return Environment.CurrentDirectory;
+        var assembly = typeof(AllFiles).Assembly;
+        ExtractCategory(assembly, directory, "archive", archiveExtensions);
+        ExtractCategory(assembly, directory, "binary", binaryExtensions);
+        ExtractCategory(assembly, directory, "document", documentExtensions);
+        ExtractCategory(assembly, directory, "image", imageExtensions);
+        ExtractCategory(assembly, directory, "sheet", sheetExtensions);
+        ExtractCategory(assembly, directory, "slide", slideExtensions);
+    }
+
+    static void ExtractCategory(Assembly assembly, string root, string categoryName, FrozenSet<string> extensions)
+    {
+        var categoryDirectory = Path.Combine(root, categoryName);
+        Directory.CreateDirectory(categoryDirectory);
+        foreach (var extension in extensions)
+        {
+            var resourceName = $"EmptyFiles.{categoryName}.empty{extension}";
+            using var resource = assembly.GetManifestResourceStream(resourceName) ??
+                                 throw new($"Embedded resource not found: {resourceName}");
+            var target = Path.Combine(categoryDirectory, $"empty{extension}");
+            if (File.Exists(target) && new FileInfo(target).Length == resource.Length)
+            {
+                continue;
+            }
+
+            using var file = File.Create(target);
+            resource.CopyTo(file);
+        }
+    }
+
+    public static void WriteAllTo(string directory)
+    {
+        Guard.AgainstNullOrEmpty(directory);
+        Directory.CreateDirectory(directory);
+        ExtractAll(directory);
     }
 
     public static void UseFile(Category category, string file)
     {
         Guard.FileExists(file);
         var extension = Path.GetExtension(file);
-        var emptyFile = EmptyFile.Build(file, category);
+        var resourceName = $"EmptyFiles.{category.ToString().ToLowerInvariant()}.empty{extension}";
+        var emptyFile = EmptyFile.Build(file, category, resourceName);
         switch (category)
         {
             case Category.Archive:

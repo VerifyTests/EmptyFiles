@@ -4,6 +4,7 @@
     <TargetFrameworks>$(TargetFrameworks);net6.0;net7.0;net8.0;net9.0;net10.0;net11.0</TargetFrameworks>
     <IsAotCompatible Condition="$([MSBuild]::IsTargetFrameworkCompatible('$(TargetFramework)', 'net7.0'))">true</IsAotCompatible>
     <NoDefaultExcludes>true</NoDefaultExcludes>
+    <EnableDefaultEmbeddedResourceItems>false</EnableDefaultEmbeddedResourceItems>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="System.Memory" Condition="'$(TargetFrameworkIdentifier)' == '.NETFramework'" />
@@ -12,12 +13,26 @@
     <PackageReference Include="System.ValueTuple" Condition="'$(TargetFramework)' == 'net462'"  />
     <PackageReference Include="Polyfill" PrivateAssets="all" />
     <PackageReference Include="Microsoft.Sbom.Targets" PrivateAssets="all" Condition="'$(CI)' == 'true'" />
-    <None Include="$(SolutionDir)..\buildTransitive\EmptyFiles.targets" Pack="True" PackagePath="build\EmptyFiles.targets" CopyToOutputDirectory="PreserveNewest" />
-    <None Include="$(SolutionDir)..\buildTransitive\EmptyFiles.targets" Pack="True" PackagePath="buildTransitive\EmptyFiles.targets" CopyToOutputDirectory="PreserveNewest" />
-    <None Include="$(SolutionDir)..\files\**\empty.*">
-      <Pack>true</Pack>
-      <PackagePath>files</PackagePath>
-    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)..\..\files\archive\empty.*">
+      <LogicalName>EmptyFiles.archive.%(Filename)%(Extension)</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)..\..\files\binary\empty.*">
+      <LogicalName>EmptyFiles.binary.%(Filename)%(Extension)</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)..\..\files\document\empty.*">
+      <LogicalName>EmptyFiles.document.%(Filename)%(Extension)</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)..\..\files\image\empty.*">
+      <LogicalName>EmptyFiles.image.%(Filename)%(Extension)</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)..\..\files\sheet\empty.*">
+      <LogicalName>EmptyFiles.sheet.%(Filename)%(Extension)</LogicalName>
+    </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)..\..\files\slide\empty.*">
+      <LogicalName>EmptyFiles.slide.%(Filename)%(Extension)</LogicalName>
+    </EmbeddedResource>
   </ItemGroup>
   <Target Name="CheckPackageVersion" BeforeTargets="Build">
     <Error Condition="'%(PackageVersion.Identity)' == 'System.ValueTuple' AND '%(PackageVersion.Version)' != '4.5.0'" Text="Invalid package version for System.ValueTuple. Expected: 4.5.0." />
