@@ -1,4 +1,4 @@
-﻿namespace EmptyFiles;
+namespace EmptyFiles;
 
 public static class AllFiles
 {
@@ -32,14 +32,12 @@ public static class AllFiles
 
     static AllFiles()
     {
-        var directory = FindEmptyFilesDirectory();
-
-        archives = AddCategory(archiveExtensions, Category.Archive, directory);
-        documents = AddCategory(documentExtensions, Category.Document, directory);
-        images = AddCategory(imageExtensions, Category.Image, directory);
-        sheets = AddCategory(sheetExtensions, Category.Sheet, directory);
-        slides = AddCategory(slideExtensions, Category.Slide, directory);
-        binary = AddCategory(binaryExtensions, Category.Binary, directory);
+        archives = AddCategory(archiveExtensions, Category.Archive);
+        documents = AddCategory(documentExtensions, Category.Document);
+        images = AddCategory(imageExtensions, Category.Image);
+        sheets = AddCategory(sheetExtensions, Category.Sheet);
+        slides = AddCategory(slideExtensions, Category.Slide);
+        binary = AddCategory(binaryExtensions, Category.Binary);
         var all = new Dictionary<string, EmptyFile>();
         Append(archives);
         Append(documents);
@@ -59,55 +57,74 @@ public static class AllFiles
         }
     }
 
-    static FrozenDictionary<string, EmptyFile> AddCategory(FrozenSet<string> extensions, Category category, string emptyDirectory)
+    static FrozenDictionary<string, EmptyFile> AddCategory(FrozenSet<string> extensions, Category category)
     {
         Dictionary<string, EmptyFile> items = [];
-        var categoryDirectory = Path.Combine(
-            emptyDirectory,
-            category
-                .ToString()
-                .ToLowerInvariant());
+        var categoryName = category
+            .ToString()
+            .ToLowerInvariant();
         foreach (var extension in extensions)
         {
-            var file = Path.Combine(categoryDirectory, $"empty{extension}");
-            items[extension] = EmptyFile.Build(file, category);
+            var resourceName = $"EmptyFiles.{categoryName}.empty{extension}";
+            items[extension] = EmptyFile.Embedded(category, extension, resourceName);
         }
 
         return items.ToFrozenDictionary();
     }
 
-    static string FindEmptyFilesDirectory()
-    {
-        var directories = FindDirectories()
-            .Select(_ => Path.Combine(_, "EmptyFiles"))
-            .ToList();
-        foreach (var directory in directories)
+    static readonly Lazy<string> extractDirectory = new(
+        () =>
         {
-            if (Directory.Exists(directory))
-            {
-                return directory;
-            }
-        }
+            var assembly = typeof(AllFiles).Assembly;
+            var version = assembly.GetName().Version?.ToString() ?? "unknown";
+            return Path.Combine(Path.GetTempPath(), "EmptyFiles", version);
+        });
 
-        throw new(
-            $"""
-             Could not find empty files directory. Searched:
-             {string.Join(Environment.NewLine, directories)}
-             """);
+    internal static string ExtractDirectory => extractDirectory.Value;
+
+    static void ExtractAll(string directory)
+    {
+        var assembly = typeof(AllFiles).Assembly;
+        ExtractCategory(assembly, directory, "archive", archiveExtensions);
+        ExtractCategory(assembly, directory, "binary", binaryExtensions);
+        ExtractCategory(assembly, directory, "document", documentExtensions);
+        ExtractCategory(assembly, directory, "image", imageExtensions);
+        ExtractCategory(assembly, directory, "sheet", sheetExtensions);
+        ExtractCategory(assembly, directory, "slide", slideExtensions);
     }
 
-    static IEnumerable<string> FindDirectories()
+    static void ExtractCategory(Assembly assembly, string root, string categoryName, FrozenSet<string> extensions)
     {
-        yield return AppDomain.CurrentDomain.BaseDirectory;
-        yield return AssemblyLocation.Directory;
-        yield return Environment.CurrentDirectory;
+        var categoryDirectory = Path.Combine(root, categoryName);
+        Directory.CreateDirectory(categoryDirectory);
+        foreach (var extension in extensions)
+        {
+            var resourceName = $"EmptyFiles.{categoryName}.empty{extension}";
+            using var resource = assembly.GetManifestResourceStream(resourceName) ??
+                                 throw new($"Embedded resource not found: {resourceName}");
+            var target = Path.Combine(categoryDirectory, $"empty{extension}");
+            if (File.Exists(target) && new FileInfo(target).Length == resource.Length)
+            {
+                continue;
+            }
+
+            using var file = File.Create(target);
+            resource.CopyTo(file);
+        }
+    }
+
+    public static void WriteAllTo(string directory)
+    {
+        Guard.AgainstNullOrEmpty(directory);
+        Directory.CreateDirectory(directory);
+        ExtractAll(directory);
     }
 
     public static void UseFile(Category category, string file)
     {
         Guard.FileExists(file);
         var extension = Path.GetExtension(file);
-        var emptyFile = EmptyFile.Build(file, category);
+        var emptyFile = new EmptyFile(file, File.GetLastWriteTime(file), category);
         switch (category)
         {
             case Category.Archive:

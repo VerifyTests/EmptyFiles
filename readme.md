@@ -42,63 +42,63 @@ All files: https://github.com/VerifyTests/EmptyFiles/tree/main/files
   * .7zip (32 bytes)
   * .bz2 (14 bytes)
   * .bzip2 (14 bytes)
-  * .gz (29 bytes)
-  * .gzip (29 bytes)
-  * .kmz (292 bytes)
-  * .nupkg (1.8 KB)
-  * .tar (1.5 KB)
+  * .gz (20 bytes)
+  * .gzip (20 bytes)
+  * .kmz (204 bytes)
+  * .nupkg (258 bytes)
+  * .tar (1 KB)
   * .xz (32 bytes)
   * .zip (22 bytes)
 
 ### Document
 
-  * .docx (1.9 KB)
-  * .odt (2.2 KB)
-  * .pdf (280 bytes)
+  * .docx (810 bytes)
+  * .odt (647 bytes)
+  * .pdf (212 bytes)
   * .rtf (6 bytes)
 
 ### Image
 
-  * .avif (298 bytes)
+  * .avif (70 bytes)
   * .bmp (58 bytes)
-  * .dds (136 bytes)
+  * .dds (132 bytes)
   * .dib (58 bytes)
-  * .emf (620 bytes)
-  * .exif (734 bytes)
-  * .gif (799 bytes)
-  * .heic (3.2 KB)
-  * .heif (209 bytes)
-  * .ico (70 bytes)
-  * .j2c (270 bytes)
-  * .jfif (734 bytes)
-  * .jp2 (354 bytes)
-  * .jpc (270 bytes)
-  * .jpe (734 bytes)
-  * .jpeg (734 bytes)
-  * .jpg (734 bytes)
-  * .jxr (300 bytes)
+  * .emf (132 bytes)
+  * .exif (139 bytes)
+  * .gif (28 bytes)
+  * .heic (32 bytes)
+  * .heif (32 bytes)
+  * .ico (68 bytes)
+  * .j2c (44 bytes)
+  * .jfif (139 bytes)
+  * .jp2 (77 bytes)
+  * .jpc (44 bytes)
+  * .jpe (139 bytes)
+  * .jpeg (139 bytes)
+  * .jpg (139 bytes)
+  * .jxr (48 bytes)
   * .pbm (8 bytes)
-  * .pcx (131 bytes)
-  * .pgm (12 bytes)
-  * .png (119 bytes)
-  * .ppm (14 bytes)
+  * .pcx (129 bytes)
+  * .pgm (10 bytes)
+  * .png (69 bytes)
+  * .ppm (12 bytes)
   * .rle (58 bytes)
-  * .tga (543 bytes)
-  * .tif (250 bytes)
-  * .tiff (250 bytes)
-  * .wdp (300 bytes)
-  * .webp (228 bytes)
-  * .wmp (300 bytes)
+  * .tga (21 bytes)
+  * .tif (198 bytes)
+  * .tiff (198 bytes)
+  * .wdp (48 bytes)
+  * .webp (26 bytes)
+  * .wmp (48 bytes)
 
 ### Sheet
 
-  * .ods (2.7 KB)
-  * .xlsx (4.5 KB)
+  * .ods (683 bytes)
+  * .xlsx (1.4 KB)
 
 ### Slide
 
-  * .odp (7.8 KB)
-  * .pptx (13.3 KB)
+  * .odp (667 bytes)
+  * .pptx (842 bytes)
 
 ### Binary
 
@@ -226,7 +226,7 @@ foreach (var path in AllFiles.AllPaths)
     Trace.WriteLine(path);
 }
 ```
-<sup><a href='/src/Tests/Tests.cs#L183-L190' title='Snippet source file'>snippet source</a> | <a href='#snippet-AllPaths' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Tests.cs#L213-L220' title='Snippet source file'>snippet source</a> | <a href='#snippet-AllPaths' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -240,7 +240,7 @@ Use or replace a file
 AllFiles.UseFile(Category.Document, pathToFile);
 IsTrue(AllFiles.DocumentPaths.Contains(pathToFile));
 ```
-<sup><a href='/src/Tests/Tests.cs#L203-L208' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseFile' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Tests.cs#L233-L238' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseFile' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 

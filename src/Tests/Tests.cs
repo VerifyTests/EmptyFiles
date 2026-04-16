@@ -176,6 +176,36 @@ public class Tests
     }
 
     [Test]
+    public void WriteAllTo()
+    {
+        using var directory = new TempDirectory();
+
+        #region WriteAllTo
+
+        AllFiles.WriteAllTo(directory);
+
+        #endregion
+
+        foreach (var category in Enum.GetValues<Category>())
+        {
+            var categoryDir = Path.Combine(directory, category.ToString().ToLowerInvariant());
+            True(Directory.Exists(categoryDir));
+        }
+
+        foreach (var file in AllFiles.Files.Values)
+        {
+            var expected = Path.Combine(
+                directory,
+                file.Category.ToString().ToLowerInvariant(),
+                $"empty{file.Extension}");
+            True(File.Exists(expected), expected);
+            That(new FileInfo(expected).Length, Is.EqualTo(new FileInfo(file.Path).Length));
+        }
+
+        Directory.Delete(directory, true);
+    }
+
+    [Test]
     public void AllPaths()
     {
         IsNotEmpty(AllFiles.AllPaths);
