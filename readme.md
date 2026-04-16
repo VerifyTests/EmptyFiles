@@ -80,7 +80,7 @@ All files: https://github.com/VerifyTests/EmptyFiles/tree/main/files
   * .pbm (8 bytes)
   * .pcx (129 bytes)
   * .pgm (10 bytes)
-  * .png (69 bytes)
+  * .png (67 bytes)
   * .ppm (12 bytes)
   * .rle (58 bytes)
   * .tga (21 bytes)
