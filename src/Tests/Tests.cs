@@ -1,6 +1,121 @@
 ﻿[TestFixture]
 public class Tests
 {
+    // UseFile mutates global state with no unregister, so register once for the
+    // whole fixture and keep the backing file on disk until every test (notably
+    // WriteAllTo, which reads it) has run.
+    static string useFileTarget = null!;
+
+    [OneTimeSetUp]
+    public void RegisterUseFile()
+    {
+        useFileTarget = Path.Combine(Path.GetTempPath(), $"EmptyFilesUseFile{Guid.NewGuid():N}.usefileext");
+        File.WriteAllText(useFileTarget, "content");
+        AllFiles.UseFile(Category.Document, useFileTarget);
+    }
+
+    [OneTimeTearDown]
+    public void CleanupUseFile() =>
+        File.Delete(useFileTarget);
+
+    [Test]
+    public void UseFile_UpdatesLookups()
+    {
+        True(AllFiles.DocumentPaths.Contains(useFileTarget));
+
+        // Regression: the merged Files dictionary and every lookup built on it
+        // must see the registered file, not just the per-category dictionary.
+        True(AllFiles.Files.ContainsKey(".usefileext"));
+        AreEqual(useFileTarget, AllFiles.GetPathFor(".usefileext"));
+        True(AllFiles.TryGetPathFor("usefileext", out var path));
+        AreEqual(useFileTarget, path);
+        True(AllFiles.IsEmptyFile(useFileTarget));
+
+        // Lookups are case-insensitive.
+        AreEqual(useFileTarget, AllFiles.GetPathFor(".USEFILEEXT"));
+        True(AllFiles.TryGetPathFor("USEFILEEXT", out _));
+    }
+
+    [Test]
+    public void TryCreateFile_extensionless()
+    {
+        False(AllFiles.TryCreateFile("Dockerfile", useEmptyStringForTextFiles: true));
+        False(AllFiles.TryCreateFile("LICENSE"));
+    }
+
+    [Test]
+    public void GetPathFor_caseInsensitive()
+    {
+        NotNull(AllFiles.GetPathFor(".PNG"));
+        NotNull(AllFiles.GetPathFor("PNG"));
+    }
+
+    [Test]
+    public void TryGetPathFor_normalizesDotlessAndCase()
+    {
+        True(AllFiles.TryGetPathFor("png", out var path));
+        NotNull(path);
+        True(AllFiles.TryGetPathFor(".png", out _));
+        True(AllFiles.TryGetPathFor("PNG", out _));
+        True(AllFiles.TryGetPathFor(".PNG", out _));
+    }
+
+    [Test]
+    public void IsEmptyFile_empty_throwsArgumentNull()
+    {
+        var exception = Throws<ArgumentNullException>(() => AllFiles.IsEmptyFile(""));
+        AreEqual("path", exception!.ParamName);
+    }
+
+    [Test]
+    public void ExtractDirectory_isVersionIsolated()
+    {
+        var path = AllFiles.GetPathFor(".png");
+        var versionDirectory = new DirectoryInfo(Path.GetDirectoryName(path)!).Parent!;
+        AreEqual("EmptyFiles", versionDirectory.Parent!.Name);
+
+        // AssemblyVersion and FileVersion are both pinned to 1.0.0; extraction
+        // must be keyed on the package (informational) version instead.
+        var assemblyVersion = typeof(AllFiles).Assembly.GetName().Version!.ToString();
+        AreNotEqual(assemblyVersion, versionDirectory.Name);
+        AreNotEqual("1.0.0", versionDirectory.Name);
+        AreNotEqual("unknown", versionDirectory.Name);
+    }
+
+    [Test]
+    public void Extraction_leavesNoTempFiles()
+    {
+        var path = AllFiles.GetPathFor(".png");
+        True(File.Exists(path));
+        var directory = Path.GetDirectoryName(path)!;
+        IsEmpty(Directory.GetFiles(directory, "*.tmp"));
+    }
+
+    [Test]
+    public void EmptyFile_OpenRead_userFile()
+    {
+        var file = Path.Combine(Path.GetTempPath(), $"EmptyFileOpenRead{Guid.NewGuid():N}.dat");
+        File.WriteAllText(file, "hello");
+        try
+        {
+            var emptyFile = new EmptyFile(file, File.GetLastWriteTime(file), Category.Binary);
+            using var stream = emptyFile.OpenRead();
+            using var reader = new StreamReader(stream);
+            AreEqual("hello", reader.ReadToEnd());
+        }
+        finally
+        {
+            File.Delete(file);
+        }
+    }
+
+    [Test]
+    public void EmptyFile_OpenRead_embedded()
+    {
+        using var stream = AllFiles.Images[".png"].OpenRead();
+        True(stream.Length > 0);
+    }
+
     [Test]
     public void CreateFile_overwrite_binary()
     {

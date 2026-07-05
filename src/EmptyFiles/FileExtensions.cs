@@ -4,13 +4,43 @@ public static class FileExtensions
 {
     public static bool IsTextExtension(string extension)
     {
-        extension = Guard.ValidExtension(extension);
+        if (extension.Length == 0)
+        {
+            throw new ArgumentNullException(nameof(extension));
+        }
 
-        return textExtensions.Contains(extension);
+        // Avoid allocating a dotted copy for the common dotless input (the form
+        // Verify passes on its per-target hot path) by keeping a parallel set.
+        if (extension[0] == '.')
+        {
+            return textExtensions.Contains(extension);
+        }
+
+        return textExtensionsWithoutDot.Contains(extension);
     }
 
-    public static bool IsTextExtension(CharSpan extension) =>
-        IsTextExtension(extension.ToString());
+    public static bool IsTextExtension(CharSpan extension)
+    {
+#if NET9_0_OR_GREATER
+        if (extension.Length == 0)
+        {
+            throw new ArgumentNullException(nameof(extension));
+        }
+
+        if (extension[0] == '.')
+        {
+            return textExtensions
+                .GetAlternateLookup<CharSpan>()
+                .Contains(extension);
+        }
+
+        return textExtensionsWithoutDot
+            .GetAlternateLookup<CharSpan>()
+            .Contains(extension);
+#else
+        return IsTextExtension(extension.ToString());
+#endif
+    }
 
     public static bool IsTextFile(string path) =>
         IsTextFile(path.AsSpan());
@@ -38,9 +68,10 @@ public static class FileExtensions
     public static void RemoveTextExtension(string extension)
     {
         extension = Guard.ValidExtension(extension);
-        var copy = new HashSet<string>(textExtensions);
+        var copy = new HashSet<string>(textExtensions, StringComparer.OrdinalIgnoreCase);
         copy.Remove(extension);
-        textExtensions = copy.ToFrozenSet();
+        textExtensions = copy.ToFrozenSet(StringComparer.OrdinalIgnoreCase);
+        textExtensionsWithoutDot = BuildWithoutDot();
     }
 
     public static void RemoveTextExtension(CharSpan extension) =>
@@ -65,11 +96,12 @@ public static class FileExtensions
     public static void AddTextExtension(string extension)
     {
         extension = Guard.ValidExtension(extension);
-        var copy = new HashSet<string>(textExtensions)
+        var copy = new HashSet<string>(textExtensions, StringComparer.OrdinalIgnoreCase)
         {
             extension
         };
-        textExtensions = copy.ToFrozenSet();
+        textExtensions = copy.ToFrozenSet(StringComparer.OrdinalIgnoreCase);
+        textExtensionsWithoutDot = BuildWithoutDot();
     }
 
     public static void AddTextExtension(CharSpan extension) =>
@@ -97,7 +129,7 @@ public static class FileExtensions
     static List<IsTextFile> textFileConventions = [];
 
     //From https://github.com/sindresorhus/text-extensions/blob/master/text-extensions.json
-    static IReadOnlyCollection<string> textExtensions = new HashSet<string>
+    static FrozenSet<string> textExtensions = new HashSet<string>
         {
             ".ada",
             ".adb",
@@ -442,7 +474,16 @@ public static class FileExtensions
             ".zsh",
             ".zshrc"
         }
-        .ToFrozenSet();
+        .ToFrozenSet(StringComparer.OrdinalIgnoreCase);
+
+    // Parallel set of the same extensions without the leading dot, so that the
+    // dotless overload of IsTextExtension can look up without allocating.
+    static FrozenSet<string> textExtensionsWithoutDot = BuildWithoutDot();
+
+    static FrozenSet<string> BuildWithoutDot() =>
+        textExtensions
+            .Select(_ => _[1..])
+            .ToFrozenSet(StringComparer.OrdinalIgnoreCase);
 
     public static IReadOnlyCollection<string> TextExtensions => textExtensions;
 
