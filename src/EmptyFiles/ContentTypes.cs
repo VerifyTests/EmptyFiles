@@ -235,7 +235,7 @@ public static class ContentTypes
             "image/bmp", "bmp"
         },
         {
-            "image/heic", ".heic"
+            "image/heic", "heic"
         },
         {
             "image/heic-sequence", "heics"

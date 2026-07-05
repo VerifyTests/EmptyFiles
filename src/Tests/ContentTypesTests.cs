@@ -25,6 +25,18 @@
     }
 
     [Test]
+    public void Heic()
+    {
+        // The extension must not carry a leading dot, unlike every other mapping.
+        True(ContentTypes.TryGetExtension("image/heic", out var extension));
+        AreEqual("heic", extension);
+        True(ContentTypes.TryGetMediaType("heic", out var media));
+        AreEqual("image/heic", media);
+        True(ContentTypes.TryGetMediaType(".heic", out media));
+        AreEqual("image/heic", media);
+    }
+
+    [Test]
     public void IsText()
     {
         True(ContentTypes.IsText("application/json", out var extension));

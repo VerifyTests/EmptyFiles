@@ -38,7 +38,7 @@ public static class AllFiles
         sheets = AddCategory(sheetExtensions, Category.Sheet);
         slides = AddCategory(slideExtensions, Category.Slide);
         binary = AddCategory(binaryExtensions, Category.Binary);
-        var all = new Dictionary<string, EmptyFile>();
+        var all = new Dictionary<string, EmptyFile>(StringComparer.OrdinalIgnoreCase);
         Append(archives);
         Append(documents);
         Append(images);
@@ -46,7 +46,7 @@ public static class AllFiles
         Append(slides);
         Append(binary);
 
-        files = all.ToFrozenDictionary();
+        files = all.ToFrozenDictionary(StringComparer.OrdinalIgnoreCase);
 
         void Append(FrozenDictionary<string, EmptyFile> files)
         {
@@ -59,7 +59,7 @@ public static class AllFiles
 
     static FrozenDictionary<string, EmptyFile> AddCategory(FrozenSet<string> extensions, Category category)
     {
-        Dictionary<string, EmptyFile> items = [];
+        Dictionary<string, EmptyFile> items = new(StringComparer.OrdinalIgnoreCase);
         var categoryName = category
             .ToString()
             .ToLowerInvariant();
@@ -69,14 +69,27 @@ public static class AllFiles
             items[extension] = EmptyFile.Embedded(category, extension, resourceName);
         }
 
-        return items.ToFrozenDictionary();
+        return items.ToFrozenDictionary(StringComparer.OrdinalIgnoreCase);
     }
 
     static readonly Lazy<string> extractDirectory = new(
         () =>
         {
+            // AssemblyVersion and FileVersion are both pinned (1.0.0), so use the
+            // informational version, which tracks the package version, to keep
+            // extracted templates isolated per release. Strip any "+sha" suffix
+            // appended by source control integration.
             var assembly = typeof(AllFiles).Assembly;
-            var version = assembly.GetName().Version?.ToString() ?? "unknown";
+            var informational = assembly
+                .GetCustomAttribute<AssemblyInformationalVersionAttribute>()
+                ?.InformationalVersion;
+            var version = "unknown";
+            if (informational != null)
+            {
+                var plusIndex = informational.IndexOf('+');
+                version = plusIndex == -1 ? informational : informational[..plusIndex];
+            }
+
             return Path.Combine(Path.GetTempPath(), "EmptyFiles", version);
         });
 
@@ -84,32 +97,30 @@ public static class AllFiles
 
     static void ExtractAll(string directory)
     {
-        var assembly = typeof(AllFiles).Assembly;
-        ExtractCategory(assembly, directory, "archive", archiveExtensions);
-        ExtractCategory(assembly, directory, "binary", binaryExtensions);
-        ExtractCategory(assembly, directory, "document", documentExtensions);
-        ExtractCategory(assembly, directory, "image", imageExtensions);
-        ExtractCategory(assembly, directory, "sheet", sheetExtensions);
-        ExtractCategory(assembly, directory, "slide", slideExtensions);
+        ExtractCategory(directory, "archive", archives);
+        ExtractCategory(directory, "binary", binary);
+        ExtractCategory(directory, "document", documents);
+        ExtractCategory(directory, "image", images);
+        ExtractCategory(directory, "sheet", sheets);
+        ExtractCategory(directory, "slide", slides);
     }
 
-    static void ExtractCategory(Assembly assembly, string root, string categoryName, FrozenSet<string> extensions)
+    static void ExtractCategory(string root, string categoryName, FrozenDictionary<string, EmptyFile> items)
     {
         var categoryDirectory = Path.Combine(root, categoryName);
         Directory.CreateDirectory(categoryDirectory);
-        foreach (var extension in extensions)
+        foreach (var emptyFile in items.Values)
         {
-            var resourceName = $"EmptyFiles.{categoryName}.empty{extension}";
-            using var resource = assembly.GetManifestResourceStream(resourceName) ??
-                                 throw new($"Embedded resource not found: {resourceName}");
-            var target = Path.Combine(categoryDirectory, $"empty{extension}");
-            if (File.Exists(target) && new FileInfo(target).Length == resource.Length)
+            using var resource = emptyFile.OpenRead();
+            var target = Path.Combine(categoryDirectory, $"empty{emptyFile.Extension}");
+            if (File.Exists(target) &&
+                new FileInfo(target).Length == resource.Length)
             {
                 continue;
             }
 
-            using var file = File.Create(target);
-            resource.CopyTo(file);
+            using var fileStream = File.Create(target);
+            resource.CopyTo(fileStream);
         }
     }
 
@@ -149,21 +160,27 @@ public static class AllFiles
                 throw new($"Unknown category: {category}");
         }
 
+        var mergedFiles = new Dictionary<string, EmptyFile>(files, StringComparer.OrdinalIgnoreCase)
+        {
+            [extension] = emptyFile
+        };
+        files = mergedFiles.ToFrozenDictionary(StringComparer.OrdinalIgnoreCase);
+
         void Init(ref FrozenDictionary<string, EmptyFile> emptyFiles, ref FrozenSet<string> extensions)
         {
-            var tempDictionary = new Dictionary<string, EmptyFile>();
+            var tempDictionary = new Dictionary<string, EmptyFile>(StringComparer.OrdinalIgnoreCase);
             foreach (var (key, value) in emptyFiles)
             {
                 tempDictionary[key] = value;
             }
 
             tempDictionary[extension] = emptyFile;
-            emptyFiles = tempDictionary.ToFrozenDictionary();
-            var tempSet = new HashSet<string>(extensions)
+            emptyFiles = tempDictionary.ToFrozenDictionary(StringComparer.OrdinalIgnoreCase);
+            var tempSet = new HashSet<string>(extensions, StringComparer.OrdinalIgnoreCase)
             {
                 extension
             };
-            extensions = tempSet.ToFrozenSet();
+            extensions = tempSet.ToFrozenSet(StringComparer.OrdinalIgnoreCase);
         }
     }
 
@@ -189,7 +206,8 @@ public static class AllFiles
         ".tar",
         ".xz",
         ".zip"
-    ]);
+    ],
+    StringComparer.OrdinalIgnoreCase);
 
     public static IEnumerable<string> DocumentPaths => documents.Values.Select(_ => _.Path);
 
@@ -201,7 +219,8 @@ public static class AllFiles
         ".odt",
         ".pdf",
         ".rtf"
-    ]);
+    ],
+    StringComparer.OrdinalIgnoreCase);
 
     public static IEnumerable<string> ImagePaths => images.Values.Select(_ => _.Path);
 
@@ -239,7 +258,8 @@ public static class AllFiles
         ".wdp",
         ".webp",
         ".wmp"
-    ]);
+    ],
+    StringComparer.OrdinalIgnoreCase);
 
     public static IEnumerable<string> SheetPaths => sheets.Values.Select(_ => _.Path);
 
@@ -249,7 +269,8 @@ public static class AllFiles
     [
         ".ods",
         ".xlsx"
-    ]);
+    ],
+    StringComparer.OrdinalIgnoreCase);
 
     public static IEnumerable<string> SlidePaths => slides.Values.Select(_ => _.Path);
 
@@ -259,7 +280,8 @@ public static class AllFiles
     [
         ".odp",
         ".pptx"
-    ]);
+    ],
+    StringComparer.OrdinalIgnoreCase);
 
     public static IEnumerable<string> BinaryPaths => binary.Values.Select(_ => _.Path);
 
@@ -268,7 +290,8 @@ public static class AllFiles
     static FrozenSet<string> binaryExtensions = FrozenSet.ToFrozenSet(
     [
         ".bin"
-    ]);
+    ],
+    StringComparer.OrdinalIgnoreCase);
 
     public static bool IsEmptyFile(string path)
     {
@@ -319,6 +342,11 @@ public static class AllFiles
         Guard.AgainstNullOrEmpty(path);
         var extension = Path.GetExtension(path);
 
+        if (extension.Length == 0)
+        {
+            return false;
+        }
+
         if (useEmptyStringForTextFiles &&
             FileExtensions.IsTextExtension(extension))
         {
@@ -351,6 +379,12 @@ public static class AllFiles
 
     public static bool TryGetPathFor(string extension, [NotNullWhen(true)] out string? path)
     {
+        if (extension.Length > 0 &&
+            extension[0] != '.')
+        {
+            extension = $".{extension}";
+        }
+
         if (files.TryGetValue(extension, out var emptyFile))
         {
             path = emptyFile.Path;

@@ -33,6 +33,48 @@
     #endregion
 
     [Test]
+    public void IsTextExtension_CaseInsensitive()
+    {
+        True(FileExtensions.IsTextExtension(".TXT"));
+        True(FileExtensions.IsTextExtension("TXT"));
+        True(FileExtensions.IsTextExtension(".Txt"));
+        True(FileExtensions.IsTextFile("FILE.TXT"));
+        True(FileExtensions.IsTextFile("README.MD"));
+    }
+
+    [Test]
+    public void IsTextExtension_Span()
+    {
+        True(FileExtensions.IsTextExtension(".txt".AsSpan()));
+        True(FileExtensions.IsTextExtension("txt".AsSpan()));
+        True(FileExtensions.IsTextExtension("TXT".AsSpan()));
+        False(FileExtensions.IsTextExtension("bin".AsSpan()));
+    }
+
+    [Test]
+    public void AddRemoveTextExtension_CaseInsensitive()
+    {
+        FileExtensions.AddTextExtension(".CaseExt");
+        try
+        {
+            True(FileExtensions.IsTextExtension(".caseext"));
+            True(FileExtensions.IsTextExtension("CASEEXT"));
+            True(FileExtensions.IsTextExtension("caseext".AsSpan()));
+        }
+        finally
+        {
+            FileExtensions.RemoveTextExtension(".CASEEXT");
+        }
+
+        False(FileExtensions.IsTextExtension(".caseext"));
+        False(FileExtensions.IsTextExtension("caseext"));
+    }
+
+    [Test]
+    public void IsTextExtension_Empty_Throws() =>
+        Throws<ArgumentNullException>(() => FileExtensions.IsTextExtension(""));
+
+    [Test]
     public void IsTextLegacy()
     {
 #pragma warning disable CS0618 // Type or member is obsolete
