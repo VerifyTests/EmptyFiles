@@ -122,4 +122,17 @@
         FileExtensions.RemoveTextExtension("ext1");
         False(FileExtensions.IsTextExtension("ext1"));
     }
+
+    [TestCase("bicepparam")]
+    [TestCase("BICEPPARAM")]
+    [TestCase("BicepParam")]
+    public void BicepParametersAreText(string extension)
+    {
+        True(FileExtensions.IsTextExtension(extension));
+        True(FileExtensions.IsTextExtension(extension.AsSpan()));
+        True(FileExtensions.IsTextExtension($".{extension}"));
+        True(FileExtensions.IsTextExtension($".{extension}".AsSpan()));
+        True(FileExtensions.IsTextFile($"main.dev.{extension}"));
+        True(FileExtensions.IsTextFile($"main.dev.{extension}".AsSpan()));
+    }
 }

@@ -156,6 +156,7 @@ public static class FileExtensions
             ".bdsproj",
             ".bib",
             ".bicep",
+            ".bicepparam",
             ".bowerrc",
             ".c",
             ".cbl",
