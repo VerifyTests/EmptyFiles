@@ -1,7 +1,7 @@
 # <img src="/src/icon.png" height="30px"> EmptyFiles
 
 [![Discussions](https://img.shields.io/badge/Verify-Discussions-yellow?svg=true&label=)](https://github.com/orgs/VerifyTests/discussions)
-[![Build status](https://img.shields.io/appveyor/build/SimonCropp/EmptyFiles)](https://ci.appveyor.com/project/SimonCropp/EmptyFiles)
+[![Build status](https://github.com/VerifyTests/EmptyFiles/actions/workflows/build.yml/badge.svg)](https://github.com/VerifyTests/EmptyFiles/actions/workflows/build.yml)
 [![NuGet Status](https://img.shields.io/nuget/v/EmptyFiles.svg?label=EmptyFiles)](https://www.nuget.org/packages/EmptyFiles/)
 [![NuGet Status](https://img.shields.io/nuget/v/EmptyFiles.Tool.svg?label=dotnet%20tool)](https://www.nuget.org/packages/EmptyFiles.Tool/)
 
