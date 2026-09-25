@@ -11,7 +11,7 @@
     <PackageVersion Include="ProjectDefaults" Version="1.0.181" />
     <PackageVersion Include="Polyfill" Version="11.4.0" />
     <PackageVersion Include="ProjectFiles" Version="1.4.0" />
-    <PackageVersion Include="Sbom" Version="0.2.0" />
+    <PackageVersion Include="Sbom" Version="0.3.1" />
     <PackageVersion Include="System.Memory" Version="4.6.3" />
     <!-- Keep at 8 to support old frameworks -->
     <PackageVersion Include="System.Collections.Immutable" Version="8.0.0" Pinned="true" />
