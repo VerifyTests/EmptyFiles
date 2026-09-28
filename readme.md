@@ -175,7 +175,7 @@ Creates a new empty file
 ```cs
 AllFiles.CreateFile(pathOfFileToCreate);
 ```
-<sup><a href='/src/Tests/Tests.cs#L252-L256' title='Snippet source file'>snippet source</a> | <a href='#snippet-CreateFile' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Tests.cs#L254-L258' title='Snippet source file'>snippet source</a> | <a href='#snippet-CreateFile' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Throws an exception if the extension is not known. There is also a `TryCreateFile` that will return false if the extension is not known.
@@ -192,7 +192,7 @@ Gets the path to an empty file for a given extension
 ```cs
 var path = AllFiles.GetPathFor(".jpg");
 ```
-<sup><a href='/src/Tests/Tests.cs#L232-L236' title='Snippet source file'>snippet source</a> | <a href='#snippet-GetPathFor' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Tests.cs#L234-L238' title='Snippet source file'>snippet source</a> | <a href='#snippet-GetPathFor' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Throws an exception if the extension is not known. There is also a `TryGetPathFor` that will return false if the extension is not known.
@@ -206,11 +206,11 @@ Returns true if the target file is an empty file.
 <a id='snippet-IsEmptyFile'></a>
 ```cs
 var path = AllFiles.GetPathFor(".jpg");
-True(AllFiles.IsEmptyFile(path));
+await Assert.That(AllFiles.IsEmptyFile(path)).IsTrue();
 var temp = Path.GetTempFileName();
-False(AllFiles.IsEmptyFile(temp));
+await Assert.That(AllFiles.IsEmptyFile(temp)).IsFalse();
 ```
-<sup><a href='/src/Tests/Tests.cs#L281-L288' title='Snippet source file'>snippet source</a> | <a href='#snippet-IsEmptyFile' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Tests.cs#L283-L290' title='Snippet source file'>snippet source</a> | <a href='#snippet-IsEmptyFile' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -226,7 +226,7 @@ foreach (var path in AllFiles.AllPaths)
     Trace.WriteLine(path);
 }
 ```
-<sup><a href='/src/Tests/Tests.cs#L328-L335' title='Snippet source file'>snippet source</a> | <a href='#snippet-AllPaths' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Tests.cs#L330-L337' title='Snippet source file'>snippet source</a> | <a href='#snippet-AllPaths' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -238,9 +238,9 @@ Use or replace a file
 <a id='snippet-UseFile'></a>
 ```cs
 AllFiles.UseFile(Category.Document, pathToFile);
-IsTrue(AllFiles.DocumentPaths.Contains(pathToFile));
+await Assert.That(AllFiles.DocumentPaths.Contains(pathToFile)).IsTrue();
 ```
-<sup><a href='/src/Tests/Tests.cs#L348-L353' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseFile' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/Tests.cs#L350-L355' title='Snippet source file'>snippet source</a> | <a href='#snippet-UseFile' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -254,14 +254,14 @@ https://github.com/sindresorhus/text-extensions/blob/master/text-extensions.json
 <!-- snippet: IsText -->
 <a id='snippet-IsText'></a>
 ```cs
-True(FileExtensions.IsTextFile("file.txt"));
-False(FileExtensions.IsTextFile("file.bin"));
-True(FileExtensions.IsTextExtension(".txt"));
-False(FileExtensions.IsTextExtension(".bin"));
-True(FileExtensions.IsTextExtension("txt"));
-False(FileExtensions.IsTextExtension("bin"));
+await Assert.That(FileExtensions.IsTextFile("file.txt")).IsTrue();
+await Assert.That(FileExtensions.IsTextFile("file.bin")).IsFalse();
+await Assert.That(FileExtensions.IsTextExtension(".txt")).IsTrue();
+await Assert.That(FileExtensions.IsTextExtension(".bin")).IsFalse();
+await Assert.That(FileExtensions.IsTextExtension("txt")).IsTrue();
+await Assert.That(FileExtensions.IsTextExtension("bin")).IsFalse();
 ```
-<sup><a href='/src/Tests/ExtensionsTests.cs#L6-L15' title='Snippet source file'>snippet source</a> | <a href='#snippet-IsText' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/ExtensionsTests.cs#L7-L16' title='Snippet source file'>snippet source</a> | <a href='#snippet-IsText' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -271,10 +271,10 @@ False(FileExtensions.IsTextExtension("bin"));
 <a id='snippet-AddTextExtension'></a>
 ```cs
 FileExtensions.AddTextExtension(".ext1");
-True(FileExtensions.IsTextExtension(".ext1"));
-True(FileExtensions.IsTextFile("file.ext1"));
+await Assert.That(FileExtensions.IsTextExtension(".ext1")).IsTrue();
+await Assert.That(FileExtensions.IsTextFile("file.ext1")).IsTrue();
 ```
-<sup><a href='/src/Tests/ExtensionsTests.cs#L95-L101' title='Snippet source file'>snippet source</a> | <a href='#snippet-AddTextExtension' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/ExtensionsTests.cs#L96-L102' title='Snippet source file'>snippet source</a> | <a href='#snippet-AddTextExtension' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -284,11 +284,11 @@ True(FileExtensions.IsTextFile("file.ext1"));
 <a id='snippet-RemoveTextExtension'></a>
 ```cs
 FileExtensions.AddTextExtension(".ext1");
-True(FileExtensions.IsTextExtension(".ext1"));
+await Assert.That(FileExtensions.IsTextExtension(".ext1")).IsTrue();
 FileExtensions.RemoveTextExtension(".ext1");
-False(FileExtensions.IsTextExtension(".ext1"));
+await Assert.That(FileExtensions.IsTextExtension(".ext1")).IsFalse();
 ```
-<sup><a href='/src/Tests/ExtensionsTests.cs#L111-L118' title='Snippet source file'>snippet source</a> | <a href='#snippet-RemoveTextExtension' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/ExtensionsTests.cs#L112-L119' title='Snippet source file'>snippet source</a> | <a href='#snippet-RemoveTextExtension' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 
@@ -306,7 +306,7 @@ public static void AddTextFileConvention() =>
     // Treat files ending with .txtViaConvention as text files
     FileExtensions.AddTextFileConvention(path => path.EndsWith(".txtViaConvention"));
 ```
-<sup><a href='/src/Tests/ExtensionsTests.cs#L27-L33' title='Snippet source file'>snippet source</a> | <a href='#snippet-AddTextFileConvention' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/ExtensionsTests.cs#L28-L34' title='Snippet source file'>snippet source</a> | <a href='#snippet-AddTextFileConvention' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 Then any call to `FileExtensions.IsTextFile` will, in addition to checking the known text extensions, also check if any of the added text contentions return true.
@@ -314,9 +314,9 @@ Then any call to `FileExtensions.IsTextFile` will, in addition to checking the k
 <!-- snippet: TextViaConvention -->
 <a id='snippet-TextViaConvention'></a>
 ```cs
-True(FileExtensions.IsTextFile("c:/path/file.txtViaConvention"));
+await Assert.That(FileExtensions.IsTextFile("c:/path/file.txtViaConvention")).IsTrue();
 ```
-<sup><a href='/src/Tests/ExtensionsTests.cs#L20-L24' title='Snippet source file'>snippet source</a> | <a href='#snippet-TextViaConvention' title='Start of snippet'>anchor</a></sup>
+<sup><a href='/src/Tests/ExtensionsTests.cs#L21-L25' title='Snippet source file'>snippet source</a> | <a href='#snippet-TextViaConvention' title='Start of snippet'>anchor</a></sup>
 <!-- endSnippet -->
 
 An alternative approach to a text file convention would be to check if a file has a preamble that matches an known text encoding.

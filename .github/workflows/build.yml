@@ -1,4 +1,4 @@
-name: Build
+﻿name: Build
 
 on:
   push:
@@ -55,7 +55,7 @@ jobs:
         run: dotnet build src --configuration Release ${{ env.VERSION_ARGUMENT }}
 
       - name: Test
-        run: dotnet test src --configuration Release --no-build --no-restore
+        run: dotnet test --solution src/EmptyFiles.slnx --configuration Release --no-build --no-restore
 
       - name: AOT publish
         run: dotnet publish src/EmptyFiles.AotTests --configuration Release

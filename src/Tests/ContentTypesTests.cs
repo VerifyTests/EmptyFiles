@@ -1,54 +1,54 @@
 ﻿public class ContentTypesTests
 {
     [Test]
-    public void TryGetExtension()
+    public async Task TryGetExtension()
     {
-        True(ContentTypes.TryGetExtension("application/json", out var extension));
-        AreEqual("json", extension);
-        True(ContentTypes.TryGetExtension("foo/bar+json", out extension));
-        AreEqual("json", extension);
-        True(ContentTypes.TryGetExtension("text/html; charset=utf-8", out extension));
-        AreEqual("html", extension);
-        True(ContentTypes.TryGetExtension("foo/bin", out extension));
-        AreEqual("bin", extension);
+        await Assert.That(ContentTypes.TryGetExtension("application/json", out var extension)).IsTrue();
+        await Assert.That(extension).IsEqualTo("json");
+        await Assert.That(ContentTypes.TryGetExtension("foo/bar+json", out extension)).IsTrue();
+        await Assert.That(extension).IsEqualTo("json");
+        await Assert.That(ContentTypes.TryGetExtension("text/html; charset=utf-8", out extension)).IsTrue();
+        await Assert.That(extension).IsEqualTo("html");
+        await Assert.That(ContentTypes.TryGetExtension("foo/bin", out extension)).IsTrue();
+        await Assert.That(extension).IsEqualTo("bin");
     }
 
     [Test]
-    public void TryGetMediaType()
+    public async Task TryGetMediaType()
     {
-        True(ContentTypes.TryGetMediaType("json", out var media));
-        AreEqual("application/json", media);
-        True(ContentTypes.TryGetMediaType("html", out media));
-        AreEqual("text/html", media);
-        True(ContentTypes.TryGetMediaType("bin", out media));
-        AreEqual("application/octet-stream", media);
+        await Assert.That(ContentTypes.TryGetMediaType("json", out var media)).IsTrue();
+        await Assert.That(media).IsEqualTo("application/json");
+        await Assert.That(ContentTypes.TryGetMediaType("html", out media)).IsTrue();
+        await Assert.That(media).IsEqualTo("text/html");
+        await Assert.That(ContentTypes.TryGetMediaType("bin", out media)).IsTrue();
+        await Assert.That(media).IsEqualTo("application/octet-stream");
     }
 
     [Test]
-    public void Heic()
+    public async Task Heic()
     {
         // The extension must not carry a leading dot, unlike every other mapping.
-        True(ContentTypes.TryGetExtension("image/heic", out var extension));
-        AreEqual("heic", extension);
-        True(ContentTypes.TryGetMediaType("heic", out var media));
-        AreEqual("image/heic", media);
-        True(ContentTypes.TryGetMediaType(".heic", out media));
-        AreEqual("image/heic", media);
+        await Assert.That(ContentTypes.TryGetExtension("image/heic", out var extension)).IsTrue();
+        await Assert.That(extension).IsEqualTo("heic");
+        await Assert.That(ContentTypes.TryGetMediaType("heic", out var media)).IsTrue();
+        await Assert.That(media).IsEqualTo("image/heic");
+        await Assert.That(ContentTypes.TryGetMediaType(".heic", out media)).IsTrue();
+        await Assert.That(media).IsEqualTo("image/heic");
     }
 
     [Test]
-    public void IsText()
+    public async Task IsText()
     {
-        True(ContentTypes.IsText("application/json", out var extension));
-        AreEqual("json", extension);
-        True(ContentTypes.IsText("text/html; charset=utf-8", out extension));
-        AreEqual("html", extension);
-        True(ContentTypes.IsText("foo/bar+json", out extension));
-        AreEqual("json", extension);
-        False(ContentTypes.IsText("foo/bin", out extension));
+        await Assert.That(ContentTypes.IsText("application/json", out var extension)).IsTrue();
+        await Assert.That(extension).IsEqualTo("json");
+        await Assert.That(ContentTypes.IsText("text/html; charset=utf-8", out extension)).IsTrue();
+        await Assert.That(extension).IsEqualTo("html");
+        await Assert.That(ContentTypes.IsText("foo/bar+json", out extension)).IsTrue();
+        await Assert.That(extension).IsEqualTo("json");
+        await Assert.That(ContentTypes.IsText("foo/bin", out extension)).IsFalse();
 
-        True(ContentTypes.IsText("application/json"));
-        True(ContentTypes.IsText("foo/bar+json"));
-        False(ContentTypes.IsText("foo/bin"));
+        await Assert.That(ContentTypes.IsText("application/json")).IsTrue();
+        await Assert.That(ContentTypes.IsText("foo/bar+json")).IsTrue();
+        await Assert.That(ContentTypes.IsText("foo/bin")).IsFalse();
     }
 }

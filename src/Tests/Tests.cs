@@ -1,4 +1,6 @@
-﻿[TestFixture]
+﻿namespace EmptyFilesTests;
+
+[NotInParallel]
 public class Tests
 {
     // UseFile mutates global state with no unregister, so register once for the
@@ -6,93 +8,93 @@ public class Tests
     // WriteAllTo, which reads it) has run.
     static string useFileTarget = null!;
 
-    [OneTimeSetUp]
-    public void RegisterUseFile()
+    [Before(Class)]
+    public static void RegisterUseFile()
     {
         useFileTarget = Path.Combine(Path.GetTempPath(), $"EmptyFilesUseFile{Guid.NewGuid():N}.usefileext");
         File.WriteAllText(useFileTarget, "content");
         AllFiles.UseFile(Category.Document, useFileTarget);
     }
 
-    [OneTimeTearDown]
-    public void CleanupUseFile() =>
+    [After(Class)]
+    public static void CleanupUseFile() =>
         File.Delete(useFileTarget);
 
     [Test]
-    public void UseFile_UpdatesLookups()
+    public async Task UseFile_UpdatesLookups()
     {
-        True(AllFiles.DocumentPaths.Contains(useFileTarget));
+        await Assert.That(AllFiles.DocumentPaths.Contains(useFileTarget)).IsTrue();
 
         // Regression: the merged Files dictionary and every lookup built on it
         // must see the registered file, not just the per-category dictionary.
-        True(AllFiles.Files.ContainsKey(".usefileext"));
-        AreEqual(useFileTarget, AllFiles.GetPathFor(".usefileext"));
-        True(AllFiles.TryGetPathFor("usefileext", out var path));
-        AreEqual(useFileTarget, path);
-        True(AllFiles.IsEmptyFile(useFileTarget));
+        await Assert.That(AllFiles.Files.ContainsKey(".usefileext")).IsTrue();
+        await Assert.That(AllFiles.GetPathFor(".usefileext")).IsEqualTo(useFileTarget);
+        await Assert.That(AllFiles.TryGetPathFor("usefileext", out var path)).IsTrue();
+        await Assert.That(path).IsEqualTo(useFileTarget);
+        await Assert.That(AllFiles.IsEmptyFile(useFileTarget)).IsTrue();
 
         // Lookups are case-insensitive.
-        AreEqual(useFileTarget, AllFiles.GetPathFor(".USEFILEEXT"));
-        True(AllFiles.TryGetPathFor("USEFILEEXT", out _));
+        await Assert.That(AllFiles.GetPathFor(".USEFILEEXT")).IsEqualTo(useFileTarget);
+        await Assert.That(AllFiles.TryGetPathFor("USEFILEEXT", out _)).IsTrue();
     }
 
     [Test]
-    public void TryCreateFile_extensionless()
+    public async Task TryCreateFile_extensionless()
     {
-        False(AllFiles.TryCreateFile("Dockerfile", useEmptyStringForTextFiles: true));
-        False(AllFiles.TryCreateFile("LICENSE"));
+        await Assert.That(AllFiles.TryCreateFile("Dockerfile", useEmptyStringForTextFiles: true)).IsFalse();
+        await Assert.That(AllFiles.TryCreateFile("LICENSE")).IsFalse();
     }
 
     [Test]
-    public void GetPathFor_caseInsensitive()
+    public async Task GetPathFor_caseInsensitive()
     {
-        NotNull(AllFiles.GetPathFor(".PNG"));
-        NotNull(AllFiles.GetPathFor("PNG"));
+        await Assert.That(AllFiles.GetPathFor(".PNG")).IsNotNull();
+        await Assert.That(AllFiles.GetPathFor("PNG")).IsNotNull();
     }
 
     [Test]
-    public void TryGetPathFor_normalizesDotlessAndCase()
+    public async Task TryGetPathFor_normalizesDotlessAndCase()
     {
-        True(AllFiles.TryGetPathFor("png", out var path));
-        NotNull(path);
-        True(AllFiles.TryGetPathFor(".png", out _));
-        True(AllFiles.TryGetPathFor("PNG", out _));
-        True(AllFiles.TryGetPathFor(".PNG", out _));
+        await Assert.That(AllFiles.TryGetPathFor("png", out var path)).IsTrue();
+        await Assert.That(path).IsNotNull();
+        await Assert.That(AllFiles.TryGetPathFor(".png", out _)).IsTrue();
+        await Assert.That(AllFiles.TryGetPathFor("PNG", out _)).IsTrue();
+        await Assert.That(AllFiles.TryGetPathFor(".PNG", out _)).IsTrue();
     }
 
     [Test]
-    public void IsEmptyFile_empty_throwsArgumentNull()
+    public async Task IsEmptyFile_empty_throwsArgumentNull()
     {
-        var exception = Throws<ArgumentNullException>(() => AllFiles.IsEmptyFile(""));
-        AreEqual("path", exception!.ParamName);
+        var exception = Assert.ThrowsExactly<ArgumentNullException>(() => AllFiles.IsEmptyFile(""));
+        await Assert.That(exception!.ParamName).IsEqualTo("path");
     }
 
     [Test]
-    public void ExtractDirectory_isVersionIsolated()
+    public async Task ExtractDirectory_isVersionIsolated()
     {
         var path = AllFiles.GetPathFor(".png");
         var versionDirectory = new DirectoryInfo(Path.GetDirectoryName(path)!).Parent!;
-        AreEqual("EmptyFiles", versionDirectory.Parent!.Name);
+        await Assert.That(versionDirectory.Parent!.Name).IsEqualTo("EmptyFiles");
 
         // AssemblyVersion and FileVersion are both pinned to 1.0.0; extraction
         // must be keyed on the package (informational) version instead.
         var assemblyVersion = typeof(AllFiles).Assembly.GetName().Version!.ToString();
-        AreNotEqual(assemblyVersion, versionDirectory.Name);
-        AreNotEqual("1.0.0", versionDirectory.Name);
-        AreNotEqual("unknown", versionDirectory.Name);
+        await Assert.That(versionDirectory.Name).IsNotEqualTo(assemblyVersion);
+        await Assert.That(versionDirectory.Name).IsNotEqualTo("1.0.0");
+        await Assert.That(versionDirectory.Name).IsNotEqualTo("unknown");
     }
 
     [Test]
-    public void Extraction_leavesNoTempFiles()
+    public async Task Extraction_leavesNoTempFiles()
     {
         var path = AllFiles.GetPathFor(".png");
-        True(File.Exists(path));
+        await Assert.That(File.Exists(path)).IsTrue();
         var directory = Path.GetDirectoryName(path)!;
-        IsEmpty(Directory.GetFiles(directory, "*.tmp"));
+        await Assert.That(Directory.GetFiles(directory, "*.tmp")).IsEmpty();
     }
 
     [Test]
-    public void EmptyFile_OpenRead_userFile()
+    public async Task EmptyFile_OpenRead_userFile()
     {
         var file = Path.Combine(Path.GetTempPath(), $"EmptyFileOpenRead{Guid.NewGuid():N}.dat");
         File.WriteAllText(file, "hello");
@@ -101,7 +103,7 @@ public class Tests
             var emptyFile = new EmptyFile(file, File.GetLastWriteTime(file), Category.Binary);
             using var stream = emptyFile.OpenRead();
             using var reader = new StreamReader(stream);
-            AreEqual("hello", reader.ReadToEnd());
+            await Assert.That(reader.ReadToEnd()).IsEqualTo("hello");
         }
         finally
         {
@@ -110,22 +112,22 @@ public class Tests
     }
 
     [Test]
-    public void EmptyFile_OpenRead_embedded()
+    public async Task EmptyFile_OpenRead_embedded()
     {
         using var stream = AllFiles.Images[".png"].OpenRead();
-        True(stream.Length > 0);
+        await Assert.That(stream.Length > 0).IsTrue();
     }
 
     [Test]
-    public void CreateFile_overwrite_binary()
+    public async Task CreateFile_overwrite_binary()
     {
         AllFiles.CreateFile("foo.bmp");
         AllFiles.CreateFile("foo.bmp");
-        True(File.Exists("foo.bmp"));
+        await Assert.That(File.Exists("foo.bmp")).IsTrue();
     }
 
     [Test]
-    public void CreateFile_NoDir_binary()
+    public async Task CreateFile_NoDir_binary()
     {
         if (Directory.Exists("myTempDir"))
         {
@@ -133,7 +135,7 @@ public class Tests
         }
 
         AllFiles.CreateFile("myTempDir/foo.bmp");
-        True(File.Exists("myTempDir/foo.bmp"));
+        await Assert.That(File.Exists("myTempDir/foo.bmp")).IsTrue();
     }
 
     [Test]
@@ -153,15 +155,15 @@ public class Tests
     }
 
     [Test]
-    public void CreateFile_overwrite_txt()
+    public async Task CreateFile_overwrite_txt()
     {
         AllFiles.CreateFile("foo.txt", true);
         AllFiles.CreateFile("foo.txt", true);
-        True(File.Exists("foo.txt"));
+        await Assert.That(File.Exists("foo.txt")).IsTrue();
     }
 
     [Test]
-    public void CreateFile_NoDir_txt()
+    public async Task CreateFile_NoDir_txt()
     {
         if (Directory.Exists("myTempDir"))
         {
@@ -169,65 +171,65 @@ public class Tests
         }
 
         AllFiles.CreateFile("myTempDir/foo.txt", true);
-        True(File.Exists("myTempDir/foo.txt"));
+        await Assert.That(File.Exists("myTempDir/foo.txt")).IsTrue();
     }
 
     [Test]
-    public void TryCreateFile_overwrite_txt()
+    public async Task TryCreateFile_overwrite_txt()
     {
-        True(AllFiles.TryCreateFile("foo.txt", true));
-        True(AllFiles.TryCreateFile("foo.txt", true));
-        True(File.Exists("foo.txt"));
+        await Assert.That(AllFiles.TryCreateFile("foo.txt", true)).IsTrue();
+        await Assert.That(AllFiles.TryCreateFile("foo.txt", true)).IsTrue();
+        await Assert.That(File.Exists("foo.txt")).IsTrue();
     }
 
     [Test]
-    public void TryCreateFile_NoDir_txt()
-    {
-        if (Directory.Exists("myTempDir"))
-        {
-            Directory.Delete("myTempDir", true);
-        }
-
-        True(AllFiles.TryCreateFile("myTempDir/foo.txt", true));
-        True(File.Exists("myTempDir/foo.txt"));
-    }
-
-    [Test]
-    public void TryCreateFile_overwrite_binary()
-    {
-        True(AllFiles.TryCreateFile("foo.bmp"));
-        True(AllFiles.TryCreateFile("foo.bmp"));
-        True(File.Exists("foo.bmp"));
-    }
-
-    [Test]
-    public void TryCreateFile_NoDir_binary()
+    public async Task TryCreateFile_NoDir_txt()
     {
         if (Directory.Exists("myTempDir"))
         {
             Directory.Delete("myTempDir", true);
         }
 
-        True(AllFiles.TryCreateFile("myTempDir/foo.bmp"));
-        True(File.Exists("myTempDir/foo.bmp"));
+        await Assert.That(AllFiles.TryCreateFile("myTempDir/foo.txt", true)).IsTrue();
+        await Assert.That(File.Exists("myTempDir/foo.txt")).IsTrue();
     }
 
     [Test]
-    public void Unknown_extension()
+    public async Task TryCreateFile_overwrite_binary()
     {
-        Throws<Exception>(() => AllFiles.GetPathFor("txt"));
-        False(AllFiles.TryGetPathFor("txt", out var result));
-        Null(result);
-        False(AllFiles.TryGetPathFor(".txt", out result));
-        Null(result);
-        False(AllFiles.TryCreateFile("foo.txt"));
-        Null(result);
-        Throws<Exception>(() => AllFiles.GetPathFor(".txt"));
-        Throws<Exception>(() => AllFiles.CreateFile("foo.txt"));
+        await Assert.That(AllFiles.TryCreateFile("foo.bmp")).IsTrue();
+        await Assert.That(AllFiles.TryCreateFile("foo.bmp")).IsTrue();
+        await Assert.That(File.Exists("foo.bmp")).IsTrue();
     }
 
     [Test]
-    public void GetPathFor()
+    public async Task TryCreateFile_NoDir_binary()
+    {
+        if (Directory.Exists("myTempDir"))
+        {
+            Directory.Delete("myTempDir", true);
+        }
+
+        await Assert.That(AllFiles.TryCreateFile("myTempDir/foo.bmp")).IsTrue();
+        await Assert.That(File.Exists("myTempDir/foo.bmp")).IsTrue();
+    }
+
+    [Test]
+    public async Task Unknown_extension()
+    {
+        Assert.ThrowsExactly<Exception>(() => AllFiles.GetPathFor("txt"));
+        await Assert.That(AllFiles.TryGetPathFor("txt", out var result)).IsFalse();
+        await Assert.That(result).IsNull();
+        await Assert.That(AllFiles.TryGetPathFor(".txt", out result)).IsFalse();
+        await Assert.That(result).IsNull();
+        await Assert.That(AllFiles.TryCreateFile("foo.txt")).IsFalse();
+        await Assert.That(result).IsNull();
+        Assert.ThrowsExactly<Exception>(() => AllFiles.GetPathFor(".txt"));
+        Assert.ThrowsExactly<Exception>(() => AllFiles.CreateFile("foo.txt"));
+    }
+
+    [Test]
+    public async Task GetPathFor()
     {
         #region GetPathFor
 
@@ -235,16 +237,16 @@ public class Tests
 
         #endregion
 
-        NotNull(path);
-        True(File.Exists(path));
+        await Assert.That(path).IsNotNull();
+        await Assert.That(File.Exists(path)).IsTrue();
 
         path = AllFiles.GetPathFor("jpg");
-        NotNull(path);
-        True(File.Exists(path));
+        await Assert.That(path).IsNotNull();
+        await Assert.That(File.Exists(path)).IsTrue();
     }
 
     [Test]
-    public void CreateFile()
+    public async Task CreateFile()
     {
         var pathOfFileToCreate = "file.jpg";
         File.Delete(pathOfFileToCreate);
@@ -255,35 +257,35 @@ public class Tests
 
         #endregion
 
-        True(File.Exists(pathOfFileToCreate));
+        await Assert.That(File.Exists(pathOfFileToCreate)).IsTrue();
         File.Delete(pathOfFileToCreate);
 
         AllFiles.CreateFile("foo.txt", true);
-        True(File.Exists("foo.txt"));
+        await Assert.That(File.Exists("foo.txt")).IsTrue();
         File.Delete("foo.txt");
 
-        True(AllFiles.TryCreateFile(pathOfFileToCreate));
-        True(File.Exists(pathOfFileToCreate));
+        await Assert.That(AllFiles.TryCreateFile(pathOfFileToCreate)).IsTrue();
+        await Assert.That(File.Exists(pathOfFileToCreate)).IsTrue();
         File.Delete(pathOfFileToCreate);
 
-        False(AllFiles.TryCreateFile("foo.txt"));
-        False(File.Exists("foo.txt"));
+        await Assert.That(AllFiles.TryCreateFile("foo.txt")).IsFalse();
+        await Assert.That(File.Exists("foo.txt")).IsFalse();
         File.Delete("foo.txt");
 
-        True(AllFiles.TryCreateFile("foo.txt", true));
-        True(File.Exists("foo.txt"));
+        await Assert.That(AllFiles.TryCreateFile("foo.txt", true)).IsTrue();
+        await Assert.That(File.Exists("foo.txt")).IsTrue();
         File.Delete("foo.txt");
     }
 
     [Test]
-    public void IsEmptyFile()
+    public async Task IsEmptyFile()
     {
         #region IsEmptyFile
 
         var path = AllFiles.GetPathFor(".jpg");
-        True(AllFiles.IsEmptyFile(path));
+        await Assert.That(AllFiles.IsEmptyFile(path)).IsTrue();
         var temp = Path.GetTempFileName();
-        False(AllFiles.IsEmptyFile(temp));
+        await Assert.That(AllFiles.IsEmptyFile(temp)).IsFalse();
 
         #endregion
 
@@ -291,7 +293,7 @@ public class Tests
     }
 
     [Test]
-    public void WriteAllTo()
+    public async Task WriteAllTo()
     {
         using var directory = new TempDirectory();
 
@@ -304,7 +306,7 @@ public class Tests
         foreach (var category in Enum.GetValues<Category>())
         {
             var categoryDir = Path.Combine(directory, category.ToString().ToLowerInvariant());
-            True(Directory.Exists(categoryDir));
+            await Assert.That(Directory.Exists(categoryDir)).IsTrue();
         }
 
         foreach (var file in AllFiles.Files.Values)
@@ -313,17 +315,17 @@ public class Tests
                 directory,
                 file.Category.ToString().ToLowerInvariant(),
                 $"empty{file.Extension}");
-            True(File.Exists(expected), expected);
-            That(new FileInfo(expected).Length, Is.EqualTo(new FileInfo(file.Path).Length));
+            await Assert.That(File.Exists(expected)).IsTrue().Because(expected);
+            await Assert.That(new FileInfo(expected).Length).IsEqualTo(new FileInfo(file.Path).Length);
         }
 
         Directory.Delete(directory, true);
     }
 
     [Test]
-    public void AllPaths()
+    public async Task AllPaths()
     {
-        IsNotEmpty(AllFiles.AllPaths);
+        await Assert.That(AllFiles.AllPaths).IsNotEmpty();
 
         #region AllPaths
 
@@ -340,7 +342,7 @@ public class Tests
 
     //[Test]
 #pragma warning disable CA1822
-    public void UseFile()
+    internal async Task UseFile()
 #pragma warning restore CA1822
     {
         var pathToFile = ThisFile();
@@ -348,7 +350,7 @@ public class Tests
         #region UseFile
 
         AllFiles.UseFile(Category.Document, pathToFile);
-        IsTrue(AllFiles.DocumentPaths.Contains(pathToFile));
+        await Assert.That(AllFiles.DocumentPaths.Contains(pathToFile)).IsTrue();
 
         #endregion
     }

@@ -1,25 +1,26 @@
-﻿public class ExtensionsTests
+﻿[NotInParallel]
+public class ExtensionsTests
 {
     [Test]
-    public void IsText()
+    public async Task IsText()
     {
         #region IsText
 
-        True(FileExtensions.IsTextFile("file.txt"));
-        False(FileExtensions.IsTextFile("file.bin"));
-        True(FileExtensions.IsTextExtension(".txt"));
-        False(FileExtensions.IsTextExtension(".bin"));
-        True(FileExtensions.IsTextExtension("txt"));
-        False(FileExtensions.IsTextExtension("bin"));
+        await Assert.That(FileExtensions.IsTextFile("file.txt")).IsTrue();
+        await Assert.That(FileExtensions.IsTextFile("file.bin")).IsFalse();
+        await Assert.That(FileExtensions.IsTextExtension(".txt")).IsTrue();
+        await Assert.That(FileExtensions.IsTextExtension(".bin")).IsFalse();
+        await Assert.That(FileExtensions.IsTextExtension("txt")).IsTrue();
+        await Assert.That(FileExtensions.IsTextExtension("bin")).IsFalse();
 
         #endregion
 
-        False(FileExtensions.IsTextFile(".StartingWithDot"));
-        False(FileExtensions.IsTextFile("NoExtension"));
+        await Assert.That(FileExtensions.IsTextFile(".StartingWithDot")).IsFalse();
+        await Assert.That(FileExtensions.IsTextFile("NoExtension")).IsFalse();
 
         #region TextViaConvention
 
-        True(FileExtensions.IsTextFile("c:/path/file.txtViaConvention"));
+        await Assert.That(FileExtensions.IsTextFile("c:/path/file.txtViaConvention")).IsTrue();
 
         #endregion
     }
@@ -33,106 +34,107 @@
     #endregion
 
     [Test]
-    public void IsTextExtension_CaseInsensitive()
+    public async Task IsTextExtension_CaseInsensitive()
     {
-        True(FileExtensions.IsTextExtension(".TXT"));
-        True(FileExtensions.IsTextExtension("TXT"));
-        True(FileExtensions.IsTextExtension(".Txt"));
-        True(FileExtensions.IsTextFile("FILE.TXT"));
-        True(FileExtensions.IsTextFile("README.MD"));
+        await Assert.That(FileExtensions.IsTextExtension(".TXT")).IsTrue();
+        await Assert.That(FileExtensions.IsTextExtension("TXT")).IsTrue();
+        await Assert.That(FileExtensions.IsTextExtension(".Txt")).IsTrue();
+        await Assert.That(FileExtensions.IsTextFile("FILE.TXT")).IsTrue();
+        await Assert.That(FileExtensions.IsTextFile("README.MD")).IsTrue();
     }
 
     [Test]
-    public void IsTextExtension_Span()
+    public async Task IsTextExtension_Span()
     {
-        True(FileExtensions.IsTextExtension(".txt".AsSpan()));
-        True(FileExtensions.IsTextExtension("txt".AsSpan()));
-        True(FileExtensions.IsTextExtension("TXT".AsSpan()));
-        False(FileExtensions.IsTextExtension("bin".AsSpan()));
+        await Assert.That(FileExtensions.IsTextExtension(".txt".AsSpan())).IsTrue();
+        await Assert.That(FileExtensions.IsTextExtension("txt".AsSpan())).IsTrue();
+        await Assert.That(FileExtensions.IsTextExtension("TXT".AsSpan())).IsTrue();
+        await Assert.That(FileExtensions.IsTextExtension("bin".AsSpan())).IsFalse();
     }
 
     [Test]
-    public void AddRemoveTextExtension_CaseInsensitive()
+    public async Task AddRemoveTextExtension_CaseInsensitive()
     {
         FileExtensions.AddTextExtension(".CaseExt");
         try
         {
-            True(FileExtensions.IsTextExtension(".caseext"));
-            True(FileExtensions.IsTextExtension("CASEEXT"));
-            True(FileExtensions.IsTextExtension("caseext".AsSpan()));
+            await Assert.That(FileExtensions.IsTextExtension(".caseext")).IsTrue();
+            await Assert.That(FileExtensions.IsTextExtension("CASEEXT")).IsTrue();
+            await Assert.That(FileExtensions.IsTextExtension("caseext".AsSpan())).IsTrue();
         }
         finally
         {
             FileExtensions.RemoveTextExtension(".CASEEXT");
         }
 
-        False(FileExtensions.IsTextExtension(".caseext"));
-        False(FileExtensions.IsTextExtension("caseext"));
+        await Assert.That(FileExtensions.IsTextExtension(".caseext")).IsFalse();
+        await Assert.That(FileExtensions.IsTextExtension("caseext")).IsFalse();
     }
 
     [Test]
     public void IsTextExtension_Empty_Throws() =>
-        Throws<ArgumentNullException>(() => FileExtensions.IsTextExtension(""));
+        Assert.ThrowsExactly<ArgumentNullException>(() => FileExtensions.IsTextExtension(""));
 
     [Test]
-    public void IsTextLegacy()
+    public async Task IsTextLegacy()
     {
 #pragma warning disable CS0618 // Type or member is obsolete
-        True(FileExtensions.IsText("file.txt"));
-        False(FileExtensions.IsText("file.bin"));
-        True(FileExtensions.IsText("c:/file.txt"));
-        False(FileExtensions.IsText("c:/file.bin"));
-        True(FileExtensions.IsText(".txt"));
-        True(FileExtensions.IsText("txt"));
-        False(FileExtensions.IsText(".bin"));
-        False(FileExtensions.IsText("bin"));
+        await Assert.That(FileExtensions.IsText("file.txt")).IsTrue();
+        await Assert.That(FileExtensions.IsText("file.bin")).IsFalse();
+        await Assert.That(FileExtensions.IsText("c:/file.txt")).IsTrue();
+        await Assert.That(FileExtensions.IsText("c:/file.bin")).IsFalse();
+        await Assert.That(FileExtensions.IsText(".txt")).IsTrue();
+        await Assert.That(FileExtensions.IsText("txt")).IsTrue();
+        await Assert.That(FileExtensions.IsText(".bin")).IsFalse();
+        await Assert.That(FileExtensions.IsText("bin")).IsFalse();
 #pragma warning restore CS0618 // Type or member is obsolete
     }
 
     [Test]
-    public void AddTextExtension()
+    public async Task AddTextExtension()
     {
         #region AddTextExtension
 
         FileExtensions.AddTextExtension(".ext1");
-        True(FileExtensions.IsTextExtension(".ext1"));
-        True(FileExtensions.IsTextFile("file.ext1"));
+        await Assert.That(FileExtensions.IsTextExtension(".ext1")).IsTrue();
+        await Assert.That(FileExtensions.IsTextFile("file.ext1")).IsTrue();
 
         #endregion
 
         FileExtensions.AddTextExtension("ext2");
-        True(FileExtensions.IsTextExtension("ext2"));
-        True(FileExtensions.IsTextFile("file.ext2"));
+        await Assert.That(FileExtensions.IsTextExtension("ext2")).IsTrue();
+        await Assert.That(FileExtensions.IsTextFile("file.ext2")).IsTrue();
     }
 
     [Test]
-    public void RemoveTextExtension()
+    public async Task RemoveTextExtension()
     {
         #region RemoveTextExtension
 
         FileExtensions.AddTextExtension(".ext1");
-        True(FileExtensions.IsTextExtension(".ext1"));
+        await Assert.That(FileExtensions.IsTextExtension(".ext1")).IsTrue();
         FileExtensions.RemoveTextExtension(".ext1");
-        False(FileExtensions.IsTextExtension(".ext1"));
+        await Assert.That(FileExtensions.IsTextExtension(".ext1")).IsFalse();
 
         #endregion
 
         FileExtensions.AddTextExtension("ext1");
-        True(FileExtensions.IsTextExtension("ext1"));
+        await Assert.That(FileExtensions.IsTextExtension("ext1")).IsTrue();
         FileExtensions.RemoveTextExtension("ext1");
-        False(FileExtensions.IsTextExtension("ext1"));
+        await Assert.That(FileExtensions.IsTextExtension("ext1")).IsFalse();
     }
 
-    [TestCase("bicepparam")]
-    [TestCase("BICEPPARAM")]
-    [TestCase("BicepParam")]
-    public void BicepParametersAreText(string extension)
+    [Test]
+    [Arguments("bicepparam")]
+    [Arguments("BICEPPARAM")]
+    [Arguments("BicepParam")]
+    public async Task BicepParametersAreText(string extension)
     {
-        True(FileExtensions.IsTextExtension(extension));
-        True(FileExtensions.IsTextExtension(extension.AsSpan()));
-        True(FileExtensions.IsTextExtension($".{extension}"));
-        True(FileExtensions.IsTextExtension($".{extension}".AsSpan()));
-        True(FileExtensions.IsTextFile($"main.dev.{extension}"));
-        True(FileExtensions.IsTextFile($"main.dev.{extension}".AsSpan()));
+        await Assert.That(FileExtensions.IsTextExtension(extension)).IsTrue();
+        await Assert.That(FileExtensions.IsTextExtension(extension.AsSpan())).IsTrue();
+        await Assert.That(FileExtensions.IsTextExtension($".{extension}")).IsTrue();
+        await Assert.That(FileExtensions.IsTextExtension($".{extension}".AsSpan())).IsTrue();
+        await Assert.That(FileExtensions.IsTextFile($"main.dev.{extension}")).IsTrue();
+        await Assert.That(FileExtensions.IsTextFile($"main.dev.{extension}".AsSpan())).IsTrue();
     }
 }

@@ -9,3 +9,4 @@ obj/
 nugets/
 /src/Tests/EmptyFiles
 *.lnk
+TestResults/
