@@ -8,7 +8,7 @@
     <PackageVersion Include="ProjectDefaults" Version="1.0.182" />
     <PackageVersion Include="Polyfill" Version="11.4.1" />
     <PackageVersion Include="ProjectFiles" Version="1.4.0" />
-    <PackageVersion Include="TUnit" Version="1.72.4" />
+    <PackageVersion Include="TUnit" Version="1.72.10" />
     <PackageVersion Include="Sbom" Version="0.3.1" />
     <PackageVersion Include="System.Memory" Version="4.6.3" />
     <!-- Keep at 8 to support old frameworks -->
