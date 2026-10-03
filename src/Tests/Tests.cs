@@ -377,7 +377,11 @@ public class Tests
         await writer.WriteLineAsync("");
         await writer.WriteLineAsync($"### {category}");
         await writer.WriteLineAsync("");
-        foreach (var file in files.OrderBy(_ => _.Key))
+        // Exclude the file registered by RegisterUseFile; it is a test fixture, not a shipped template.
+        var shipped = files
+            .Where(_ => _.Value.Path != useFileTarget)
+            .OrderBy(_ => _.Key);
+        foreach (var file in shipped)
         {
             var size = Size.Suffix(new FileInfo(file.Value.Path).Length);
             await writer.WriteLineAsync($"  * {file.Key} ({size})");
