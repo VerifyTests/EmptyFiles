@@ -53,6 +53,14 @@
   * .webp (26 bytes)
   * .wmp (48 bytes)
 
+### Map
+
+  * .gpkg (5 KB)
+  * .mbtiles (2 KB)
+  * .pmtiles (130 bytes)
+  * .shp (100 bytes)
+  * .shx (100 bytes)
+
 ### Sheet
 
   * .ods (683 bytes)
