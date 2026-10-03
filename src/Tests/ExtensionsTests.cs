@@ -137,4 +137,19 @@ public class ExtensionsTests
         await Assert.That(FileExtensions.IsTextFile($"main.dev.{extension}")).IsTrue();
         await Assert.That(FileExtensions.IsTextFile($"main.dev.{extension}".AsSpan())).IsTrue();
     }
+
+    [Test]
+    [Arguments("geojson")]
+    [Arguments("gpx")]
+    [Arguments("kml")]
+    public async Task MapFormatsAreText(string extension)
+    {
+        await Assert.That(FileExtensions.IsTextExtension(extension)).IsTrue();
+        await Assert.That(FileExtensions.IsTextExtension(extension.AsSpan())).IsTrue();
+        await Assert.That(FileExtensions.IsTextExtension($".{extension}")).IsTrue();
+        await Assert.That(FileExtensions.IsTextExtension($".{extension}".AsSpan())).IsTrue();
+        await Assert.That(FileExtensions.IsTextFile($"route.{extension}")).IsTrue();
+        await Assert.That(AllFiles.TryCreateFile($"route.{extension}", useEmptyStringForTextFiles: true)).IsTrue();
+        File.Delete($"route.{extension}");
+    }
 }

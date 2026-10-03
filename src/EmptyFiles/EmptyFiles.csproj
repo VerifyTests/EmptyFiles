@@ -27,6 +27,9 @@
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)..\..\files\image\empty.*">
       <LogicalName>EmptyFiles.image.%(Filename)%(Extension)</LogicalName>
     </EmbeddedResource>
+    <EmbeddedResource Include="$(MSBuildThisFileDirectory)..\..\files\map\empty.*">
+      <LogicalName>EmptyFiles.map.%(Filename)%(Extension)</LogicalName>
+    </EmbeddedResource>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)..\..\files\sheet\empty.*">
       <LogicalName>EmptyFiles.sheet.%(Filename)%(Extension)</LogicalName>
     </EmbeddedResource>
