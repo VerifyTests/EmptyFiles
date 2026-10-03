@@ -366,6 +366,7 @@ public class Tests
         await WriteCategory(writer, "Archive", AllFiles.Archives);
         await WriteCategory(writer, "Document", AllFiles.Documents);
         await WriteCategory(writer, "Image", AllFiles.Images);
+        await WriteCategory(writer, "Map", AllFiles.Maps);
         await WriteCategory(writer, "Sheet", AllFiles.Sheets);
         await WriteCategory(writer, "Slide", AllFiles.Slides);
         await WriteCategory(writer, "Binary", AllFiles.Binary);

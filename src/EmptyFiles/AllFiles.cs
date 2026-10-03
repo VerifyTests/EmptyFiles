@@ -18,6 +18,10 @@ public static class AllFiles
 
     static FrozenDictionary<string, EmptyFile> images;
 
+    public static FrozenDictionary<string, EmptyFile> Maps => maps;
+
+    static FrozenDictionary<string, EmptyFile> maps;
+
     public static FrozenDictionary<string, EmptyFile> Sheets => sheets;
 
     static FrozenDictionary<string, EmptyFile> sheets;
@@ -35,6 +39,7 @@ public static class AllFiles
         archives = AddCategory(archiveExtensions, Category.Archive);
         documents = AddCategory(documentExtensions, Category.Document);
         images = AddCategory(imageExtensions, Category.Image);
+        maps = AddCategory(mapExtensions, Category.Map);
         sheets = AddCategory(sheetExtensions, Category.Sheet);
         slides = AddCategory(slideExtensions, Category.Slide);
         binary = AddCategory(binaryExtensions, Category.Binary);
@@ -42,6 +47,7 @@ public static class AllFiles
         Append(archives);
         Append(documents);
         Append(images);
+        Append(maps);
         Append(sheets);
         Append(slides);
         Append(binary);
@@ -101,6 +107,7 @@ public static class AllFiles
         ExtractCategory(directory, "binary", binary);
         ExtractCategory(directory, "document", documents);
         ExtractCategory(directory, "image", images);
+        ExtractCategory(directory, "map", maps);
         ExtractCategory(directory, "sheet", sheets);
         ExtractCategory(directory, "slide", slides);
     }
@@ -146,6 +153,9 @@ public static class AllFiles
                 break;
             case Category.Image:
                 Init(ref images, ref imageExtensions);
+                break;
+            case Category.Map:
+                Init(ref maps, ref mapExtensions);
                 break;
             case Category.Sheet:
                 Init(ref sheets, ref sheetExtensions);
@@ -258,6 +268,20 @@ public static class AllFiles
         ".wdp",
         ".webp",
         ".wmp"
+    ],
+    StringComparer.OrdinalIgnoreCase);
+
+    public static IEnumerable<string> MapPaths => maps.Values.Select(_ => _.Path);
+
+    public static FrozenSet<string> MapExtensions => mapExtensions;
+
+    static FrozenSet<string> mapExtensions = FrozenSet.ToFrozenSet(
+    [
+        ".gpkg",
+        ".mbtiles",
+        ".pmtiles",
+        ".shp",
+        ".shx"
     ],
     StringComparer.OrdinalIgnoreCase);
 

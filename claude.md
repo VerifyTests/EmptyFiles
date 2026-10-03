@@ -23,14 +23,14 @@ dotnet test src/Tests --configuration Release --filter "FullyQualifiedName~Tests
 - **src/EmptyFiles.Tool/** — CLI global tool (`emptyfile` command). Targets net10.0.
 - **src/Tests/** — NUnit tests with Verify snapshot testing. Targets net48 + net8.0 through net11.0.
 - **src/EmptyFiles.AotTests/** — AOT/trimming compatibility tests (net9.0, PublishAot).
-- **files/** — The actual empty template files organized by category: `archive/`, `document/`, `image/`, `sheet/`, `slide/`, `binary/`.
+- **files/** — The actual empty template files organized by category: `archive/`, `document/`, `image/`, `map/`, `sheet/`, `slide/`, `binary/`.
 - **buildTransitive/EmptyFiles.targets** — MSBuild targets included in the NuGet package; copies empty files to output directory on build.
 
 ## Architecture
 
 Single namespace `EmptyFiles` with four public static API classes:
 
-- **AllFiles** — Main facade. Discovers and loads empty template files from the `files/` directory at static init. Provides file creation (`CreateFile`/`TryCreateFile`), lookup (`GetPathFor`/`TryGetPathFor`), validation (`IsEmptyFile`), and registration (`UseFile`). Files are stored in `FrozenDictionary<string, EmptyFile>` per `Category` enum (Archive, Document, Image, Sheet, Slide, Binary).
+- **AllFiles** — Main facade. Discovers and loads empty template files from the `files/` directory at static init. Provides file creation (`CreateFile`/`TryCreateFile`), lookup (`GetPathFor`/`TryGetPathFor`), validation (`IsEmptyFile`), and registration (`UseFile`). Files are stored in `FrozenDictionary<string, EmptyFile>` per `Category` enum (Archive, Document, Image, Map, Sheet, Slide, Binary).
 - **FileExtensions** — Text file detection. Maintains a set of ~443 known text extensions and supports custom conventions via `AddTextFileConvention(Func<CharSpan, bool>)`.
 - **ContentTypes** — MIME type mapping between extensions and media types (200+ mappings).
 - **EmptyFile** — Data class holding `Path`, `LastWriteTime`, and `Category` for each template file.

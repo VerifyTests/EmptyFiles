@@ -7,5 +7,6 @@ public enum Category
     Image,
     Sheet,
     Slide,
-    Binary
+    Binary,
+    Map
 }
