@@ -6,6 +6,7 @@
   <ItemGroup>
     <PackageVersion Include="MarkdownSnippets.MsBuild" Version="28.5.0" />
     <PackageVersion Include="ProjectDefaults" Version="1.0.184" />
+    <PackageVersion Include="Squash" Version="0.1.0-beta.2" />
     <PackageVersion Include="Polyfill" Version="11.4.3" />
     <PackageVersion Include="ProjectFiles" Version="1.6.0" />
     <PackageVersion Include="TUnit" Version="1.72.16" />
