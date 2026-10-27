@@ -90,7 +90,10 @@ public class Tests
         var path = AllFiles.GetPathFor(".png");
         await Assert.That(File.Exists(path)).IsTrue();
         var directory = Path.GetDirectoryName(path)!;
-        await Assert.That(Directory.GetFiles(directory, "*.tmp")).IsEmpty();
+        // Other target frameworks run in parallel processes sharing this
+        // directory, so only check temp files written by this process.
+        var prefix = $"{Environment.ProcessId}_";
+        await Assert.That(Directory.GetFiles(directory, $"{prefix}*.tmp")).IsEmpty();
     }
 
     [Test]

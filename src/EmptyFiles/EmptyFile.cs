@@ -83,13 +83,17 @@ public class EmptyFile
         }
     }
 
+    // Scopes temp files to this process, so a check for leftovers ignores
+    // files another process is still writing.
+    static readonly string TempPrefix = $"{Environment.ProcessId}_";
+
     // Extract via a unique temp file then move into place, so that parallel
     // test processes sharing the temp directory cannot observe or write a
     // partially written file. A concurrent process winning the race is treated
     // as success, since every process writes byte-identical content.
     static void ExtractTo(string directory, string target, Stream resource)
     {
-        var temp = System.IO.Path.Combine(directory, $"{Guid.NewGuid():N}.tmp");
+        var temp = System.IO.Path.Combine(directory, $"{TempPrefix}{Guid.NewGuid():N}.tmp");
         try
         {
             using (var fileStream = File.Create(temp))
