@@ -5,7 +5,7 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageVersion Include="MarkdownSnippets.MsBuild" Version="29.0.0" />
-    <PackageVersion Include="ProjectDefaults" Version="1.0.188" />
+    <PackageVersion Include="ProjectDefaults" Version="1.0.189" />
     <PackageVersion Include="Squash" Version="2.1.0" />
     <PackageVersion Include="Polyfill" Version="11.4.5" />
     <PackageVersion Include="ProjectFiles" Version="1.6.0" />
