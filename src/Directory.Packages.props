@@ -5,9 +5,9 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageVersion Include="MarkdownSnippets.MsBuild" Version="30.0.1" />
-    <PackageVersion Include="ProjectDefaults" Version="1.0.190" />
+    <PackageVersion Include="ProjectDefaults" Version="1.0.191" />
     <PackageVersion Include="Squash" Version="2.2.0" />
-    <PackageVersion Include="Polyfill" Version="11.4.5" />
+    <PackageVersion Include="Polyfill" Version="12.0.0" />
     <PackageVersion Include="ProjectFiles" Version="1.6.0" />
     <PackageVersion Include="TUnit" Version="1.87.12" />
     <PackageVersion Include="Sbom" Version="1.0.0" />
@@ -15,6 +15,6 @@
     <!-- Keep at 8 to support old frameworks -->
     <PackageVersion Include="System.Collections.Immutable" Version="8.0.0" Pinned="true" />
     <PackageVersion Include="System.ValueTuple" Version="4.5.0" Pinned="true" />
-    <PackageVersion Include="Verify" Version="33.7.1" />
+    <PackageVersion Include="Verify" Version="33.7.2" />
   </ItemGroup>
 </Project>
