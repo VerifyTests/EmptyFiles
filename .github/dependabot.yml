@@ -5,3 +5,7 @@ updates:
   schedule:
     interval: daily
   open-pull-requests-limit: 10
+  # Pinned in src/Directory.Packages.props.
+  ignore:
+  - dependency-name: "System.Collections.Immutable"
+  - dependency-name: "System.ValueTuple"
